@@ -9,9 +9,9 @@ public class OperatePromotion {
 		short result;	//error, 강제 형변환이 일어난다는 의미 (cannot convert from int to short)
 //		int result;
 		
-		result = num1 + num2;
-		
-		System.out.println(result);
+//		result = num1 + num2;
+//		
+//		System.out.println(result);
 		
 
 	}
