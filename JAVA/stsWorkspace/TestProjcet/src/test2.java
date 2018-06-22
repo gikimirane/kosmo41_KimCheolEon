@@ -27,12 +27,15 @@ public class test2 {
 			}
 			System.out.println("*");
 		}*/
+		
+		//참고 : http://karasix.tistory.com/97 
 		System.out.println();
 		System.out.println("테스트");
 		for(int i=0; i<5; i++) {
-
+			for(int j=0; j<5-i; j++) {
 				System.out.print("*");
-
+			}
+			System.out.println();
 		}
 		
 	}
