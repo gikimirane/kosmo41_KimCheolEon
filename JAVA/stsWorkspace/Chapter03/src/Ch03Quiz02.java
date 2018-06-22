@@ -1,6 +1,6 @@
-import java.util.*;
+import java.util.Scanner;
 
-public class InputNum2 {
+public class Ch03Quiz02 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -21,4 +21,5 @@ public class InputNum2 {
 		
 		System.out.println("Á¦°ö°á°ú : " + result);
 	}
+
 }

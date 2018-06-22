@@ -1,10 +1,15 @@
-import java.util.*;
+import java.util.Scanner;
 
-public class InputNum {
+public class Ch03Quiz01 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-				
+		
+		int result1 = 0;
+		int result2 = 0;
+		int result3 = 0;
+		int result4 = 0;
+		
 		Scanner scan = new Scanner(System.in);
 		// Scanner Å¬·¡½ºÀÇ °´Ã¼ »ı¼º
 		
@@ -16,6 +21,18 @@ public class InputNum {
 		System.out.println("µÎ ¹øÂ° ¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 		int num2 = scan.nextInt();
 		
+		result1 = num1 + num2;
+		result2 = num1 - num2;
+		result3 = num1 * num2;
+		result4 = num1 / num2;
+		
 		System.out.println("´ç½ÅÀÌ ÀÔ·ÂÇÑ ¼ıÀÚ : " + num1 + ", " + num2);
+		
+		System.out.println("µ¡¼À : " + result1);
+		System.out.println("»¬¼À : " + result2);
+		System.out.println("°ö¼À : " + result3);
+		System.out.println("³ª´°¼À : " + result4);	
+
 	}
+
 }
