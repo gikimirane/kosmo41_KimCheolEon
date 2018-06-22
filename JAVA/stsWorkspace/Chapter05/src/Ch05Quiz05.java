@@ -9,16 +9,26 @@ public class Ch05Quiz05 {
 		// TODO Auto-generated method stub
 
 		System.out.println("문제 5-5. 짝수단 출력 구구단. 단, 뒷자리도 해당 단까지만(~2*2, ~4*4)");
-		
+
 		for (int i = 1; i < 10; i++) {
-			if ((i % 2) != 0) {
+			
+			//방법1 : 짝수단이 아닐때는 continue로 회귀
+/*			if ((i % 2) != 0) {
 				continue;
 			}
 			System.out.println(i + "단---------------------");
 			for (int j = 1; j <= i; j++) {
-				
 				System.out.println(i + " X " + j + " = " + (i * j));
+			}*/
+			
+			//방법2 : 짝수일때만 나머지 중첩연산 시작
+			if ((i % 2) == 0) {
+				System.out.println(i + "단---------------------");
+				for (int j = 1; j <= i; j++) {
+					System.out.println(i + " X " + j + " = " + (i * j));
+				}
 			}
+			
 		}
 	}
 }
