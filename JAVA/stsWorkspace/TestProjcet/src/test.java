@@ -15,8 +15,10 @@ public class test {
 		
 		double randomV2 = Math.random();
 		System.out.println("1 : " + randomV2);
-		int intVal = (int)(randomV2 * 100);
+		int intVal = (int)(randomV2 * 100) + 1;
 		System.out.println("2 : " + intVal);
+		
+		// (int)(Math.random() * (최대값 - 최소값 + 1)) + 최소
 	}
 
 }
