@@ -17,30 +17,35 @@ public class Ch05Quiz10 {
 
 		System.out.println("정수 2 입력 : ");
 		scanNum2 = scan.nextInt();
+		
+		
+		
 
 		if (scanNum1 > scanNum2) {
 			for (int i = scanNum1; i >= scanNum2; i--) {
 				System.out.print(i);
+				
 				buffer += i;
-				if (i == scanNum2) {// 굳이 쓸데없이 이걸 넣은 이유는 + 기호를 중단시켜버리려고.
-					break;
-				}
-				System.out.print(" + ");
+				
+//				if (i == scanNum2) {// 굳이 쓸데없이 이걸 넣은 이유는 + 기호를 중단시켜버리려고.
+//					break;
+//				}
+				if (i!=scanNum2)
+					System.out.print(" + ");
 			}
-			System.out.print("\n");
-			System.out.println("총 합(역순) : " + buffer);
 		} else {
 			for (int i = scanNum1; i <= scanNum2; i++) {
 				System.out.print(i);
 				buffer += i;
-				if (i == scanNum2) {
-					break;
-				}
+//				if (i == scanNum2) {
+//					break;
+//				}
+				if (i!=scanNum2)
 				System.out.print(" + ");
 			}
-			System.out.print("\n");
-			System.out.println("총 합(정순) : " + buffer);
 		}
+		System.out.print("\n");
+		System.out.println("총 합(역순) : " + buffer);
 		// for(int i = scanNum1; i <= scanNum2; i++) {
 		// System.out.println(i);
 		// buffer += scanNum1;
