@@ -10,14 +10,14 @@ public class Ch05Quiz12 {
 		int buffer = 0;
 
 		do {
-			countNum++;
 			System.out.print(countNum);
+			if (countNum != 1000) {
+				System.out.print(" + ");
+			}		
 			buffer += countNum;
-			if (countNum == 1000) {// 굳이 쓸데없이 이걸 넣은 이유는 기호를 출력 중단시켜버리려고.
-				break;
-			}
-			System.out.print(" + ");		
+			countNum++;
 		} while (countNum <= 1000);
+		
 		System.out.println(" = " + buffer);
 	}
 }

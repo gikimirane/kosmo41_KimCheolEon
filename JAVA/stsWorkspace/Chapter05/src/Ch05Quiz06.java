@@ -19,16 +19,13 @@ public class Ch05Quiz06 {
 		System.out.println("숫자를 입력하시오 > ");
 		// 스캔
 		scanNum = scan.nextInt();
-		
-		
+			
 		System.out.println(scanNum+"단---------------------");
 		// 그 수에 해당하는 구구단 역순
 		// A x B   A는 변화없고 B만 역순
 		for(int j = 9; j > 0; j--) {
 			System.out.println(scanNum + " X " + j + " = " + (scanNum*j));
 		}
-		
-		
 		
 //		for(int i = scanNum; i > 0; ) {
 //			System.out.println(i+"단---------------------");

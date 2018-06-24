@@ -15,15 +15,34 @@ public class Ch05Quiz11 {
 		System.out.println("정수 입력 : ");
 		scanNum = scan.nextInt();
 		
-		while(scanNum >= 1) {
-			System.out.print(scanNum);
-			if (scanNum == 1) {// 굳이 쓸데없이 이걸 넣은 이유는 기호를 출력 중단시켜버리려고.
+//		while(scanNum >= 1) {
+//			System.out.print(scanNum);
+//
+//			if (scanNum != 1) {
+//				System.out.print(" * ");
+//			}
+//			
+//			buffer *= scanNum;
+//			scanNum--;			
+//		}
+		
+		while(true) {
+			if(scanNum > 0) {
+				System.out.print(scanNum);
+				
+				if(scanNum != 1) {
+					System.out.print(" * ");
+				}
+				
+				buffer *= scanNum;
+				scanNum--;	
+			}
+			else {
 				break;
 			}
-			System.out.print(" * ");
-			buffer *= scanNum;
-			scanNum--;			
 		}
+		
+		
 		System.out.print("\n");
 		System.out.println("결과 : " + buffer);
 	}
