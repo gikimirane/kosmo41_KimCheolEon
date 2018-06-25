@@ -5,14 +5,14 @@ public class Ch05Quiz11 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		System.out.println("¹®Á¦5-11. ÀÔ·Â¹ÞÀº ¼öÀÇ ÆÑÅä¸®¾ó Ãâ·Â(while »ç¿ë)");
+		System.out.println("ë¬¸ì œ5-11. ìž…ë ¥ë°›ì€ ìˆ˜ì˜ íŒ©í† ë¦¬ì–¼ ì¶œë ¥(while ì‚¬ìš©)");
 
 		Scanner scan = new Scanner(System.in);
 		
 		int scanNum = 0;
 		int buffer = 1;
 		
-		System.out.println("Á¤¼ö ÀÔ·Â : ");
+		System.out.println("ì •ìˆ˜ ìž…ë ¥ : ");
 		scanNum = scan.nextInt();
 		
 //		while(scanNum >= 1) {
@@ -44,6 +44,6 @@ public class Ch05Quiz11 {
 		
 		
 		System.out.print("\n");
-		System.out.println("°á°ú : " + buffer);
+		System.out.println("ê²°ê³¼ : " + buffer);
 	}
 }

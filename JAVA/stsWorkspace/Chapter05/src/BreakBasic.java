@@ -8,7 +8,7 @@ public class BreakBasic {
 		boolean search = false;
 		
 		
-		//Ã³À½ ¸¸³ª´Â 5ÀÇ ¹è¼öÀÌÀÚ 7ÀÇ ¹è¼ö Ã£±â
+		//ì²˜ìŒ ë§Œë‚˜ëŠ” 5ì˜ ë°°ìˆ˜ì´ì 7ì˜ ë°°ìˆ˜ ì°¾ê¸°
 		while(num < 100) {
 			if((num % 5) == 0 && (num % 7) == 0) {
 				search = true;
@@ -18,10 +18,10 @@ public class BreakBasic {
 		}
 		
 		if(search) {
-			System.out.println("Ã£Àº Á¤¼ö : "+num);
+			System.out.println("ì°¾ì€ ì •ìˆ˜ : "+num);
 		}
 		else {
-			System.out.println("¾ø³ª?");
+			System.out.println("ì—†ë‚˜?");
 		}
 		
 	}

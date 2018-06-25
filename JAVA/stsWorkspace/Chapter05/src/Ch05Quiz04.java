@@ -1,7 +1,7 @@
-/*µÎ°³ÀÇ Á¤¼ö¸¦ ÀÔ·Â ¹Ş¾Æ¼­ µÎ ¼öÀÇ Â÷¸¦ Ãâ·ÂÇÏ´Â ÇÁ·Î±×·¥À» ÀÛ¼ºÇÏ¶ó.
-´Ü ÀÔ·ÂµÈ µÎ ¼öÀÇ ¼ø¼­¿¡ »ó°ü¾øÀÌ Ãâ·Â°á°ú´Â Ç×»ó 0 ÀÌ»óÀÌ¾î¾ß ÇÑ´Ù.
-1°ú2¸¦ ÀÔ·ÂÇß´Ù¸é 1 .... 20°ú10À» ÀÔ·ÂÇß´Ù¸é 10 ....
-À§ ÇÁ·Î±×·¥À» if¹®°ú Á¶°Ç¿¬»êÀÚ¸¦ ÀÌ¿ëÇÏ¿© ÀÛ¼ºÇØº¸ÀÚ.*/
+/*ë‘ê°œì˜ ì •ìˆ˜ë¥¼ ì…ë ¥ ë°›ì•„ì„œ ë‘ ìˆ˜ì˜ ì°¨ë¥¼ ì¶œë ¥í•˜ëŠ” í”„ë¡œê·¸ë¨ì„ ì‘ì„±í•˜ë¼.
+ë‹¨ ì…ë ¥ëœ ë‘ ìˆ˜ì˜ ìˆœì„œì— ìƒê´€ì—†ì´ ì¶œë ¥ê²°ê³¼ëŠ” í•­ìƒ 0 ì´ìƒì´ì–´ì•¼ í•œë‹¤.
+1ê³¼2ë¥¼ ì…ë ¥í–ˆë‹¤ë©´ 1 .... 20ê³¼10ì„ ì…ë ¥í–ˆë‹¤ë©´ 10 ....
+ìœ„ í”„ë¡œê·¸ë¨ì„ ifë¬¸ê³¼ ì¡°ê±´ì—°ì‚°ìë¥¼ ì´ìš©í•˜ì—¬ ì‘ì„±í•´ë³´ì.*/
 
 import java.util.*;
 
@@ -10,7 +10,7 @@ public class Ch05Quiz04 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("¹®Á¦5-4. ÀÔ·ÂµÈ µÎ ¼öÀÇ Â÷¿¡¼­ Ç×»ó ¾ç¼ö°¡ ³ª¿Àµµ·Ï(¾ÕµÚ ±³È¯)");
+		System.out.println("ë¬¸ì œ5-4. ì…ë ¥ëœ ë‘ ìˆ˜ì˜ ì°¨ì—ì„œ í•­ìƒ ì–‘ìˆ˜ê°€ ë‚˜ì˜¤ë„ë¡(ì•ë’¤ êµí™˜)");
 		
 		Scanner scan = new Scanner(System.in);
 		
@@ -18,27 +18,27 @@ public class Ch05Quiz04 {
 		int scanNum2 = 0;
 		int buffer = 0;
 		
-		System.out.println("Á¤¼ö ÀÔ·Â 1 : ");
+		System.out.println("ì •ìˆ˜ ì…ë ¥ 1 : ");
 		scanNum1 = scan.nextInt();
 			
-		System.out.println("Á¤¼ö ÀÔ·Â 2 : ");
+		System.out.println("ì •ìˆ˜ ì…ë ¥ 2 : ");
 		scanNum2 = scan.nextInt();
 
-//		¹æ¹ı2 : if(scanNum1 - scanNum2 < 0) {
+//		ë°©ë²•2 : if(scanNum1 - scanNum2 < 0) {
 		/*
 		if(scanNum1 < scanNum2) {
 			buffer = scanNum2 - scanNum1;
-			System.out.println("µÎ ¼öÀÇ Â÷(ÀÚ¸®±³È¯) : "+ buffer);
+			System.out.println("ë‘ ìˆ˜ì˜ ì°¨(ìë¦¬êµí™˜) : "+ buffer);
 		}
 		else {
 			buffer = scanNum1 - scanNum2;
-			System.out.println("µÎ ¼öÀÇ Â÷ : "+ buffer);
+			System.out.println("ë‘ ìˆ˜ì˜ ì°¨ : "+ buffer);
 		}
 		
-		//¹æ¹ı3 : Á¶°Ç¹®ÇØ¼­ 0º¸´Ù ÀÛÀ¸¸é -1À» °öÇÏ±â
-		//¹æ¹ı4 : »ïÇ×¿¬»êÀÚ
+		//ë°©ë²•3 : ì¡°ê±´ë¬¸í•´ì„œ 0ë³´ë‹¤ ì‘ìœ¼ë©´ -1ì„ ê³±í•˜ê¸°
+		//ë°©ë²•4 : ì‚¼í•­ì—°ì‚°ì
 		/*buffer = scanNum1 - scanNum2;*/
 		buffer = (scanNum1 < scanNum2) ? ((scanNum1 - scanNum2)*-1) : (scanNum1 - scanNum2);
-		System.out.println("µÎ ¼öÀÇ Â÷ : "+ buffer);
+		System.out.println("ë‘ ìˆ˜ì˜ ì°¨ : "+ buffer);
 	}
 }

@@ -1,5 +1,5 @@
-/*[¹®Á¦ 05-06]
-»ç¿ëÀÚ·ÎºÎÅÍ Á¤¼ö ÇÏ³ª¸¦ ÀÔ·Â¹ÞÀº ÈÄ ±× ¼ö¿¡ ÇØ´çÇÏ´Â ±¸±¸´ÜÀ» ¿ª¼øÀ¸·Î Ãâ·ÂÇÏ½Ã¿À.	*/
+/*[ë¬¸ì œ 05-06]
+ì‚¬ìš©ìžë¡œë¶€í„° ì •ìˆ˜ í•˜ë‚˜ë¥¼ ìž…ë ¥ë°›ì€ í›„ ê·¸ ìˆ˜ì— í•´ë‹¹í•˜ëŠ” êµ¬êµ¬ë‹¨ì„ ì—­ìˆœìœ¼ë¡œ ì¶œë ¥í•˜ì‹œì˜¤.	*/
 
 import java.util.Scanner;
 
@@ -8,27 +8,27 @@ public class Ch05Quiz06 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("¹®Á¦5-6. ÀÔ·Â¹ÞÀº ¼öÀÇ ±¸±¸´Ü ¿ª¼ø Ãâ·Â.");
+		System.out.println("ë¬¸ì œ5-6. ìž…ë ¥ë°›ì€ ìˆ˜ì˜ êµ¬êµ¬ë‹¨ ì—­ìˆœ ì¶œë ¥.");
 		
-		// ½ºÄ³³Ê °´Ã¼ »ç¿ë
+		// ìŠ¤ìºë„ˆ ê°ì²´ ì‚¬ìš©
 		Scanner scan = new Scanner(System.in);
 		
-		// ½ºÄµ¹Þ¾Æ ´ãÀ» º¯¼ö ¼±¾ð ¹× ÇÒ´ç
+		// ìŠ¤ìº”ë°›ì•„ ë‹´ì„ ë³€ìˆ˜ ì„ ì–¸ ë° í• ë‹¹
 		int scanNum = 0;
 		
-		System.out.println("¼ýÀÚ¸¦ ÀÔ·ÂÇÏ½Ã¿À > ");
-		// ½ºÄµ
+		System.out.println("ìˆ«ìžë¥¼ ìž…ë ¥í•˜ì‹œì˜¤ > ");
+		// ìŠ¤ìº”
 		scanNum = scan.nextInt();
 			
-		System.out.println(scanNum+"´Ü---------------------");
-		// ±× ¼ö¿¡ ÇØ´çÇÏ´Â ±¸±¸´Ü ¿ª¼ø
-		// A x B   A´Â º¯È­¾ø°í B¸¸ ¿ª¼ø
+		System.out.println(scanNum+"ë‹¨---------------------");
+		// ê·¸ ìˆ˜ì— í•´ë‹¹í•˜ëŠ” êµ¬êµ¬ë‹¨ ì—­ìˆœ
+		// A x B   AëŠ” ë³€í™”ì—†ê³  Bë§Œ ì—­ìˆœ
 		for(int j = 9; j > 0; j--) {
 			System.out.println(scanNum + " X " + j + " = " + (scanNum*j));
 		}
 		
 //		for(int i = scanNum; i > 0; ) {
-//			System.out.println(i+"´Ü---------------------");
+//			System.out.println(i+"ë‹¨---------------------");
 //			for(int j = 9; j > 0; j--) {
 //				System.out.println(i + " X " + j + " = " + (i*j));
 //			}
@@ -36,17 +36,17 @@ public class Ch05Quiz06 {
 //		}
 		
 		/*for(int i = 9; i > 0; i--) {
-			System.out.println(i+"´Ü---------------------");
+			System.out.println(i+"ë‹¨---------------------");
 			for(int j = 1; j < 10; j++) {
 				System.out.println(i + " X " + j + " = " + (i*j));
 			}
-		}*/ //9x1 ´Ü - ´Ü¿ª¼ø
+		}*/ //9x1 ë‹¨ - ë‹¨ì—­ìˆœ
 		
 /*		for(int i = 9; i > 0; i--) {
-			System.out.println(i+"´Ü---------------------");
+			System.out.println(i+"ë‹¨---------------------");
 			for(int j = 9; j > 0; j--) {
 				System.out.println(i + " X " + j + " = " + (i*j));
 			}
-		}*/ //9x9 ºÎÅÍ ¿ÏÀü¿ª¼ø
+		}*/ //9x9 ë¶€í„° ì™„ì „ì—­ìˆœ
 	}
 }

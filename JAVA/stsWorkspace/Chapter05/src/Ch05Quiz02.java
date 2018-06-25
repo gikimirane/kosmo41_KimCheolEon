@@ -1,9 +1,9 @@
 
-/*¹®Á¦ 05A-02
-»ç¿ëÀÚ·ÎºÎÅÍ ´ÙÀ½ ¼ø¼­´ë·Î Á¤¼ö¸¦ ÀÔ·Â¹ÞÀº ÈÄ Æò±ÕÀ» ±¸ÇÏ¿© Ãâ·ÂÇÏ´Â ÇÁ·Î±×·¥À» ÀÛ¼ºÇÏ½Ã¿À.
-1. ¸î°³ÀÇ Á¤¼ö¸¦ ÀÔ·ÂÇÒ Áö »ç¿ëÀÚ·ÎºÎÅÍ ÀÔ·Â¹Þ´Â´Ù.
-2. ÀÔ·Â¹ÞÀº ¼ýÀÚ¸¸Å­ Á¤¼ö¸¦ ÀÔ·Â¹Þ´Â´Ù.(Á¶°Ç1¿¡¼­ 3ÀÌ¶ó°í ÀÔ·ÂÇß´Ù¸é 3°³ÀÇ Á¤¼ö¸¦ ÀÔ·Â¹Þ¾Æ¾ß ÇÑ´Ù)
-3. ÀÔ·Â¹ÞÀº ¼ýÀÚµéÀÇ Æò±Õ°ªÀ» ±¸ÇÏ¿© Ãâ·ÂÇÑ´Ù. Æò±Õ°ªÀº ¼Ò¼öÁ¡ ÀÌÇÏ±îÁö °è»êÇØ¾ß ÇÑ´Ù.*/
+/*ë¬¸ì œ 05A-02
+ì‚¬ìš©ìžë¡œë¶€í„° ë‹¤ìŒ ìˆœì„œëŒ€ë¡œ ì •ìˆ˜ë¥¼ ìž…ë ¥ë°›ì€ í›„ í‰ê· ì„ êµ¬í•˜ì—¬ ì¶œë ¥í•˜ëŠ” í”„ë¡œê·¸ëž¨ì„ ìž‘ì„±í•˜ì‹œì˜¤.
+1. ëª‡ê°œì˜ ì •ìˆ˜ë¥¼ ìž…ë ¥í•  ì§€ ì‚¬ìš©ìžë¡œë¶€í„° ìž…ë ¥ë°›ëŠ”ë‹¤.
+2. ìž…ë ¥ë°›ì€ ìˆ«ìžë§Œí¼ ì •ìˆ˜ë¥¼ ìž…ë ¥ë°›ëŠ”ë‹¤.(ì¡°ê±´1ì—ì„œ 3ì´ë¼ê³  ìž…ë ¥í–ˆë‹¤ë©´ 3ê°œì˜ ì •ìˆ˜ë¥¼ ìž…ë ¥ë°›ì•„ì•¼ í•œë‹¤)
+3. ìž…ë ¥ë°›ì€ ìˆ«ìžë“¤ì˜ í‰ê· ê°’ì„ êµ¬í•˜ì—¬ ì¶œë ¥í•œë‹¤. í‰ê· ê°’ì€ ì†Œìˆ˜ì  ì´í•˜ê¹Œì§€ ê³„ì‚°í•´ì•¼ í•œë‹¤.*/
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ public class Ch05Quiz02 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("¹®Á¦5-2. ÀÔ·Â¹ÞÀº ¸¸Å­ÀÇ Á¤¼öÀÇ Æò±Õ°ªÃâ·Â(¼Ò¼öÁ¡ÀÌÇÏ °è»ê)");
+		System.out.println("ë¬¸ì œ5-2. ìž…ë ¥ë°›ì€ ë§Œí¼ì˜ ì •ìˆ˜ì˜ í‰ê· ê°’ì¶œë ¥(ì†Œìˆ˜ì ì´í•˜ ê³„ì‚°)");
 
 		Scanner scan = new Scanner(System.in);
 		
@@ -19,19 +19,19 @@ public class Ch05Quiz02 {
 		int controlNum = 0;
 		double buffer = 0;
 		
-		System.out.println("ÀÔ·Â¹ÞÀ» Á¤¼öÀÇ °¹¼ö : ");
+		System.out.println("ìž…ë ¥ë°›ì„ ì •ìˆ˜ì˜ ê°¯ìˆ˜ : ");
 		controlNum = scan.nextInt();
 
 		for (int i = 0; i < controlNum; i++) {
-			System.out.println("Á¤¼öÀÔ·Â : ");
+			System.out.println("ì •ìˆ˜ìž…ë ¥ : ");
 			scanNum = scan.nextInt();
 			
 			buffer += scanNum;
 		}
-//		System.out.println("Á¤¼öµéÀÇ ÇÕ : " + (int)(buffer));
-//		System.out.println("Á¤¼öµéÀÇ Æò±Õ : " + (buffer / controlNum));
-		//¼­½Ä¹®ÀÚ Å×½ºÆ®
-		System.out.printf("ÇÕ : %d , Æò±Õ : %.3f", (int)buffer, (buffer / controlNum));
+//		System.out.println("ì •ìˆ˜ë“¤ì˜ í•© : " + (int)(buffer));
+//		System.out.println("ì •ìˆ˜ë“¤ì˜ í‰ê·  : " + (buffer / controlNum));
+		//ì„œì‹ë¬¸ìž í…ŒìŠ¤íŠ¸
+		System.out.printf("í•© : %d , í‰ê·  : %.3f", (int)buffer, (buffer / controlNum));
 	}
 
 }

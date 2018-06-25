@@ -7,25 +7,25 @@ public class InputNum5 {
 		
 		Scanner scan = new Scanner(System.in);
 		
-		System.out.println("¹®Á¦5. °è¼ÓÇØ¼­ Á¤¼ö ÀÔ·Â¹Ş°í, 0ÀÔ·Â½Ã ¸ğµç Á¤¼ö ´õÇÑ°ª Ãâ·Â");
+		System.out.println("ë¬¸ì œ5. ê³„ì†í•´ì„œ ì •ìˆ˜ ì…ë ¥ë°›ê³ , 0ì…ë ¥ì‹œ ëª¨ë“  ì •ìˆ˜ ë”í•œê°’ ì¶œë ¥");
 				
 		int buffer = 0;
 		int i = 0;
 		while(i < 9999999) {
 			
-			System.out.println("¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+			System.out.println("ìˆ«ìë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 			int num1 = scan.nextInt();
 			
 			buffer = buffer + num1;
 			
 			if(num1 == 0) {
-				System.out.println("0 ÀÔ·Â, Á¤Áö");
+				System.out.println("0 ì…ë ¥, ì •ì§€");
 				break;
 			}
 			i++;			
 		}
 		
-		System.out.println("ÀüÃ¼ ÀÔ·Â°ª Ãâ·Â : " + buffer);
+		System.out.println("ì „ì²´ ì…ë ¥ê°’ ì¶œë ¥ : " + buffer);
 	}
 
 }

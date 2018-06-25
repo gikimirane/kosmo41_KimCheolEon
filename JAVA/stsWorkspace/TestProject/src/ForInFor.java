@@ -21,7 +21,7 @@ public class ForInFor {
 		}*/
 		
 /*		for(int i = 1; i < 10; i++) {
-			System.out.println(i+"´Ü---------------------");
+			System.out.println(i+"Â´Ãœ---------------------");
 			for(int j = 1; j < 10; j++) {
 				System.out.println(i + " X " + j + " = " + (i*j));
 			}
@@ -31,7 +31,7 @@ public class ForInFor {
 		int j = 0;
 		while(i<10) {
 			i++;
-			System.out.println(i+"´Ü---------------------");
+			System.out.println(i+"Â´Ãœ---------------------");
 			while(j<10) {
 				j++;
 				System.out.println(i + " X " + j + " = " + (i*j));

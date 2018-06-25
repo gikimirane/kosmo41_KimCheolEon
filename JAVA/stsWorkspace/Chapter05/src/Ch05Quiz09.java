@@ -4,7 +4,7 @@ public class Ch05Quiz09 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("¹®Á¦5-9. 1~100 Â¦¼ö ÇÕ. ´Ü do-while »ç¿ë");
+		System.out.println("ë¬¸ì œ5-9. 1~100 ì§ìˆ˜ í•©. ë‹¨ do-while ì‚¬ìš©");
 		
 		int num = 0;
 		int buffer = 0;
@@ -17,6 +17,7 @@ public class Ch05Quiz09 {
 			}
 		}while(num <= 100);
 		
-		System.out.println("ÃÑ ÇÕ : " + buffer);
+		System.out.println("ì´ í•© : " + buffer);
 	}
 }
+

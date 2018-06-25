@@ -1,6 +1,6 @@
-/*±¸±¸´ÜÀ» Ãâ·ÂÇÏµÇ Â¦¼ö´Ü¸¸ Ãâ·ÂÇÏµµ·Ï ÇÁ·Î±×·¥À» ÀÛ¼ºÇÏ¶ó.
-´Ü, 2´ÜÀº 2*2±îÁö¸¸, 4´ÜÀº 4*4±îÁö¸¸....8´ÜÀº 8*8±îÁö¸¸ Ãâ·ÂÇØ¾ß ÇÑ´Ù.
-( ´Ü, for¹®¿¡¼­ 2¾¿ Áõ°¡ÇÏ´Â °Í ¾ÈµÊ !!!!)
+/*êµ¬êµ¬ë‹¨ì„ ì¶œë ¥í•˜ë˜ ì§ìˆ˜ë‹¨ë§Œ ì¶œë ¥í•˜ë„ë¡ í”„ë¡œê·¸ëž¨ì„ ìž‘ì„±í•˜ë¼.
+ë‹¨, 2ë‹¨ì€ 2*2ê¹Œì§€ë§Œ, 4ë‹¨ì€ 4*4ê¹Œì§€ë§Œ....8ë‹¨ì€ 8*8ê¹Œì§€ë§Œ ì¶œë ¥í•´ì•¼ í•œë‹¤.
+( ë‹¨, forë¬¸ì—ì„œ 2ì”© ì¦ê°€í•˜ëŠ” ê²ƒ ì•ˆë¨ !!!!)
 */
 
 public class Ch05Quiz05 {
@@ -8,22 +8,22 @@ public class Ch05Quiz05 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		System.out.println("¹®Á¦ 5-5. Â¦¼ö´Ü Ãâ·Â ±¸±¸´Ü. ´Ü, µÞÀÚ¸®µµ ÇØ´ç ´Ü±îÁö¸¸(~2*2, ~4*4)");
+		System.out.println("ë¬¸ì œ 5-5. ì§ìˆ˜ë‹¨ ì¶œë ¥ êµ¬êµ¬ë‹¨. ë‹¨, ë’·ìžë¦¬ë„ í•´ë‹¹ ë‹¨ê¹Œì§€ë§Œ(~2*2, ~4*4)");
 
 		for (int i = 1; i < 10; i++) {
 			
-			//¹æ¹ý1 : Â¦¼ö´ÜÀÌ ¾Æ´Ò¶§´Â continue·Î È¸±Í
+			//ë°©ë²•1 : ì§ìˆ˜ë‹¨ì´ ì•„ë‹ë•ŒëŠ” continueë¡œ íšŒê·€
 /*			if ((i % 2) != 0) {
 				continue;
 			}
-			System.out.println(i + "´Ü---------------------");
+			System.out.println(i + "ë‹¨---------------------");
 			for (int j = 1; j <= i; j++) {
 				System.out.println(i + " X " + j + " = " + (i * j));
 			}*/
 			
-			//¹æ¹ý2 : Â¦¼öÀÏ¶§¸¸ ³ª¸ÓÁö ÁßÃ¸¿¬»ê ½ÃÀÛ
+			//ë°©ë²•2 : ì§ìˆ˜ì¼ë•Œë§Œ ë‚˜ë¨¸ì§€ ì¤‘ì²©ì—°ì‚° ì‹œìž‘
 			if ((i % 2) == 0) {
-				System.out.println(i + "´Ü---------------------");
+				System.out.println(i + "ë‹¨---------------------");
 				for (int j = 1; j <= i; j++) {
 					System.out.println(i + " X " + j + " = " + (i * j));
 				}

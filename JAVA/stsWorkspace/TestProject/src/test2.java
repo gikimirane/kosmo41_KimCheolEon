@@ -9,7 +9,7 @@ public class test2 {
 		
 		int num = 0;
 		
-/*		System.out.println("* Ãâ·Â ¶óÀÎ ¼ö > ");
+/*		System.out.println("* ì¶œë ¥ ë¼ì¸ ìˆ˜ > ");
 		String tmp = scanner.nextLine();
 		num = Integer.parseInt(tmp);*/
 		
@@ -21,16 +21,16 @@ public class test2 {
 			System.out.println();
 		}*/
 		
-/*		for(int i=0; i<num; i++) {//Çà Á¶Àý 0~4
-			for(int j=num; j>num; j--) {// ¿­ Á¶Àý 4~0
+/*		for(int i=0; i<num; i++) {//í–‰ ì¡°ì ˆ 0~4
+			for(int j=num; j>num; j--) {// ì—´ ì¡°ì ˆ 4~0
 				System.out.print("*");
 			}
 			System.out.println("*");
 		}*/
 		
-		//Âü°í : http://karasix.tistory.com/97 
+		//ì°¸ê³  : http://karasix.tistory.com/97 
 		System.out.println();
-		System.out.println("Å×½ºÆ®");
+		System.out.println("í…ŒìŠ¤íŠ¸");
 		for(int i=0; i<5; i++) {
 			for(int j=0; j<5-i; j++) {
 				System.out.print("*");

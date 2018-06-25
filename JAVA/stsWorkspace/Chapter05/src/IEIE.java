@@ -6,17 +6,17 @@ public class IEIE {
 		
 		int num = 99;
 		
-		// 0º¸´Ù ÀÛÀº °ª : À½¼ö
+		// 0ë³´ë‹¤ ì‘ì€ ê°’ : ìŒìˆ˜
 		if(num < 0) {
-			System.out.println("0 ¹Ì¸¸");
+			System.out.println("0 ë¯¸ë§Œ");
 		}
-		// 0À» ÃÊ°úÇÏ°í 100 ¹Ì¸¸ÀÎ ¼ö
+		// 0ì„ ì´ˆê³¼í•˜ê³  100 ë¯¸ë§Œì¸ ìˆ˜
 		else if(num > 0 && num < 100) {
-			System.out.println("0 ÃÊ°ú 100 ¹Ì¸¸");
+			System.out.println("0 ì´ˆê³¼ 100 ë¯¸ë§Œ");
 		}
-		// ³ª¸ÓÁö ±× ¿Ü
+		// ë‚˜ë¨¸ì§€ ê·¸ ì™¸
 		else {
-			System.out.println("±× ¿Ü");
+			System.out.println("ê·¸ ì™¸");
 		}
 	}
 

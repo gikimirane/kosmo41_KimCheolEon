@@ -4,7 +4,7 @@ public class Ch05Quiz12 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		System.out.println("¹®Á¦5-12. do while »ç¿ë, 1~1000 ´õÇÏ±â Ãâ·Â ½ÇÇà°á°ú ÀÌ¾î¼­");
+		System.out.println("ë¬¸ì œ5-12. do while ì‚¬ìš©, 1~1000 ë”í•˜ê¸° ì¶œë ¥ ì‹¤í–‰ê²°ê³¼ ì´ì–´ì„œ");
 
 		int countNum = 0;
 		int buffer = 0;

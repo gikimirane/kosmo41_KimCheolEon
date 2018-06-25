@@ -4,10 +4,10 @@ public class Ch05Quiz13 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("¹®Á¦5-13. ±¸±¸´Ü Ãâ·Â, °¡·ÎÇü, ¼¼·ÎÇü ÀÌ»Ú°Ô");
+		System.out.println("ë¬¸ì œ5-13. êµ¬êµ¬ë‹¨ ì¶œë ¥, ê°€ë¡œí˜•, ì„¸ë¡œí˜• ì´ì˜ê²Œ");
 		
 		System.out.println("");
-		System.out.println("°¡·Î");
+		System.out.println("ê°€ë¡œ");
 		for(int j = 1; j < 10; j++) {
 			System.out.println("");
 			for(int i = 2; i < 10; i++) {
@@ -17,8 +17,8 @@ public class Ch05Quiz13 {
 		
 		System.out.println("");
 		System.out.println("");
-		System.out.println("¼¼·Î");
-		//¾î ¹¹¾ß Å×½ºÆ® ÇÏ´Ù°¡ ¼¼·ÎºÎÅÍ ¸¸µé¾îÁü;;
+		System.out.println("ì„¸ë¡œ");
+		//ì–´ ë­ì•¼ í…ŒìŠ¤íŠ¸ í•˜ë‹¤ê°€ ì„¸ë¡œë¶€í„° ë§Œë“¤ì–´ì§;;
 		for(int i = 2; i < 10; i++) {
 			System.out.println("");
 			for(int j = 1; j < 10; j++) {
@@ -27,7 +27,7 @@ public class Ch05Quiz13 {
 		}
 		
 //		for(int i = 1; i < 10; i++) {
-//			System.out.println(i+"´Ü---------------------");
+//			System.out.println(i+"ë‹¨---------------------");
 //			for(int j = 1; j < 10; j++) {
 //				System.out.println(i + " X " + j + " = " + (i*j));
 //			}

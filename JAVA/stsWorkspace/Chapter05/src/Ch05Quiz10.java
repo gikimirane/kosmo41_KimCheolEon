@@ -5,17 +5,17 @@ public class Ch05Quiz10 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		System.out.println("¹®Á¦5-10. »óÈ²¿¡ µû¶ó num1~num2µ¡¼À. ¶Ç´Â num2~num1 µ¡¼À");
+		System.out.println("ë¬¸ì œ5-10. ìƒí™©ì— ë”°ë¼ num1~num2ë§ì…ˆ. ë˜ëŠ” num2~num1 ë§ì…ˆ");
 
 		Scanner scan = new Scanner(System.in);
 		int scanNum1 = 0;
 		int scanNum2 = 0;
 		int buffer = 0;
 
-		System.out.println("Á¤¼ö 1 ÀÔ·Â : ");
+		System.out.println("ì •ìˆ˜ 1 ì…ë ¥ : ");
 		scanNum1 = scan.nextInt();
 
-		System.out.println("Á¤¼ö 2 ÀÔ·Â : ");
+		System.out.println("ì •ìˆ˜ 2 ì…ë ¥ : ");
 		scanNum2 = scan.nextInt();
 
 		if (scanNum1 > scanNum2) {
@@ -24,7 +24,7 @@ public class Ch05Quiz10 {
 
 				buffer += i;
 
-				// if (i == scanNum2) {// ±»ÀÌ ¾µµ¥¾øÀÌ ÀÌ°É ³ÖÀº ÀÌÀ¯´Â + ±âÈ£¸¦ Áß´Ü½ÃÄÑ¹ö¸®·Á°í.
+				// if (i == scanNum2) {// êµ³ì´ ì“¸ë°ì—†ì´ ì´ê±¸ ë„£ì€ ì´ìœ ëŠ” + ê¸°í˜¸ë¥¼ ì¤‘ë‹¨ì‹œì¼œë²„ë¦¬ë ¤ê³ .
 				// break;
 				// }
 				if (i != scanNum2) {
@@ -44,19 +44,19 @@ public class Ch05Quiz10 {
 			}
 		}
 		System.out.print("\n");
-		System.out.println("ÃÑ ÇÕ(¿ª¼ø) : " + buffer);
+		System.out.println("ì´ í•©(ì—­ìˆœ) : " + buffer);
 		// for(int i = scanNum1; i <= scanNum2; i++) {
 		// System.out.println(i);
 		// buffer += scanNum1;
 		// }
-		// System.out.println("´õÇß´ç(Á¤¼ø) : " +buffer);
+		// System.out.println("ë”í–ˆë‹¹(ì •ìˆœ) : " +buffer);
 
 		// if(scanNum1 < scanNum2) {
 		// for(int i = scanNum2; i < scanNum1; i++) {
 		// System.out.print(i);
 		// }
-		// System.out.println("ÃÑ ÇÕ : " + buffer);
-		// System.out.println("Á¤¼ö 2°¡ ´õ Å­");
+		// System.out.println("ì´ í•© : " + buffer);
+		// System.out.println("ì •ìˆ˜ 2ê°€ ë” í¼");
 		// }
 		// else {
 		//// for(int i = scanNum1; i < scanNum2; i++) {
@@ -64,8 +64,8 @@ public class Ch05Quiz10 {
 		//// System.out.print(" + ");
 		//// buffer += i;
 		//// }
-		//// System.out.println("ÃÑ ÇÕ : " + buffer);
-		// System.out.println("Á¤¼ö 1ÀÌ Å­(Á¤»ó)");
+		//// System.out.println("ì´ í•© : " + buffer);
+		// System.out.println("ì •ìˆ˜ 1ì´ í¼(ì •ìƒ)");
 		// }
 	}
 }

@@ -25,9 +25,9 @@ public class SwitchBasic {
 		case 3:
 			System.out.println("case3 : Fantastic JAVA");
 			break;
-			//ÀÌ·± case »ç¿ëµµ °¡´É
+			//ì´ëŸ° case ì‚¬ìš©ë„ ê°€ëŠ¥
 			
-		default:	// ¾î¶² caseµµ ÇØ´çÇÏÁö ¾ÊÀ» °æ¿ì default
+		default:	// ì–´ë–¤ caseë„ í•´ë‹¹í•˜ì§€ ì•Šì„ ê²½ìš° default
 			System.out.println("default : The best programming language");
 		}
 

@@ -5,7 +5,7 @@ public class Ch05Quiz08 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		System.out.println("¹®Á¦5-8. 5°³ Á¤¼ö ÇÕ Ãâ·Â, 1¹Ì¸¸½Ã ÀçÀÔ·Â");
+		System.out.println("ë¬¸ì œ5-8. 5ê°œ ì •ìˆ˜ í•© ì¶œë ¥, 1ë¯¸ë§Œì‹œ ì¬ì…ë ¥");
 
 		Scanner scan = new Scanner(System.in);
 
@@ -15,18 +15,18 @@ public class Ch05Quiz08 {
 
 		while (true) {
 
-			System.out.println("Á¤¼ö ÀÔ·Â : ");
+			System.out.println("ì •ìˆ˜ ì…ë ¥ : ");
 			scanNum = scan.nextInt();
 
 			if (scanNum >= 1) {
 				buffer += scanNum;
 				controlCnt++;
 			} else {
-				System.out.println("1¹Ì¸¸ ¼ıÀÚ, ÀçÀÔ·ÂÇÊ¿ä");
+				System.out.println("1ë¯¸ë§Œ ìˆ«ì, ì¬ì…ë ¥í•„ìš”");
 			}
 
 			if (controlCnt == 5) {
-				System.out.println("¸ğµç Á¶°ÇÀÌ ¿Ï·á µÇ¾î¼­ Á¾·á ÇÕ´Ï´Ù.");
+				System.out.println("ëª¨ë“  ì¡°ê±´ì´ ì™„ë£Œ ë˜ì–´ì„œ ì¢…ë£Œ í•©ë‹ˆë‹¤.");
 				break;
 				
 			}
@@ -34,11 +34,11 @@ public class Ch05Quiz08 {
 		}
 
 		// for(int i = 0; i < 5; ) {
-		// System.out.println("Á¤¼ö ÀÔ·Â : ");
+		// System.out.println("ì •ìˆ˜ ì…ë ¥ : ");
 		// scanNum = scan.nextInt();
 		//
 		// if(scanNum < 1) {
-		// System.out.println("1¹Ì¸¸ ¼ıÀÚ, ÀçÀÔ·ÂÇÊ¿ä");
+		// System.out.println("1ë¯¸ë§Œ ìˆ«ì, ì¬ì…ë ¥í•„ìš”");
 		// continue;
 		// }
 		//
@@ -46,6 +46,6 @@ public class Ch05Quiz08 {
 		//
 		// i++;
 		// }
-		System.out.println("5°³ ÃÑ ÇÕ : " + buffer);
+		System.out.println("5ê°œ ì´ í•© : " + buffer);
 	}
 }

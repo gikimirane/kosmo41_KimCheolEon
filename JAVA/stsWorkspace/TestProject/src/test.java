@@ -18,7 +18,7 @@ public class test {
 		int intVal = (int)(randomV2 * 100) + 1;
 		System.out.println("2 : " + intVal);
 		
-		// (int)(Math.random() * (�ִ밪 - �ּҰ� + 1)) + �ּ�
+		// (int)(Math.random() * (ÃÖ´ë°ª - ÃÖ¼Ò°ª + 1)) + ÃÖ¼Ò
 	}
 
 }
