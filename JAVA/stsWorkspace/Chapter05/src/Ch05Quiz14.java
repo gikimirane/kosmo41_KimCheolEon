@@ -31,20 +31,16 @@ public class Ch05Quiz14 {
 		// System.out.println("");
 		// }
 
-		for (int i = 0; i < 10; i++) {
-			if(i == 0) {
-				continue;
-			}
-			for (int j = 10; j >= 0; j--) {
-				if (i != j) {
-					continue;
-				}
-				System.out.println((i * 10));
-				System.out.println("0" + j);
-				System.out.println("----");
-				System.out.println((i*10)+j);
-				System.out.println("");
-			}
+		for (int i = 0, j = 9; i < 10; i++, j--) {
+			// System.out.println(i + ", " + (9-i));
+			// System.out.println((9-i) + ", " + i);
+			// System.out.println((i+(9-i)) + ", " + (i+(9-i)));
+			System.out.println(i + "" + j);
+			System.out.println(j + "" + i);
+			System.out.println("-----");
+			System.out.println((i + j) + "" + (i + j));
+			System.out.println();
 		}
+
 	}
 }
