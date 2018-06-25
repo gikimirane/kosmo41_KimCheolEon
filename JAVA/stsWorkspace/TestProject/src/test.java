@@ -11,14 +11,13 @@ public class test {
 		System.out.println(randromV1.nextBoolean());
 		System.out.println(randromV1.nextFloat());
 		System.out.println(randromV1.nextInt());
-		System.out.println(randromV1.nextInt(100));
+		System.out.println(randromV1.nextInt(10));
 		
 		double randomV2 = Math.random();
 		System.out.println("1 : " + randomV2);
 		int intVal = (int)(randomV2 * 100) + 1;
 		System.out.println("2 : " + intVal);
 		
-		// (int)(Math.random() * (ÃÖ´ë°ª - ÃÖ¼Ò°ª + 1)) + ÃÖ¼Ò
+		// (int)(Math.random() * (최대값 - 최소값 + 1)) + 최소
 	}
-
 }
