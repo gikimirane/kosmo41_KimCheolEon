@@ -9,12 +9,10 @@ public class Ch05Quiz15 {
 		
 		Random randrom = new Random();
 		
-		int num1 = 0;
-		int num2 = 0;
-		int num3 = 0;
-		
-		int nCount = 0; 
-		
+		int num1;
+		int num2;
+		int num3; 
+			
 		while(true) {
 			num1 = randrom.nextInt(10);
 			num2 = randrom.nextInt(10);
@@ -24,10 +22,6 @@ public class Ch05Quiz15 {
 				System.out.println("결과 : " + num1 + num2 + num3);
 				break;
 			}
-			
 		}
-		
-		
 	}
-
 }

@@ -13,6 +13,8 @@ public class test {
 		System.out.println(randromV1.nextInt());
 		System.out.println(randromV1.nextInt(10));
 		
+		
+		
 		double randomV2 = Math.random();
 		System.out.println("1 : " + randomV2);
 		int intVal = (int)(randomV2 * 100) + 1;
