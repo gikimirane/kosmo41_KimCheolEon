@@ -6,7 +6,7 @@ public class RelationalOp {
 		
 		System.out.println("3 >= 2 : " + (3 >= 2));
 		System.out.println("3 <= 2 : " + (3 <= 2));
-		System.out.println("7.0 == 7 : " + (7.0 == 7)); // Javascript´Â typeµµ º¼¼öÀÖ´Âµ¥, Çò°¥¸®Áö ¸»°Í
+		System.out.println("7.0 == 7 : " + (7.0 == 7)); // JavascriptëŠ” typeë„ ë³¼ìˆ˜ìžˆëŠ”ë°, í—·ê°ˆë¦¬ì§€ ë§ê²ƒ
 		System.out.println("7.0 != 7 : " + (7.0 != 7));
 		
 //		int num1 = 7;

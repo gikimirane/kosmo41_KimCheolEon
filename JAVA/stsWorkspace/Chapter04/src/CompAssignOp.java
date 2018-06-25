@@ -4,7 +4,7 @@ public class CompAssignOp {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		//Έν½Γΐϋ TypeCasting
+		//κ°•μ  TypeCasting
 		short num = 10;
 		num = (short)(num + 77L);
 		
@@ -16,7 +16,7 @@ public class CompAssignOp {
 		
 		/////////////////////////////////////////
 		
-		//ΐΪµΏ TypeCasting
+		//μ•”λ¬µμ  TypeCasting
 		num = 10;
 		num += 77L;
 		rate = 3;

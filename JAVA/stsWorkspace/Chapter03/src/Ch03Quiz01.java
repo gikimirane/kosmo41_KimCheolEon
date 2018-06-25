@@ -11,14 +11,14 @@ public class Ch03Quiz01 {
 		int result4 = 0;
 		
 		Scanner scan = new Scanner(System.in);
-		// Scanner Å¬·¡½ºÀÇ °´Ã¼ »ı¼º
+		// Scanner í´ë˜ìŠ¤ì˜ ê°ì²´ ìƒì„±
 		
-		System.out.println("¹®Á¦1. µÎ°³ Á¤¼öÀÔ·Â, »çÄ¢¿¬»ê °á°úÃâ·Â");
+		System.out.println("ë¬¸ì œ1. ë‘ê°œ ì •ìˆ˜ì…ë ¥, ì‚¬ì¹™ì—°ì‚° ê²°ê³¼ì¶œë ¥");
 		
-		System.out.println("Ã¹ ¹øÂ° ¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		System.out.println("ì²« ë²ˆì§¸ ìˆ«ìë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		int num1 = scan.nextInt();
 		
-		System.out.println("µÎ ¹øÂ° ¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		System.out.println("ë‘ ë²ˆì§¸ ìˆ«ìë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		int num2 = scan.nextInt();
 		
 		result1 = num1 + num2;
@@ -26,12 +26,12 @@ public class Ch03Quiz01 {
 		result3 = num1 * num2;
 		result4 = num1 / num2;
 		
-		System.out.println("´ç½ÅÀÌ ÀÔ·ÂÇÑ ¼ıÀÚ : " + num1 + ", " + num2);
+		System.out.println("ë‹¹ì‹ ì´ ì…ë ¥í•œ ìˆ«ì : " + num1 + ", " + num2);
 		
-		System.out.println("µ¡¼À : " + result1);
-		System.out.println("»¬¼À : " + result2);
-		System.out.println("°ö¼À : " + result3);
-		System.out.println("³ª´°¼À : " + result4);	
+		System.out.println("ë§ì…ˆ : " + result1);
+		System.out.println("ëº„ì…ˆ : " + result2);
+		System.out.println("ê³±ì…ˆ : " + result3);
+		System.out.println("ë‚˜ëˆ—ì…ˆ : " + result4);	
 
 	}
 

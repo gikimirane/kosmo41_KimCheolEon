@@ -6,7 +6,7 @@ public class OperatePromotion {
 		
 		short num1 = 11;
 		short num2 = 22;
-		short result;	//error, °­Á¦ Çüº¯È¯ÀÌ ÀÏ¾î³­´Ù´Â ÀÇ¹Ì (cannot convert from int to short)
+		short result;	//error, ê°•ì œ í˜•ë³€í™˜ì´ ì¼ì–´ë‚œë‹¤ëŠ” ì˜ë¯¸ (cannot convert from int to short)
 //		int result;
 		
 //		result = num1 + num2;

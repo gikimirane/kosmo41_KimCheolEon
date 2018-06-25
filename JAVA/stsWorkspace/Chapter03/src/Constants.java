@@ -4,15 +4,15 @@ public class Constants {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		final int MAX_SIZE = 100;
-		final char CONST_CHAR = '»ó';
+		final char CONST_CHAR = 'ìƒ';
 		final int CONST_ASSIGNED;
 		
 		CONST_ASSIGNED = 12;
-//		CONST_ASSIGNED = 14; Àç ÇÒ´ç ºÒ°¡
+//		CONST_ASSIGNED = 14; ì¬ í• ë‹¹ ë¶ˆê°€
 		
-		System.out.println("»ó¼ö1 : " + MAX_SIZE);
-		System.out.println("»ó¼ö2 : " + CONST_CHAR);
-		System.out.println("»ó¼ö3 : " + CONST_ASSIGNED);
+		System.out.println("ìƒìˆ˜1 : " + MAX_SIZE);
+		System.out.println("ìƒìˆ˜2 : " + CONST_CHAR);
+		System.out.println("ìƒìˆ˜3 : " + CONST_ASSIGNED);
 	}
 
 }

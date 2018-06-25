@@ -5,14 +5,14 @@ public class PrefixOp {
 		// TODO Auto-generated method stub
 		
 		int num = 7;
-		System.out.println("ÀüÀ§ Áõ°¨¿¬»ê");
+		System.out.println("ì „ìœ„ ì¦ê°ì—°ì‚°");
 		System.out.println("++num : " + ++num);
 		System.out.println("++num : " + ++num);
 		System.out.println("num : " + num);
 		
 		System.out.println("----------------");
 		
-		System.out.println("ÈÄÀ§ Áõ°¨¿¬»ê");
+		System.out.println("í›„ìœ„ ì¦ê°ì—°ì‚°");
 		System.out.println("num++ : " + num++);
 		System.out.println("num++ : " + num++);
 		System.out.println("num : " + num);

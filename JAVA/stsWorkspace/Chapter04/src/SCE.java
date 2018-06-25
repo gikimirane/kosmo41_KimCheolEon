@@ -12,14 +12,14 @@ public class SCE {
 		System.out.println("result = " + result);
 		System.out.println("num1 = " + num1);
 		System.out.println("num2 = " + num2 + '\n');
-		//³í¸®°ö, false ³ª¿Í¼­ ÈÄ¹Ý ¿¬»ê x
+		//ë…¼ë¦¬ê³±, false ë‚˜ì™€ì„œ í›„ë°˜ ì—°ì‚° x
 		
 //		result = ((num1 += 10) > 0) && ((num2 += 10) > 0);
 		result = ((num1 += 10) > 0) || ((num2 += 10) > 0);
 		System.out.println("result = " + result);
 		System.out.println("num1 = " + num1);
 		System.out.println("num2 = " + num2);
-		//³í¸®ÇÕ, true ³ª¿Í¼­ ÈÄ¹Ý ¿¬»ê x
+		//ë…¼ë¦¬í•©, true ë‚˜ì™€ì„œ í›„ë°˜ ì—°ì‚° x
 
 	}
 

@@ -8,17 +8,17 @@ public class InputNum2 {
 		int result = 0;
 		
 		Scanner scan = new Scanner(System.in);
-		// Scanner Å¬·¡½ºÀÇ °´Ã¼ »ı¼º
+		// Scanner í´ë˜ìŠ¤ì˜ ê°ì²´ ìƒì„±
 		
-		System.out.println("¹®Á¦2. ÇÑ°³ Á¤¼öÀÔ·Â, Á¦°ö °á°úÃâ·Â");
+		System.out.println("ë¬¸ì œ2. í•œê°œ ì •ìˆ˜ì…ë ¥, ì œê³± ê²°ê³¼ì¶œë ¥");
 		
-		System.out.println("¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		System.out.println("ìˆ«ìë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		int num1 = scan.nextInt();
 				
 		result = num1 * num1;
 		
-		System.out.println("´ç½ÅÀÌ ÀÔ·ÂÇÑ ¼ıÀÚ : " + num1);
+		System.out.println("ë‹¹ì‹ ì´ ì…ë ¥í•œ ìˆ«ì : " + num1);
 		
-		System.out.println("Á¦°ö°á°ú : " + result);
+		System.out.println("ì œê³±ê²°ê³¼ : " + result);
 	}
 }

@@ -9,14 +9,14 @@ public class LogicalOp {
 		boolean result;
 		
 		result = (1 < num1) && (num1 < 100);
-		System.out.println("num1Àº 1À» ÃÊ°úÇÏ°í 100 ¹Ì¸¸ÀÎ °ªÀÎ°¡? : " + result);
+		System.out.println("num1ì€ 1ì„ ì´ˆê³¼í•˜ê³  100 ë¯¸ë§Œì¸ ê°’ì¸ê°€? : " + result);
 		
 		result = ((num2  % 2) == 0) || ((num2 % 3) == 0);
-		System.out.println("num2´Â 2ÀÇ ¹è¼ö°Å³ª 3ÀÇ ¹è¼öÀÎ°¡? : " + result);
+		System.out.println("num2ëŠ” 2ì˜ ë°°ìˆ˜ê±°ë‚˜ 3ì˜ ë°°ìˆ˜ì¸ê°€? : " + result);
 		
 		result = !(num1 != 0);
-		System.out.println("num1Àº 0ÀÌ ¾Æ´Ñ°Ô ¾Æ´Ñ°¡?(num1Àº 0ÀÌ ¸Â´Â°¡?) : " + result);
-		// ºÎÁ¤ÀÇ ºÎÁ¤Àº ±àÁ¤
+		System.out.println("num1ì€ 0ì´ ì•„ë‹Œê²Œ ì•„ë‹Œê°€?(num1ì€ 0ì´ ë§žëŠ”ê°€?) : " + result);
+		// ë¶€ì •ì˜ ë¶€ì •ì€ ê¸ì •
 	}
 
 }

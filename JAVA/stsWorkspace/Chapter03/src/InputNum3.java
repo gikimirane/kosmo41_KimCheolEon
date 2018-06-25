@@ -9,25 +9,25 @@ public class InputNum3 {
 		int result2 = 0;
 		
 		Scanner scan = new Scanner(System.in);
-		// Scanner Å¬·¡½ºÀÇ °´Ã¼ »ı¼º
+		// Scanner í´ë˜ìŠ¤ì˜ ê°ì²´ ìƒì„±
 		
-		System.out.println("¹®Á¦3. µÎ°³ Á¤¼öÀÔ·Â, ¸ò, ³ª¸ÓÁö Ãâ·Â");
+		System.out.println("ë¬¸ì œ3. ë‘ê°œ ì •ìˆ˜ì…ë ¥, ëª«, ë‚˜ë¨¸ì§€ ì¶œë ¥");
 		
-		System.out.println("Ã¹ ¹øÂ° ¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		System.out.println("ì²« ë²ˆì§¸ ìˆ«ìë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		int num1 = scan.nextInt();
 		
-		System.out.println("µÎ ¹øÂ° ¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		System.out.println("ë‘ ë²ˆì§¸ ìˆ«ìë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		int num2 = scan.nextInt();
 		
 		result1 = num1 / num2;
 		result2 = num1 % num2;
 		
-		System.out.println("´ç½ÅÀÌ ÀÔ·ÂÇÑ ¼ıÀÚ : " + num1 + ", " + num2);
+		System.out.println("ë‹¹ì‹ ì´ ì…ë ¥í•œ ìˆ«ì : " + num1 + ", " + num2);
 		
-//		System.out.println(num1 + " ³ª´©±â " + num2 + "ÀÇ ¸òÀº "+ result1 + "ÀÔ´Ï´Ù");
-//		System.out.println(num1 + " ³ª´©±â " + num2 + "ÀÇ ³ª¸ÓÁö´Â "+ result2 + "ÀÔ´Ï´Ù");
-		System.out.printf("%d ³ª´©±â %d ÀÇ ¸òÀº %d ÀÔ´Ï´Ù. \n", num1, num2, result1);
-		System.out.printf("%d ³ª´©±â %d ÀÇ ³ª¸ÓÁö´Â %d ÀÔ´Ï´Ù. \n", num1, num2, result2);	
+//		System.out.println(num1 + " ë‚˜ëˆ„ê¸° " + num2 + "ì˜ ëª«ì€ "+ result1 + "ì…ë‹ˆë‹¤");
+//		System.out.println(num1 + " ë‚˜ëˆ„ê¸° " + num2 + "ì˜ ë‚˜ë¨¸ì§€ëŠ” "+ result2 + "ì…ë‹ˆë‹¤");
+		System.out.printf("%d ë‚˜ëˆ„ê¸° %d ì˜ ëª«ì€ %d ì…ë‹ˆë‹¤. \n", num1, num2, result1);
+		System.out.printf("%d ë‚˜ëˆ„ê¸° %d ì˜ ë‚˜ë¨¸ì§€ëŠ” %d ì…ë‹ˆë‹¤. \n", num1, num2, result2);	
 	}
 
 }

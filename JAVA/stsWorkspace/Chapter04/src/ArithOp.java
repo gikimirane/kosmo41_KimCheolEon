@@ -5,13 +5,13 @@ public class ArithOp {
 		// TODO Auto-generated method stub
 		int num1 = 3;
 		int num2 = 7;
-		//ÀÏºÎ·¯ ¼ıÀÚ ¹Ù²Ş - ¸ø³ª´­¶§¸¦ ¾Ë¾Æº¸´Â°Ô ´õ ÁÁÀ¸´Ï±î.
+		//ì¼ë¶€ëŸ¬ ìˆ«ì ë°”ê¿ˆ - ëª»ë‚˜ëˆŒë•Œë¥¼ ì•Œì•„ë³´ëŠ”ê²Œ ë” ì¢‹ìœ¼ë‹ˆê¹Œ.
 		
 		System.out.println("num1 + num2 = " + (num1 + num2)); //10
 		System.out.println("num1 - num2 = " + (num1 - num2)); //-4
 		System.out.println("num1 * num2 = " + (num1 * num2)); //21
 		System.out.println("num1 / num2 = " + (num1 / num2)); //0
-		System.out.println("num1 % num2 = " + (num1 % num2)); //3 - ¸ø³ª´©´Ï±î ¸òÀÌ ¹Ù·Î Æ¢¾î³ª°¨
+		System.out.println("num1 % num2 = " + (num1 % num2)); //3 - ëª»ë‚˜ëˆ„ë‹ˆê¹Œ ëª«ì´ ë°”ë¡œ íŠ€ì–´ë‚˜ê°
 	}
 
 }

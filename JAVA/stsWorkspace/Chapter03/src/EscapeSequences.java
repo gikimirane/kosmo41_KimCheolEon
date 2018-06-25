@@ -7,8 +7,8 @@ public class EscapeSequences {
 		System.out.println("AB" + '\t' + 'C');
 		System.out.println("AB" + '\n' + 'C');
 		System.out.println("AB" + '\r' + 'C');
-//		Âü°í : carriage return + line feed = enter(new line)
-//		CRÀº Ä¿¼­¸¦ ¸Ç ¾ÕÀ¸·Î, LF´Â Ä¿¼­¸¦ ¾Æ·§ÁÙ·Î
+//		ì°¸ê³  : carriage return + line feed = enter(new line)
+//		CRì€ ì»¤ì„œë¥¼ ë§¨ ì•ìœ¼ë¡œ, LFëŠ” ì»¤ì„œë¥¼ ì•„ë«ì¤„ë¡œ
 	}
 
 }
