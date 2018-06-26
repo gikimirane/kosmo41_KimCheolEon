@@ -41,6 +41,5 @@ public class Ch05Quiz14 {
 			System.out.println((i + j) + "" + (i + j));
 			System.out.println();
 		}
-
 	}
 }
