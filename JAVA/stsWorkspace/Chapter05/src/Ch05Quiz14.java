@@ -31,15 +31,26 @@ public class Ch05Quiz14 {
 		// System.out.println("");
 		// }
 
-		for (int i = 0, j = 9; i < 10; i++, j--) {
-			// System.out.println(i + ", " + (9-i));
-			// System.out.println((9-i) + ", " + i);
-			// System.out.println((i+(9-i)) + ", " + (i+(9-i)));
-			System.out.println(i + "" + j);
-			System.out.println(j + "" + i);
-			System.out.println("-----");
-			System.out.println((i + j) + "" + (i + j));
-			System.out.println();
+//		for (int i = 0, j = 9; i < 10; i++, j--) {
+//			// System.out.println(i + ", " + (9-i));
+//			// System.out.println((9-i) + ", " + i);
+//			// System.out.println((i+(9-i)) + ", " + (i+(9-i)));
+//			System.out.println(i + "" + j);
+//			System.out.println(j + "" + i);
+//			System.out.println("-----");
+//			System.out.println((i + j) + "" + (i + j));
+//			System.out.println();
+//		}
+		
+		//강사님 방식 - 내가 생각한 바랑 비슷하긴한데, 수식이 들어가있음
+		for(int i = 0; i<10; i++) {
+			for(int j=0; j<10; j++) {
+				if((i*10 + j) + (j*10 + i) == 99) {
+					System.out.println(i + " " + j);
+					System.out.println(j + " " + i);
+					System.out.println((i+j) + " " + (i+j));
+				}
+			}
 		}
 	}
 }
