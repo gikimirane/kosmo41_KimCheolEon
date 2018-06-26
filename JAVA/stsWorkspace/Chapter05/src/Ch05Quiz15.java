@@ -9,9 +9,9 @@ public class Ch05Quiz15 {
 		
 		Random randrom = new Random();
 		
-		int num1;
-		int num2;
-		int num3; 
+		int num1 = 0;
+		int num2 = 0;
+		int num3 = 0; 
 			
 		while(true) {
 			num1 = randrom.nextInt(10);
