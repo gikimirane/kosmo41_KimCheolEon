@@ -1,5 +1,5 @@
 
-public class D1EnhancedFor {
+public class D01EnhancedFor {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
