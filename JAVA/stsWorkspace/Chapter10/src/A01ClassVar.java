@@ -10,7 +10,7 @@ class InstCnt{
 	}
 }
 
-public class ClassVar {
+public class A01ClassVar {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
