@@ -34,12 +34,13 @@ class MyRandom{
 			num2 = buffer - (num1 * 100) / 10;
 			num3 = buffer - (num1 * 100) - (num2 * 10);
 			
-			if(num1 != num2 && num2 != num3 && num3 != num1) {
+			if(num1 == 0 && num1 != num2 && num2 != num3 && num3 != num1) {
 //				System.out.println("결과 : " + (num1*100) + (num2*10) + (num3));
 				//이상하게 위에처럼 앞에 문자열 붙여서 붙일라하면 계산식 이상해짐
-				System.out.println("결과 : " + (num1*100) + (num2*10) + (num3));
+				System.out.println((num1*100) + (num2*10) + (num3));
 				break;
 			}
+			break;
 			
 		}
 		
@@ -60,8 +61,5 @@ public class Ch05Quiz15Test {
 		rand.print1();
 		System.out.println();
 		rand.print2();
-		
-		
-
 	}
 }
