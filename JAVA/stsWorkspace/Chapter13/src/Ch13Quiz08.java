@@ -20,10 +20,10 @@ public class Ch13Quiz08 {
 		
 		for(int i = 0; i < mArray.length; i++) { 
 			for(int j = 0; j < mArray[i].length; j++) { // i=0, j=0
-				System.out.println(Name[i] + " 의 " + gName[j] + "점수");
+				System.out.println(Name[i] + " 의 " + gName[j] + "점수 : ");
 				mArray[j][i] = scan.nextInt();
 				
-				//어우예 나온다
+				//오예 나온다
 				rowTotal[j] += mArray[j][i];
 				columnTotal[i] += mArray[j][i];
 			}
@@ -44,7 +44,7 @@ public class Ch13Quiz08 {
 			System.out.print(Name[i] + "\t");			
 		}
 		System.out.println("총점");
-		
+
 		//출력 테스트
 		for(int i = 0; i < mArray.length; i++) {
 			System.out.print(gName[i]);
@@ -54,9 +54,9 @@ public class Ch13Quiz08 {
 			System.out.print("\t" + rowTotal[i]);
 			System.out.println();
 		}
+		System.out.print("총점");
 		for(int i = 0; i < columnTotal.length; i++) {
 			System.out.print("\t"+columnTotal[i]);
 		}
 	}
-
 }

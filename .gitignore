@@ -1,7 +1,7 @@
 *.class
 *.classpath
-*.project
-*.prefs
+#*.project
+#*.prefs
 
 
 # Created by https://www.gitignore.io/api/java,eclipse
@@ -60,7 +60,7 @@ local.properties
 
 ### Eclipse Patch ###
 # Eclipse Core
-.project
+#.project
 
 # JDT-specific (Eclipse Java Development Tools)
 .classpath

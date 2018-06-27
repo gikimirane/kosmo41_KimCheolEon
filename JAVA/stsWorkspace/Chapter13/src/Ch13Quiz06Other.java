@@ -31,9 +31,6 @@ public class Ch13Quiz06Other {
 			}
 			System.out.println();
 		}
-		
-		
-
 	}
 
 }
