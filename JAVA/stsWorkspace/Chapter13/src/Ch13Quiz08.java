@@ -58,5 +58,19 @@ public class Ch13Quiz08 {
 		for(int i = 0; i < columnTotal.length; i++) {
 			System.out.print("\t"+columnTotal[i]);
 		}
+		
+		
+		//이런 케이스문 방식도 응용 가능
+//		for(int i = 0; i < 4; i++) {
+//			switch(i) {
+//			case 0:
+//				System.out.println();
+//				break;
+//			case 1:
+//				System.out.println();
+//				break;
+//			}
+//		}
+		
 	}
 }
