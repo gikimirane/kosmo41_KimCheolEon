@@ -24,9 +24,9 @@ public class Ch13Quiz10 {
 			userNumber = scan.nextInt();
 
 			if (userNumber > comNumber) {
-				System.out.println(userNumber + " 는 제가 정한 숫자보다 큽니다");
+				System.out.println(userNumber + " 는 제가 정한 숫자보다 큽니다 (h)");
 			} else if (userNumber < comNumber) {
-				System.out.println(userNumber + " 는 제가 정한 숫자보다 작습니다");
+				System.out.println(userNumber + " 는 제가 정한 숫자보다 작습니다 (l)");
 			} else {
 				System.out.println("정답입니다!!");
 				System.out.println("comNumber : " + comNumber);
