@@ -18,16 +18,20 @@ class BaseBall {
 		int num3 = 0;
 		int buffer = 0;
 
-		while (true) {
-			if (num1 != 0 && num1 != num2 && num2 != num3 && num3 != num1) {
-				break;
-			}
-			
+		while(true) {
 			buffer = rand.nextInt(900) + 100;
 			num1 = buffer / 100;
 			num2 = buffer - (num1 * 100) / 10;
 			num3 = buffer - (num1 * 100) - (num2 * 10);
+			
+			if(num1 == 0 && num1 != num2 && num2 != num3 && num3 != num1) {
+//				System.out.println("결과 : " + (num1*100) + (num2*10) + (num3));
+				//이상하게 위에처럼 앞에 문자열 붙여서 붙일라하면 계산식 이상해짐
+				System.out.println((num1*100) + (num2*10) + (num3));
+				break;
+			}			
 		}
+		
 
 		int Test = (num1 * 100) + (num2 * 10) + (num3);
 		System.out.println("수식계산 : " + Test);

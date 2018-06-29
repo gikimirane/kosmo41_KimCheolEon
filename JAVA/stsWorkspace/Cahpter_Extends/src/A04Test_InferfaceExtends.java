@@ -24,6 +24,7 @@ class MAMA{
 }
 
 class Test2 extends MAMA implements Morning2{
+	
 	public void hello2() {
 		System.out.println("Test");
 	}
@@ -33,7 +34,7 @@ class Test2 extends MAMA implements Morning2{
 	
 }
 
-public class A04InferfaceExtends {
+public class A04Test_InferfaceExtends {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

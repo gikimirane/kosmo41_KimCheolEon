@@ -39,9 +39,7 @@ class MyRandom{
 				//이상하게 위에처럼 앞에 문자열 붙여서 붙일라하면 계산식 이상해짐
 				System.out.println((num1*100) + (num2*10) + (num3));
 				break;
-			}
-			break;
-			
+			}			
 		}
 		
 		

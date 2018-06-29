@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Ch13Quiz11 {
+public class Ch13QuizMindReader {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -11,7 +11,6 @@ public class Ch13Quiz11 {
 
 		Random rand = new Random();
 
-		int comHistory = 100;
 		int nMax = 100;
 		int nMin = 0;
 		int comNumber = 50; // 발표 숫자
@@ -32,25 +31,46 @@ public class Ch13Quiz11 {
 
 			userAnswer = scan.nextLine();
 
-			System.out.println();
-			// IF high
-			if (userAnswer.equals(setAnswer[0])) {
-
+			switch (userAnswer) {
+			case "h":
 				nMax = comNumber;
 				comNumber = (nMin + comNumber) / 2;
-
-				// IF low
-			} else if (userAnswer.equals(setAnswer[1])) {
-
+				break;
+			case "l":
 				nMin = comNumber;
 				comNumber = (nMax + comNumber) / 2;
-
-			} else {
+				break;
+			case "e":
 				System.out.println("I'm Win!");
 				System.out.println("Try Number [ " + tryNum + " ]");
+				return;
 
-				break;
+			default:
+				System.out.println("!!!!! 재입력 !!!!!");
 			}
+
+			// if(userAnswer.equals("e")) {
+			// break;
+			// }
+
+			// // IF high
+			// if (userAnswer.equals(setAnswer[0])) {
+			//
+			// nMax = comNumber;
+			// comNumber = (nMin + comNumber) / 2;
+			//
+			// // IF low
+			// } else if (userAnswer.equals(setAnswer[1])) {
+			//
+			// nMin = comNumber;
+			// comNumber = (nMax + comNumber) / 2;
+			//
+			// } else {
+			// System.out.println("I'm Win!");
+			// System.out.println("Try Number [ " + tryNum + " ]");
+			//
+			// break;
+			// }
 			System.out.println();
 		}
 	}

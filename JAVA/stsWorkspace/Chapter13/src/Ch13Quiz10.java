@@ -1,57 +1,102 @@
-import java.util.Random;
-import java.util.Scanner;
+import java.util.Arrays;
 
 public class Ch13Quiz10 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		System.out.println("High & Low Game");
-		System.out.println("0~100 사이의 컴퓨터가 생각한 값을 맞춰주세요. (6회 제한)");
+//		 int[][] mArray = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13,
+//		 14, 15, 16 } };
+		int[][] mArray = { { 1, 2, 3, 4, 5 }, { 6, 7, 8, 9, 10 }, { 11, 12, 13, 14, 15 }, { 16, 17, 17, 19, 20 },
+				{ 21, 22, 23, 24, 25 } };
 
-		Random rand = new Random();
-		int comNumber = rand.nextInt(100) + 1;
+		int[][] mBuffer = new int[mArray.length][mArray[0].length];
 
-		// Test 용
-		// System.out.println("comNumber : " + comNumber);
+		int length = mArray.length;
 
-		Scanner scan = new Scanner(System.in);
-		int userNumber = 0;
-
-		for (int i = 5; i >= 0; i--) {
-
-			System.out.println("몇이라고 생각합니까? (0 to 100) : ");
-			userNumber = scan.nextInt();
-
-			if (userNumber > comNumber) {
-				System.out.println(userNumber + " 는 제가 정한 숫자보다 큽니다 (h)");
-			} else if (userNumber < comNumber) {
-				System.out.println(userNumber + " 는 제가 정한 숫자보다 작습니다 (l)");
-			} else {
-				System.out.println("정답입니다!!");
-				System.out.println("comNumber : " + comNumber);
-				break;
+		////////// 원본 mArray 출력//////////
+		for (int i = 0; i < length; i++) {
+			for (int j = 0; j < length; j++) {
+				System.out.print(mArray[i][j] + "\t");
 			}
-
-			if (i == 0) {
-				System.out.println("기회가 끝났습니다.");
-				System.out.println("comNumber : " + comNumber);
-				System.out.println("다시 하시겠습니까? <y / n>");
-
-				i = 5;
-				
-				String reStart = scan.next();
-
-				if (reStart.equals("y")) {
-					continue;
-				} else{
-					System.out.println("안녕히 가십시오.");
-					break;
-				}
-			} else {
-				System.out.println("남은 기회 [ " + i + " ]");
-				System.out.println();
-			}
+			System.out.println();
 		}
+
+		// 90도 회전
+		for (int i = 0, x = length - 1; i < length; i++) {
+			for (int j = 0; j < length; j++) {
+				mBuffer[j][i + x] = mArray[i][j];// 00 01 02 03, 10 11 12 13, 20 21 22 23
+				// 00+3 10+3 20+3 30+3
+				// 10+1 11+1 12+1 13+1
+			}
+			x = x - 2;
+		}
+
+		System.out.println();
+
+		////////// mBuffer출력 & mArray에 mBuffer 값 싣기 //////////
+		for (int i = 0; i < length; i++) {
+			for (int j = 0; j < length; j++) {
+				System.out.print(mBuffer[i][j] + "\t");
+				mArray[i][j] = mBuffer[i][j];
+			}
+			System.out.println();
+		}
+
+		// 90도 회전
+		for (int i = 0, x = length - 1; i < length; i++) {
+			for (int j = 0; j < length; j++) {
+				mBuffer[j][i + x] = mArray[i][j];// 00 01 02 03, 10 11 12 13, 20 21 22 23
+				// 00+3 10+3 20+3 30+3
+				// 10+1 11+1 12+1 13+1
+			}
+			x--;
+			x--;
+		}
+
+		System.out.println();
+
+		////////// mBuffer출력 & mArray에 mBuffer 값 싣기 //////////
+		for (int i = 0; i < length; i++) {
+			for (int j = 0; j < length; j++) {
+				System.out.print(mBuffer[i][j] + "\t");
+				mArray[i][j] = mBuffer[i][j];
+			}
+			System.out.println();
+		}
+
+		// 90도 회전
+		for (int i = 0, x = length - 1; i < length; i++) {
+			for (int j = 0; j < length; j++) {
+				mBuffer[j][i + x] = mArray[i][j];// 00 01 02 03, 10 11 12 13, 20 21 22 23
+				// 00+3 10+3 20+3 30+3
+				// 10+1 11+1 12+1 13+1
+			}
+			x--;
+			x--;
+		}
+
+		System.out.println();
+
+		////////// mBuffer출력 & mArray에 mBuffer 값 싣기 //////////
+		for (int i = 0; i < length; i++) {
+			for (int j = 0; j < length; j++) {
+				System.out.print(mBuffer[i][j] + "\t");
+				mArray[i][j] = mBuffer[i][j];
+			}
+			System.out.println();
+		}
+
+		// 90도 회전
+		for (int i = 0, x = length - 1; i < length; i++) {
+			for (int j = 0; j < length; j++) {
+				mBuffer[j][i + x] = mArray[i][j];// 00 01 02 03, 10 11 12 13, 20 21 22 23
+				// 00+3 10+3 20+3 30+3
+				// 10+1 11+1 12+1 13+1
+			}
+			x--;
+			x--;
+		}
+		System.out.println();
 	}
 }
