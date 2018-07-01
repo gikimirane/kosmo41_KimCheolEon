@@ -4,6 +4,8 @@ public class Ch13Quiz10 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		System.out.println("문제 13-10. 배열의 90도씩 회전");
 
 //		 int[][] mArray = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13,
 //		 14, 15, 16 } };
