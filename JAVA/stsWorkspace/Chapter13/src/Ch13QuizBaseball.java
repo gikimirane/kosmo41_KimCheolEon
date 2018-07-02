@@ -12,7 +12,9 @@ import java.util.Scanner;
 
 
 public class Ch13QuizBaseball {
-
+	
+//	static final int nLimit = 0;
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -20,6 +22,7 @@ public class Ch13QuizBaseball {
 				
 		Scanner scan = new Scanner(System.in);
 		Random rand = new Random();
+		
 		
 		int inputNumber = 0;
 		int[] inputNumberArray = new int[3];
@@ -29,7 +32,7 @@ public class Ch13QuizBaseball {
 		int gameCount = 0;
 		
 		while(true) {
-			randNumber[0] = rand.nextInt(9) + 1;
+			randNumber[0] = rand.nextInt(10);
 			randNumber[1] = rand.nextInt(10);
 			randNumber[2] = rand.nextInt(10);
 						
@@ -39,25 +42,33 @@ public class Ch13QuizBaseball {
 		}
 		
 		//Test 3자리 랜덤출력
-		System.out.print(randNumber[0]);
-		System.out.print(randNumber[1]);
-		System.out.print(randNumber[2]);
+//		System.out.print(randNumber[0]);
+//		System.out.print(randNumber[1]);
+//		System.out.print(randNumber[2]);
 					
 		while(true) {
 			
 			ballCount = 0;
 			strikeCount = 0;
 			
+			if(gameCount == 10) {
+				System.out.println("[ ㄴ패배  ] 게임을 종료합니다");
+				break;				
+			}
+			
+			
 			gameCount++;
 			
 			System.out.println("세자리 숫자를 입력해주세요." + "(" + gameCount + " 회)");
 			inputNumber = scan.nextInt();
 			
-			//예 - 378
-			inputNumberArray[0] = inputNumber / 100;
-			inputNumberArray[1] = (inputNumber % 100) / 10; 
-			inputNumberArray[2] = inputNumber % 10;
+			//예 - 378할때 계산하면...
+			inputNumberArray[0] = inputNumber / 100;			//3
+			inputNumberArray[1] = (inputNumber % 100) / 10; 	//100 나누고 나머지 78을 10 나누면 : 7
+			inputNumberArray[2] = inputNumber % 10;				//10으로 다 쪼개고 남은값 8
 			
+			
+			// ball & strike 탐색 부분 -  x:y(lope) 로 대조함
 			for(int i = 0; i < 3; i++) {
 				for(int j = 0; j < 3; j++) {
 					if( randNumber[i] == inputNumberArray[j]) {
@@ -75,7 +86,7 @@ public class Ch13QuizBaseball {
 			System.out.println(strikeCount + " Strike\t" + ballCount + " ballCount");
 			
 			if(strikeCount == 3) {
-				System.out.println("[ 정답 ] 게임을 종료합니다");
+				System.out.println("[ 정답  ] 게임을 종료합니다");
 				break;
 			}
 			System.out.println();			

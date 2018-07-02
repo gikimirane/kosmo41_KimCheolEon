@@ -1,3 +1,5 @@
+// 똑같은 것을 여러번 할땐 메서드화 해서 처리하자
+
 import java.util.Arrays;
 
 public class Ch13Quiz10 {
