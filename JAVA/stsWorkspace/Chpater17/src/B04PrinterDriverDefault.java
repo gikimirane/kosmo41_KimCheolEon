@@ -42,7 +42,6 @@ public class B04PrinterDriverDefault {
 		
 		prn.printCMYK(myDoc);
 		
-		
 		PrintableB04 prn2 = new Prn909Drv4();
 		prn2.print(myDoc);
 		System.out.println();
