@@ -16,9 +16,7 @@ class ThreeByThree {
 		}
 	}
 	
-	public String[] ArrayPrint(String[] array) {
-		
-		
+	public String[] ArrayPrint(String[] array) {		
 		return array;
 	}
 }
@@ -44,7 +42,6 @@ public class Ch13QuizThreeByThree {
 		int tposY = 0;
 
 		String buffer = null;
-		// String[][] bufferArray = new String[row][column];
 
 		//////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -67,10 +64,7 @@ public class Ch13QuizThreeByThree {
 					}
 				}
 			}
-
-			System.out.println(posX);
-			System.out.println(posY);
-
+			
 			System.out.println();
 			System.out.println("[ Mover ] a:Left d:Right w:Up s:Down");
 			System.out.println("[ Exit ] k:Exit");
@@ -83,8 +77,8 @@ public class Ch13QuizThreeByThree {
 			case "a":
 				tposX = posX;
 				tposY = posY + 1;
-				if (tposY < 3) { // 아니 이걸 0을 포함 안시키면 인덱스가 안맞지;; 멍청했다;;
-					buffer = mArray[posX][posY]; // x값
+				if (tposY < 3) {
+					buffer = mArray[posX][posY];
 					mArray[posX][posY] = mArray[tposX][tposY];
 					mArray[tposX][tposY] = buffer;
 				} else {
@@ -96,8 +90,8 @@ public class Ch13QuizThreeByThree {
 			case "D":
 				tposX = posX;
 				tposY = posY - 1;
-				if (tposY >= 0) { // 아니 이걸 0을 포함 안시키면 인덱스가 안맞지;; 멍청했다;;
-					buffer = mArray[posX][posY]; // x값
+				if (tposY >= 0) { 
+					buffer = mArray[posX][posY]; 
 					mArray[posX][posY] = mArray[tposX][tposY];
 					mArray[tposX][tposY] = buffer;
 				} else {

@@ -64,9 +64,9 @@ class ThreeByThree {
 
 		case "w":
 		case "W":
-			tposX = x - 1;
+			tposX = x + 1;
 			tposY = y;
-			if (tposX >= 0) {
+			if (tposX < 3) {
 				buffer = array[x][y]; // x값
 				array[x][y] = array[tposX][tposY];
 				array[tposX][tposY] = buffer;
@@ -77,9 +77,9 @@ class ThreeByThree {
 
 		case "S":
 		case "s":
-			tposX = x + 1;
+			tposX = x - 1;
 			tposY = y;
-			if (tposX < 3) {
+			if (tposX >= 0) {
 				buffer = array[x][y]; // x값
 				array[x][y] = array[tposX][tposY];
 				array[tposX][tposY] = buffer;
@@ -105,8 +105,12 @@ public class Ch13QuizThreeByThreeTest {
 
 		ThreeByThree TbT = new ThreeByThree();
 
-		String[][] mArray = { { "1", "2", "3" }, { "4", "5", "6" }, { "7", "x", "8" } };
+		//원본배열
+		String[][] mArray = { { "1", "2", "3" }, { "4", "x", "5" }, { "6", "7", "8" } };
+		
+		//비교대상
 		String[][] cArray = { { "1", "2", "3" }, { "4", "5", "6" }, { "7", "8", "x" } };
+		//랜덤에 쓰일 배열
 		String[] odderArray = {"a", "d", "w", "s"};
 
 		int row = mArray.length;
@@ -124,8 +128,6 @@ public class Ch13QuizThreeByThreeTest {
 			randNum = rand.nextInt(4);
 			bufferArray = TbT.PositionMove(mArray, odderArray[randNum], posX, posY);
 		}
-		
-		
 		
 		while (true) {
 
