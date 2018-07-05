@@ -16,6 +16,7 @@ class Person implements Comparable<Person>{
 	
 	@Override
 	public int compareTo(Person p) {
+		//나이가 같으면 추가되지 않음. (후발주자)
 		return this.age - p.age;
 	}
 }

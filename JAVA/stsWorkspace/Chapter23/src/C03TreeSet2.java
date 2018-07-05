@@ -16,6 +16,7 @@ class Person2 implements Comparable<Person2>{
 	
 	@Override
 	public int compareTo(Person2 p) {
+		//나이가 동일한 데이터는 추가되지 않는다.
 		return this.age - p.age;
 	}
 }
@@ -38,6 +39,7 @@ public class C03TreeSet2 {
 		tree.add(new Person2("YOON", 37));
 		tree.add(new Person2("HONG", 53));
 		tree.add(new Person2("PARK", 22));
+		tree.add(new Person2("Test", 22));
 		
 		for(Person2 p : tree) {
 			System.out.println(p);
