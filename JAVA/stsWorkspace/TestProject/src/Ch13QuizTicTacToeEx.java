@@ -1,6 +1,10 @@
+// choice = nextInt()
+// row  = --choice / 3;
+// column = choice % 3;
+
 import java.util.*;
 
-public class Ch13QuizTicTacToe {
+public class Ch13QuizTicTacToeEx {
 
 	static String[][] mArray = { { "1", "2", "3" }, { "4", "5", "6" }, { "7", "8", "9" } };
 	
@@ -44,27 +48,16 @@ public class Ch13QuizTicTacToe {
 		player = 1;
 		icon = "■";
 
-		for (int i = 0; i < mArray.length; i++) {
-			for (int j = 0; j < mArray[i].length; j++) {
-				System.out.print(mArray[i][j]);
-				if (j == mArray[i].length - 1) {
-					continue;
-				}
-				System.out.print("  |  ");
-			}
-			System.out.println();
-			if (i == mArray.length - 1) {
-				continue;
-			}
-			System.out.println("ㅡㅡㅡㅡㅡㅡㅡ");
-		}
-		System.out.println();
+		//최초출력
+		printArray();
 
+		//루프 시작
 		while (true) {
 			System.out.println("Player " + player + ", please enter the number of the square");
 			System.out.print("where you want to place your " + icon + " : ");
 			inputNum = scan.nextInt();
 
+			// 선택
 			if (checkNum[inputNum]) {
 				mArray[cellLocation[inputNum][0]][cellLocation[inputNum][1]] = icon;
 				checkNum[inputNum] = false;
@@ -74,6 +67,7 @@ public class Ch13QuizTicTacToe {
 			}
 			printArray();			
 
+			// 검증
 			for (int i = 1; i < 9; i++) {
 				if (mArray[checkCells[i][0][0]][checkCells[i][0][1]].equals(icon)
 						&& mArray[checkCells[i][1][0]][checkCells[i][1][1]].equals(icon)
@@ -82,15 +76,9 @@ public class Ch13QuizTicTacToe {
 							return;
 				}
 			}
-
 			checkPlayer = !checkPlayer;
-			if (checkPlayer) {
-				player = 1;
-				icon = "■";
-			} else {
-				player = 2;
-				icon = "♥";
-			}
+			if (checkPlayer) { player = 1; icon = "■"; } 
+			else { player = 2; icon = "♥"; }
 		}
 	}
 }
