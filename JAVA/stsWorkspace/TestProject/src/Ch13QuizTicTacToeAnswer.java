@@ -34,7 +34,8 @@ public class Ch13QuizTicTacToeAnswer {
 
 				row = --choice / 3;
 				column = choice % 3;
-				// 여기가 핵심
+				// 여기가 핵심인듯
+				
 			} while (choice < 0 || choice > 8 || board[row][column] > '9');
 
 			board[row][column] = (player == 1) ? 'X' : 'O';
