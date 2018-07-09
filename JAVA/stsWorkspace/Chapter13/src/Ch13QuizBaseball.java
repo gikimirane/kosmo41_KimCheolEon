@@ -52,7 +52,7 @@ public class Ch13QuizBaseball {
 			strikeCount = 0;
 			
 			if(gameCount == 10) {
-				System.out.println("[ 패배  ] 게임을 종료합니다");
+				System.out.println("[ ㄴ패배  ] 게임을 종료합니다");
 				break;				
 			}
 			
