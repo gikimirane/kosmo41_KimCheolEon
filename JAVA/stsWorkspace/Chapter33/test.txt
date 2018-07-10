@@ -1,0 +1,124 @@
+History
+Main article: History of copyright law
+Background
+Copyright came about with the invention of the printing press and with wider literacy. As a legal concept, its origins in Britain were from a reaction to printers' monopolies at the beginning of the 18th century. The English Parliament was concerned about the unregulated copying of books and passed the Licensing of the Press Act 1662,[11] which established a register of licensed books and required a copy to be deposited with the Stationers' Company, essentially continuing the licensing of material that had long been in effect.
+
+Copyright laws allow products of creative human activities, such as literary and artistic production, to be preferentially exploited and thus incentivized. Different cultural attitudes, social organizations, economic models and legal frameworks are seen to account for why copyright emerged in Europe and not, for example, in Asia. In the Middle Ages in Europe, there was generally a lack of any concept of literary property due to the general relations of production, the specific organization of literary production and the role of culture in society. The latter refers to the tendency of oral societies, such as that of Europe in the medieval period, to view knowledge as the product and expression of the collective, rather than to see it as individual property. However, with copyright laws, intellectual production comes to be seen as a product of an individual, with attendant rights. The most significant point is that patent and copyright laws support the expansion of the range of creative human activities that can be commodified. This parallels the ways in which capitalism led to the commodification of many aspects of social life that earlier had no monetary or economic value per se.[12]
+
+Copyright has grown from a legal concept regulating copying rights in the publishing of books and maps to one with a significant effect on nearly every modern industry, covering such items as sound recordings, films, photographs, software, and architectural works.
+
+National copyrights
+See also: Statute of Anne and History of US Copyright Law
+
+The Statute of Anne (the Copyright Act 1709) came into force in 1710.
+Often seen as the first real copyright law, the 1709 British Statute of Anne gave the publishers rights for a fixed period, after which the copyright expired.[13] The act also alluded to individual rights of the artist. It began, "Whereas Printers, Booksellers, and other Persons, have of late frequently taken the Liberty of Printing ... Books, and other Writings, without the Consent of the Authors ... to their very great Detriment, and too often to the Ruin of them and their Families:".[14] A right to benefit financially from the work is articulated, and court rulings and legislation have recognized a right to control the work, such as ensuring that the integrity of it is preserved. An irrevocable right to be recognized as the work's creator appears in some countries' copyright laws.
+
+The Copyright Clause of the United States, Constitution (1787) authorized copyright legislation: "To promote the Progress of Science and useful Arts, by securing for limited Times to Authors and Inventors the exclusive Right to their respective Writings and Discoveries." That is, by guaranteeing them a period of time in which they alone could profit from their works, they would be enabled and encouraged to invest the time required to create them, and this would be good for society as a whole. A right to profit from the work has been the philosophical underpinning for much legislation extending the duration of copyright, to the life of the creator and beyond, to their heirs.
+
+The original length of copyright in the United States was 14 years, and it had to be explicitly applied for. If the author wished, they could apply for a second 14?year monopoly grant, but after that the work entered the public domain, so it could be used and built upon by others.
+
+Copyright law was enacted rather late in German states, and the historian Eckhard Hoffner argues that the absence of copyright laws in the early 19th century encouraged publishing, was profitable for authors, led to a proliferation of books, enhanced knowledge, and was ultimately an important factor in the ascendency of Germany as a power during that century.[15]
+
+International copyright treaties
+See also: International copyright agreements and List of parties to international copyright agreements
+
+The Pirate Publisher?An International Burlesque that has the Longest Run on Record, from Puck, 1886, satirizes the then-existing situation where a publisher could profit by simply stealing newly published works from one country, and publishing them in another, and vice versa.
+The 1886 Berne Convention first established recognition of copyrights among sovereign nations, rather than merely bilaterally. Under the Berne Convention, copyrights for creative works do not have to be asserted or declared, as they are automatically in force at creation: an author need not "register" or "apply for" a copyright in countries adhering to the Berne Convention.[16] As soon as a work is "fixed", that is, written or recorded on some physical medium, its author is automatically entitled to all copyrights in the work, and to any derivative works unless and until the author explicitly disclaims them, or until the copyright expires. The Berne Convention also resulted in foreign authors being treated equivalently to domestic authors, in any country signed onto the Convention. The UK signed the Berne Convention in 1887 but did not implement large parts of it until 100 years later with the passage of the Copyright, Designs and Patents Act 1988. Specially, for educational and scientific research purposes, the Berne Convention provides the developing countries issue compulsory licenses for the translation or reproduction of copyrighted works within the limits prescribed by the Convention. This was a special provision that had been added at the time of 1971 revision of the Convention, because of the strong demands of the developing countries. The United States did not sign the Berne Convention until 1989.[17]
+
+The United States and most Latin American countries instead entered into the Buenos Aires Convention in 1910, which required a copyright notice on the work (such as all rights reserved), and permitted signatory nations to limit the duration of copyrights to shorter and renewable terms.[18][19][20] The Universal Copyright Convention was drafted in 1952 as another less demanding alternative to the Berne Convention, and ratified by nations such as the Soviet Union and developing nations.
+
+The regulations of the Berne Convention are incorporated into the World Trade Organization's TRIPS agreement (1995), thus giving the Berne Convention effectively near-global application.[21]
+
+In 1961, the United International Bureaux for the Protection of Intellectual Property signed the Rome Convention for the Protection of Performers, Producers of Phonograms and Broadcasting Organizations. In 1996, this organization was succeeded by the founding of the World Intellectual Property Organization, which launched the 1996 WIPO Performances and Phonograms Treaty and the 2002 WIPO Copyright Treaty, which enacted greater restrictions on the use of technology to copy works in the nations that ratified it. The Trans-Pacific Partnership includes intellectual Property Provisions relating to copyright.
+
+Copyright laws are standardized somewhat through these international conventions such as the Berne Convention and Universal Copyright Convention. These multilateral treaties have been ratified by nearly all countries, and international organizations such as the European Union or World Trade Organization require their member states to comply with them.
+
+Obtaining protection
+Ownership
+The original holder of the copyright may be the employer of the author rather than the author himself if the work is a "work for hire".[22] For example, in English law the Copyright, Designs and Patents Act 1988 provides that if a copyrighted work is made by an employee in the course of that employment, the copyright is automatically owned by the employer which would be a "Work for Hire". Typically, the first owner of a copyright is the person who created the work i.e. the author.[23][23] But when more than one person creates the work, then a case of joint authorship can be made provided some criteria are met.
+
+Eligible works
+Copyright may apply to a wide range of creative, intellectual, or artistic forms, or "works". Specifics vary by jurisdiction, but these can include poems, theses, fictional characters plays and other literary works, motion pictures, choreography, musical compositions, sound recordings, paintings, drawings, sculptures, photographs, computer software, radio and television broadcasts, and industrial designs. Graphic designs and industrial designs may have separate or overlapping laws applied to them in some jurisdictions.[24][25]
+
+Copyright does not cover ideas and information themselves, only the form or manner in which they are expressed.[26] For example, the copyright to a Mickey Mouse cartoon restricts others from making copies of the cartoon or creating derivative works based on Disney's particular anthropomorphic mouse, but does not prohibit the creation of other works about anthropomorphic mice in general, so long as they are different enough to not be judged copies of Disney's.[26] Note additionally that Mickey Mouse is not copyrighted because characters cannot be copyrighted; rather, Steamboat Willie is copyrighted and Mickey Mouse, as a character in that copyrighted work, is afforded protection.
+
+Originality
+Main article: Threshold of originality
+Typically, a work must meet minimal standards of originality in order to qualify for copyright, and the copyright expires after a set period of time (some jurisdictions may allow this to be extended). Different countries impose different tests, although generally the requirements are low; in the United Kingdom there has to be some "skill, labour, and judgment" that has gone into it.[27] In Australia and the United Kingdom it has been held that a single word is insufficient to comprise a copyright work. However, single words or a short string of words can sometimes be registered as a trademark instead.
+
+Copyright law recognizes the right of an author based on whether the work actually is an original creation, rather than based on whether it is unique; two authors may own copyright on two substantially identical works, if it is determined that the duplication was coincidental, and neither was copied from the other.
+
+Registration
+Main article: Copyright registration
+
+A copyright certificate for proof of the Fermat's Last Theorem, issued by the State Department of Intellectual Property of Ukraine.
+In all countries where the Berne Convention standards apply, copyright is automatic, and need not be obtained through official registration with any government office. Once an idea has been reduced to tangible form, for example by securing it in a fixed medium (such as a drawing, sheet music, photograph, a videotape, or a computer file), the copyright holder is entitled to enforce his or her exclusive rights.[16] However, while registration isn't needed to exercise copyright, in jurisdictions where the laws provide for registration, it serves as prima facie evidence of a valid copyright and enables the copyright holder to seek statutory damages and attorney's fees.[28] (In the USA, registering after an infringement only enables one to receive actual damages and lost profits.)
+
+A widely circulated strategy to avoid the cost of copyright registration is referred to as the poor man's copyright. It proposes that the creator send the work to himself in a sealed envelope by registered mail, using the postmark to establish the date. This technique has not been recognized in any published opinions of the United States courts. The United States Copyright Office says the technique is not a substitute for actual registration.[29] The United Kingdom Intellectual Property Office discusses the technique and notes that the technique (as well as commercial registries) does not constitute dispositive proof that the work is original or establish who created the work.[30][31]
+
+Fixing
+The Berne Convention allows member countries to decide whether creative works must be "fixed" to enjoy copyright. Article 2, Section 2 of the Berne Convention states: "It shall be a matter for legislation in the countries of the Union to prescribe that works in general or any specified categories of works shall not be protected unless they have been fixed in some material form." Some countries do not require that a work be produced in a particular form to obtain copyright protection. For instance, Spain, France, and Australia do not require fixation for copyright protection. The United States and Canada, on the other hand, require that most works must be "fixed in a tangible medium of expression" to obtain copyright protection.[32] U.S. law requires that the fixation be stable and permanent enough to be "perceived, reproduced or communicated for a period of more than transitory duration." Similarly, Canadian courts consider fixation to require that the work be "expressed to some extent at least in some material form, capable of identification and having a more or less permanent endurance."[32]
+
+Copyright notice
+Main article: Copyright notice
+
+A copyright symbol used in copyright notice
+Before 1989, United States law required the use of a copyright notice, consisting of the copyright symbol (¨Ï, the letter C inside a circle), the abbreviation "Copr.", or the word "Copyright", followed by the year of the first publication of the work and the name of the copyright holder.[33][34] Several years may be noted if the work has gone through substantial revisions. The proper copyright notice for sound recordings of musical or other audio works is a sound recording copyright symbol (?, the letter P inside a circle), which indicates a sound recording copyright, with the letter P indicating a "phonorecord". In addition, the phrase All rights reserved was once required to assert copyright, but that phrase is now legally obsolete. Almost everything on the Internet has some sort of copyright attached to it. Whether these things are watermarked, signed, or have any other sort of indication of the copyright is a different story however.[35]
+
+In 1989 the United States enacted the Berne Convention Implementation Act, amending the 1976 Copyright Act to conform to most of the provisions of the Berne Convention. As a result, the use of copyright notices has become optional to claim copyright, because the Berne Convention makes copyright automatic.[36] However, the lack of notice of copyright using these marks may have consequences in terms of reduced damages in an infringement lawsuit ? using notices of this form may reduce the likelihood of a defense of "innocent infringement" being successful.[37]
+
+Enforcement
+Copyrights are generally enforced by the holder in a civil law court, but there are also criminal infringement statutes in some jurisdictions. While central registries are kept in some countries which aid in proving claims of ownership, registering does not necessarily prove ownership, nor does the fact of copying (even without permission) necessarily prove that copyright was infringed. Criminal sanctions are generally aimed at serious counterfeiting activity, but are now becoming more commonplace as copyright collectives such as the RIAA are increasingly targeting the file sharing home Internet user. Thus far, however, most such cases against file sharers have been settled out of court. (See: Legal aspects of file sharing)
+
+In most jurisdictions the copyright holder must bear the cost of enforcing copyright. This will usually involve engaging legal representation, administrative or court costs. In light of this, many copyright disputes are settled by a direct approach to the infringing party in order to settle the dispute out of court.
+
+"...by 1978, the scope was expanded to apply to any 'expression' that has been 'fixed' in any medium, this protection granted automatically whether the maker wants it or not, no registration required."[38]
+
+Copyright infringement
+Main article: Copyright infringement
+For a work to be considered to infringe upon copyright, its use must have occurred in a nation that has domestic copyright laws or adheres to a bilateral treaty or established international convention such as the Berne Convention or WIPO Copyright Treaty. Improper use of materials outside of legislation is deemed "unauthorized edition", not copyright infringement.[39]
+
+Copyright infringement most often occurs to software, film and music. However, infringement upon books and other text works remains common, especially for educational reasons. Statistics regarding the effects of copyright infringement are difficult to determine. Studies have attempted to determine whether there is a monetary loss for industries affected by copyright infringement by predicting what portion of pirated works would have been formally purchased if they had not been freely available.[40] Other reports indicate that copyright infringement does not have an adverse effect on the entertainment industry, and can have a positive effect.[41] In particular, a 2014 university study concluded that free music content, accessed on YouTube, does not necessarily hurt sales, instead has the potential to increase sales.[42]
+
+Rights granted
+Exclusive rights
+Several exclusive rights typically attach to the holder of a copyright:
+
+protection of the work
+to determine and decide how, and under what conditions, the work may be marketed, publicly displayed, reproduced, distributed etc.
+to produce copies or reproductions of the work and to sell those copies (including, typically, electronic copies)
+to import or export the work
+to create derivative works (works that adapt the original work)
+to perform or display the work publicly
+to sell or cede these rights to others
+to transmit or display by radio, video or internet.[43]
+The basic right when a work is protected by copyright is, that the holder may determine and decide how and under what conditions the protected work may be used by others. This includes the right to decide to distribute the work for free. This part of copyright is often overseen. The phrase "exclusive right" means that only the copyright holder is free to exercise those rights, and others are prohibited from using the work without the holder's permission. Copyright is sometimes called a "negative right", as it serves to prohibit certain people (e.g., readers, viewers, or listeners, and primarily publishers and would be publishers) from doing something they would otherwise be able to do, rather than permitting people (e.g., authors) to do something they would otherwise be unable to do. In this way it is similar to the unregistered design right in English law and European law. The rights of the copyright holder also permit him/her to not use or exploit their copyright, for some or all of the term. There is, however, a critique which rejects this assertion as being based on a philosophical interpretation of copyright law that is not universally shared. There is also debate on whether copyright should be considered a property right or a moral right.[44]
+
+If a pictorial, graphic or sculptural work is a useful article, it is copyrighted only if its aesthetic features are separable from its utilitarian features. A useful article is an article having an intrinsic utilitarian function that is not merely to portray the appearance of the article or to convey information. They must be separable from the functional aspect to be copyrighted.[45]
+
+Duration
+Main articles: Copyright term and List of countries' copyright length
+
+Expansion of U.S. copyright law (currently based on the date of creation or publication).
+Copyright subsists for a variety of lengths in different jurisdictions. The length of the term can depend on several factors, including the type of work (e.g. musical composition, novel), whether the work has been published, and whether the work was created by an individual or a corporation. In most of the world, the default length of copyright is the life of the author plus either 50 or 70 years. In the United States, the term for most existing works is a fixed number of years after the date of creation or publication. Under most countries' laws (for example, the United States[46] and the United Kingdom[47]), copyrights expire at the end of the calendar year in question.
+
+The length and requirements for copyright duration are subject to change by legislation, and since the early 20th century there have been a number of adjustments made in various countries, which can make determining the duration of a given copyright somewhat difficult. For example, the United States used to require copyrights to be renewed after 28 years to stay in force, and formerly required a copyright notice upon first publication to gain coverage. In Italy and France, there were post-wartime extensions that could increase the term by approximately 6 years in Italy and up to about 14 in France. Many countries have extended the length of their copyright terms (sometimes retroactively). International treaties establish minimum terms for copyrights, but individual countries may enforce longer terms than those.[48]
+
+In the United States, all books and other works published before 1923 have expired copyrights and are in the public domain.[49] In addition, works published before 1964 that did not have their copyrights renewed 28 years after first publication year also are in the public domain. Hirtle points out that the great majority of these works (including 93% of the books) were not renewed after 28 years and are in the public domain.[50] Books originally published outside the US by non-Americans are exempt from this renewal requirement, if they are still under copyright in their home country.
+
+But if the intended exploitation of the work includes publication (or distribution of derivative work, such as a film based on a book protected by copyright) outside the U.S., the terms of copyright around the world must be considered. If the author has been dead more than 70 years, the work is in the public domain in most, but not all, countries.
+
+In 1998, the length of a copyright in the United States was increased by 20 years under the Copyright Term Extension Act. This legislation was strongly promoted by corporations which had valuable copyrights which otherwise would have expired, and has been the subject of substantial criticism on this point.[51]
+
+Limitations and exceptions
+Main article: Limitations and exceptions to copyright
+In many jurisdictions, copyright law makes exceptions to these restrictions when the work is copied for the purpose of commentary or other related uses. US copyright does NOT cover names, title, short phrases or Listings (such as ingredients, recipes, labels, or formulas).[52] However, there are protections available for those areas copyright does not cover ? such as trademarks and patents.
+
+There are some exceptions to what copyright will protect. Copyright will not protect:
+
+Names of products
+Names of businesses, organizations, or groups
+Pseudonyms of individuals
+Titles of works
+Catchwords, catchphrases, mottoes, slogans, or short advertising expressions
+Listings of ingredients in recipes, labels, and formulas, though the directions can be copyrighted
