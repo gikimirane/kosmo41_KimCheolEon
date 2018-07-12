@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
 
-public class MultiServer {
+public class MulitiServer2 {
 
 	public static void main(String[] args) {
 
@@ -12,39 +12,50 @@ public class MultiServer {
 		String s = "";
 
 		try {
-			serverSocket = new ServerSocket(8080);
+			serverSocket = new ServerSocket(9999);
 			System.out.println("서버가 시작되었습니다.");
 
 			socket = serverSocket.accept();
 			System.out.println(socket.getInetAddress() + " : " + socket.getPort());
 
 			out = new PrintWriter(socket.getOutputStream(), true);
-			in = new BufferedReader(
-					new InputStreamReader(
-							socket.getInputStream()));
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-			///////////////////////////
-			s = in.readLine();
-			System.out.println(s);
-			out.println(s);
-			///////////////////////////
+			//////////////////////////////////
+			while (in != null) {
+				s = in.readLine();
+
+				if (s == null) {
+					break;
+				}
+				if (s.equals("q") || s.equals("Q")) {
+					break;
+				}
+				System.out.println(">> " + s);
+				out.println(">> " + s);
+			}
+			//////////////////////////////////
 
 			System.out.println("Bye...");
 
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			System.out.println("예외1 : " + e);
+			// e.printStackTrace();
 		} finally {
 			try {
 				in.close();
 				out.close();
-				
+
 				socket.close();
 				serverSocket.close();
 			} catch (Exception e2) {
 				// TODO: handle exception
+				System.out.println("예외2 : " + e2);
 				e2.printStackTrace();
 			}
 		}
+
 	}
+
 }
