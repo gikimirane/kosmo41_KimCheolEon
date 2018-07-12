@@ -2,13 +2,13 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class ClientSender extends Thread {
+public class Sender extends Thread {
 	Socket socket;
 	PrintWriter out = null;
 	String name;
 
 	// 생성자
-	public ClientSender(Socket socket, String name) {
+	public Sender(Socket socket, String name) {
 		this.socket = socket;
 		try {
 			out = new PrintWriter(this.socket.getOutputStream(), true);
@@ -30,20 +30,21 @@ public class ClientSender extends Thread {
 			while (out != null) {
 				try {
 					String s2 = s.nextLine();
-					
+
 					if (s2.equals("q") || s2.equals("Q")) {
-						out.println(s2);
+						out.println(name + s2);
 						break;
 					} else {
-						out.println(name + "=>" + s2);
+						out.println(name + ":" + s2);
 					}
+
 				} catch (Exception e) {
 					System.out.println("예외S1 : " + e);
 				}
 			}
-			
+
 			out.close();
-			
+
 			socket.close();
 		} catch (Exception e) {
 			System.out.println("예외S2 : " + e);

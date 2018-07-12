@@ -16,11 +16,11 @@ public class Client {
 			System.out.println("서버와 연결이 되었습니다...........");
 			
 			//서버에서 보내는 메시지를 사용자의 콘솔에 출력하는 쓰레드
-			Thread receiver = new ClientReceiver(socket);
+			Thread receiver = new Receiver(socket);
 			receiver.start();
 			
 			//사용자로부터 얻은 문자열을 서버로 전송해주는 역할을 하는 쓰레드
-			Thread sender = new ClientSender(socket, s_name);
+			Thread sender = new Sender(socket, s_name);
 			sender.start();
 			
 		} catch (Exception e) {

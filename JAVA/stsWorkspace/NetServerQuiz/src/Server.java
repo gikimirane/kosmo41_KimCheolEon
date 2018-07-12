@@ -55,6 +55,98 @@ public class Server {
 		}
 	}
 
+	public void CommandProcess(String message) {
+		message = message.trim();
+		String cmd = null;
+		int check = message.indexOf(":");
+		int check2 = message.indexOf(" ");
+
+		String clientId;
+		clientId = message.substring(0, check);
+
+		if (check2 != -1) {
+			cmd = message.substring(check + 2, check2);
+			message = message.substring(check2).trim();
+
+		} else {
+			cmd = message.substring(check + 2);
+			message = "";
+		}
+
+		switch (cmd.toLowerCase()) {
+
+		case "list":
+
+			CmdList(clientId);
+			break;
+
+		case "to":
+			CmdWhisper(clientId, message);
+			break;
+
+		default:
+			CmdDefault(clientId);
+
+		}
+	}
+
+	public void CmdList(String name) {
+		String sResult = "";
+
+		try {
+			// Key만 담고있는 컬렉션 인스턴스 생성
+			Set<String> keys = clientMap.keySet();
+
+			// 전체 Key 출력
+			for (String n : keys) {
+				if (sResult == "") {
+					sResult = n;
+				} else {
+					sResult = sResult + ", " + n;
+				}
+			}
+
+			PrintWriter it_out = (PrintWriter) clientMap.get(name);
+			it_out.println(sResult);
+
+		} catch (Exception e) {
+			System.out.println("예외 : " + e);
+		}
+	}
+
+	public void CmdWhisper(String name, String msg) {
+		int check2 = msg.indexOf(" ");
+		String sRecv = msg.substring(0,check2);
+		String SMessage = msg.substring(check2).trim();
+//		
+//		System.out.println("발신자: " + name);
+//		System.out.println("수신자 :[" + sRecv + "]");
+//		System.out.println("메시지: " + SMessage);
+		
+		try {
+			PrintWriter it_out = (PrintWriter) clientMap.get(sRecv);
+
+			it_out.println("From ["+ name +"] : " + SMessage);
+		} catch (Exception e) {
+			System.out.println("예외 : " + e);
+		}
+		
+		
+		
+	}
+
+	public void CmdDefault(String name) {
+
+		try {
+			PrintWriter it_out = (PrintWriter) clientMap.get(name);
+
+			it_out.println("알수없는 명령어 입니다.");
+		} catch (Exception e) {
+			System.out.println("예외 : " + e);
+		}
+
+	}
+
 	public static void main(String[] args) {
 		Server ms = new Server();
 		ms.init();
@@ -99,10 +191,23 @@ public class Server {
 
 					System.out.println(s);
 
+					// int check = s.indexOf(":");
 					if (s.equals("q") || s.equals("Q")) {
 						break;
 					}
-					sendAllMsg(s);
+					// s 를 파싱 해서 명령어가 있는지 판단
+					// 명령어 있으면 명령어 분리
+					// if 명령어 then
+					// { CommandProcess}
+					// else { sendAllMsg}
+
+					// 정규식 - .* .* 하나이상의 문자를 포함하는 문자열
+					if (s.matches(".*:/.*") == true) {
+						// sendAllMsg("인터셉트ALL");
+						CommandProcess(s);
+					} else {
+						sendAllMsg(s);
+					}
 				}
 
 			} catch (Exception e) {
