@@ -2,10 +2,6 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-//쬐끔 바꿔놔서, args[0] / args[1] 따로 받아서 넘김
-// args[0] - ip
-// args[1] - port
-
 public class MuiltiClient5 {
 
 	public static void main(String[] args) {
@@ -14,23 +10,16 @@ public class MuiltiClient5 {
 		Scanner s = new Scanner(System.in);
 		String s_name = s.nextLine();
 
-		// PrintWriter out = null;
-		// BufferedReader in = null;
-
 		try {
-			// 소켓 객체 생성
 			String ServerIP = "localhost";
 			Socket socket = new Socket(ServerIP, 9999);
 			// Socket socket = new Socket(args[0], Port);
 			System.out.println("서버와 연결이 되었습니다.........");
 
-///////////////////////////////////////////////////////////////////
-			
 			// 서버에서 보내는 메시지를 사용자 콘솔에 출력하는 "쓰레드"
 			Thread receiver = new Receiver5(socket);
 			receiver.start();
 
-			
 			// 사용자로부터 얻은 문자열 서버로 전송하는 스레드
 			Thread sender = new Sender5(socket, s_name);
 			sender.start();

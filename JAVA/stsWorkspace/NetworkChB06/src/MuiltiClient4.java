@@ -17,11 +17,11 @@ public class MuiltiClient4 {
 		PrintWriter out = null;
 		// BufferedReader in = null;
 
-		int Port = Integer.parseInt(args[1]);
+//		int Port = Integer.parseInt(args[1]);
 
 		try {
 			// 소켓 객체 생성
-			Socket socket = new Socket(args[0], Port);
+			Socket socket = new Socket(args[0], 9999);
 			System.out.println("서버와 연결이 되었습니다.........");
 
 			/////////////////////////////////////////
