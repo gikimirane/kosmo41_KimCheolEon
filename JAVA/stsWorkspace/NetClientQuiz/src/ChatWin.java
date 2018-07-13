@@ -19,6 +19,8 @@ public class ChatWin extends JFrame {
 	Socket socket;
 	PrintWriter out = null;
 	String name;
+	
+	boolean Whisper = false;
 
 	ChatWin(Socket socket, String name) {
 
@@ -55,6 +57,8 @@ public class ChatWin extends JFrame {
 
 	// Inner Class TextHandler
 	class TextHandler implements ActionListener {
+		
+		String Header = "";
 
 		public void actionPerformed(ActionEvent e) {
 			String msg = tf.getText();
@@ -68,7 +72,7 @@ public class ChatWin extends JFrame {
 				} catch (IOException e1) {
 				}
 			} else {
-				out.println(name + ":" + msg);
+				out.println(Header + name + ":" + msg);
 			}
 
 			tf.setText("");
