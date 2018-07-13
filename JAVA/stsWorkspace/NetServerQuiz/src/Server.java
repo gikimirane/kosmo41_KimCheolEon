@@ -65,16 +65,16 @@ public class Server {
 
 			String clientId;
 			clientId = message.substring(0, check);
-			
+
 			System.out.println("check \':\' : " + check);
 			System.out.println("check2 \' \' : " + check2);
 
 			if (check2 != -1) {
 				// case : to
 				cmd = message.substring(check + 2, check2);
-				message = message.substring(check2).trim();				
+				message = message.substring(check2).trim();
 			} else {
-				//case : list
+				// case : list
 				cmd = message.substring(check + 2);
 				message = "";
 			}
@@ -125,27 +125,26 @@ public class Server {
 
 	public void CmdWhisper(String name, String msg) {
 		int check2 = msg.indexOf(" ");
-		
-//		if(check2 != -1) {
-			String sRecv = msg.substring(0, check2);
-			String SMessage = msg.substring(check2).trim();
 
-			// System.out.println("발신자: " + name);
-			// System.out.println("수신자 :[" + sRecv + "]");
-			// System.out.println("메시지: " + SMessage);
+		// if(check2 != -1) {
+		String sRecv = msg.substring(0, check2);
+		String SMessage = msg.substring(check2).trim();
 
-			try {
-				PrintWriter it_out = (PrintWriter) clientMap.get(sRecv);
+		// System.out.println("발신자: " + name);
+		// System.out.println("수신자 :[" + sRecv + "]");
+		// System.out.println("메시지: " + SMessage);
 
-				it_out.println("From [" + name + "] : " + SMessage);
-			} catch (Exception e) {
-				System.out.println("예외[Server/CmdWhisper] : " + e);
-			}
-//		}else {
-			
-			
-//		}
-		
+		try {
+			PrintWriter it_out = (PrintWriter) clientMap.get(sRecv);
+
+			it_out.println("From [" + name + "] : " + SMessage);
+		} catch (Exception e) {
+			System.out.println("예외[Server/CmdWhisper] : " + e);
+		}
+		// }else {
+
+		// }
+
 	}
 
 	public void CmdDefault(String name) {
@@ -191,9 +190,9 @@ public class Server {
 		@Override
 		public void run() {
 			String name = "";
-			
+
 			boolean Whisper = false;
-			
+
 			try {
 				name = in.readLine();
 
