@@ -28,12 +28,12 @@ public class Server {
 				msr.start();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("예외[Server/init] : " + e);
 		} finally {
 			try {
 				serverSocket.close();
 			} catch (Exception e2) {
-				e2.printStackTrace();
+				System.out.println("예외[Server/initCose] : " + e2);
 			}
 		}
 	}
@@ -50,44 +50,53 @@ public class Server {
 
 				it_out.println(msg);
 			} catch (Exception e) {
-				System.out.println("예외 : " + e);
+				System.out.println("예외[Server/sendAllMsg] : " + e);
 			}
 		}
 	}
 
 	public void CommandProcess(String message) {
-		message = message.trim();
-		String cmd = null;
-		int check = message.indexOf(":");
-		int check2 = message.indexOf(" ");
+		try {
+			System.out.println("CommandProcess : " + message);
+			message = message.trim();
+			String cmd = null;
+			int check = message.indexOf(":");
+			int check2 = message.indexOf(" ");
 
-		String clientId;
-		clientId = message.substring(0, check);
+			String clientId;
+			clientId = message.substring(0, check);
 
-		if (check2 != -1) {
-			cmd = message.substring(check + 2, check2);
-			message = message.substring(check2).trim();
+			if (check2 != -1) {
+				cmd = message.substring(check + 2, check2);
+				message = message.substring(check2).trim();
+			} else {
+				cmd = message.substring(check + 2);
+				message = "";
+			}
 
-		} else {
-			cmd = message.substring(check + 2);
-			message = "";
+			switch (cmd.toLowerCase()) {
+
+			case "list":
+
+				CmdList(clientId);
+				break;
+
+			case "to":
+				// System.out.println("여기 닿긴 함?");
+				// System.out.println(clientId);
+				// System.out.println(message);
+				CmdWhisper(clientId, message);
+
+				break;
+
+			default:
+				CmdDefault(clientId);
+
+			}
+		} catch (Exception e) {
+			System.out.println("예외[Server/CommandProcess] : " + e);
 		}
 
-		switch (cmd.toLowerCase()) {
-
-		case "list":
-
-			CmdList(clientId);
-			break;
-
-		case "to":
-			CmdWhisper(clientId, message);
-			break;
-
-		default:
-			CmdDefault(clientId);
-
-		}
 	}
 
 	public void CmdList(String name) {
@@ -110,29 +119,27 @@ public class Server {
 			it_out.println(sResult);
 
 		} catch (Exception e) {
-			System.out.println("예외 : " + e);
+			System.out.println("예외[Server/CmdList] : " + e);
 		}
 	}
 
 	public void CmdWhisper(String name, String msg) {
 		int check2 = msg.indexOf(" ");
-		String sRecv = msg.substring(0,check2);
+		String sRecv = msg.substring(0, check2);
 		String SMessage = msg.substring(check2).trim();
-//		
-//		System.out.println("발신자: " + name);
-//		System.out.println("수신자 :[" + sRecv + "]");
-//		System.out.println("메시지: " + SMessage);
-		
+
+		// System.out.println("발신자: " + name);
+		// System.out.println("수신자 :[" + sRecv + "]");
+		// System.out.println("메시지: " + SMessage);
+
 		try {
 			PrintWriter it_out = (PrintWriter) clientMap.get(sRecv);
 
-			it_out.println("From ["+ name +"] : " + SMessage);
+			it_out.println("From [" + name + "] : " + SMessage);
 		} catch (Exception e) {
-			System.out.println("예외 : " + e);
+			System.out.println("예외[Server/CmdWhisper] : " + e);
 		}
-		
-		
-		
+
 	}
 
 	public void CmdDefault(String name) {
@@ -142,7 +149,7 @@ public class Server {
 
 			it_out.println("알수없는 명령어 입니다.");
 		} catch (Exception e) {
-			System.out.println("예외 : " + e);
+			System.out.println("예외[Server/CmdDefault] : " + e);
 		}
 
 	}
@@ -161,11 +168,15 @@ public class Server {
 		PrintWriter out = null;
 		BufferedReader in = null;
 
+		boolean Whisper = false;
+
 		// 생성자
 		public MultiServerT(Socket socket) {
 			this.socket = socket;
 			try {
+				// 서버에서 Out은 Client 것
 				out = new PrintWriter(this.socket.getOutputStream(), true);
+				// Read는 서버꺼
 				in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			} catch (Exception e) {
 				System.out.println("예외 : " + e);
@@ -203,15 +214,15 @@ public class Server {
 
 					// 정규식 - .* .* 하나이상의 문자를 포함하는 문자열
 					if (s.matches(".*:/.*") == true) {
-						// sendAllMsg("인터셉트ALL");
 						CommandProcess(s);
 					} else {
 						sendAllMsg(s);
 					}
+
 				}
 
 			} catch (Exception e) {
-				System.out.println("예외 : " + e);
+				System.out.println("예외[Server/수신부] : " + e);
 			} finally {
 				// 예외가 발생할 때 퇴장. 해쉬맵에서 해당 데이터 제거
 				// 보통 종료하거나 나가면 java.net.SocketException: 예외발생

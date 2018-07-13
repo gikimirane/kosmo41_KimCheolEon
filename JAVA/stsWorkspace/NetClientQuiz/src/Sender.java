@@ -32,9 +32,12 @@ public class Sender extends Thread {
 					String s2 = s.nextLine();
 
 					if (s2.equals("q") || s2.equals("Q")) {
-						out.println(name + s2);
+//						out.println(name + s2);
 						break;
 					} else {
+						//	명령어|상대방ID|대화내용
+						//	/chat|all|s2
+						//	/list||
 						out.println(name + ":" + s2);
 					}
 
