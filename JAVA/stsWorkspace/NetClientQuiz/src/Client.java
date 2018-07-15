@@ -16,6 +16,7 @@ public class Client {
 				ServerIP = args[0];
 			}
 			Socket socket = new Socket(ServerIP, 9999);
+			System.out.println(socket.getInetAddress() + ":" + socket.getPort());
 			System.out.println("서버와 연결이 되었습니다...........");
 
 			// 서버에서 보내는 메시지를 사용자의 콘솔에 출력하는 쓰레드

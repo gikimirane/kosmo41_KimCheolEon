@@ -2,6 +2,20 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+/*Physical Port
+Logical Port - File Handler
+
+서버 - 피지컬 리슨;
+클라이언트 - 커넥트
+서버 - 억셉트 - 스레드로 로지컬포트랑 정보 날림
+서로 다른 파일핸들러(혹은 로지컬포트를 본다)
+
+q1. 프로그램당 포트는 하나사용, 한컴퓨터에서 서버,클라이언트? : 파일핸들러로 다른걸 보니까
+q2. 서버측에서 겟포트하면 뜨는 포트번호는 왜 9999가 아니라 다른게 나오는가? : 위와 같다
+
+궁금증 해결 완
+*/
+
 public class Server {
 	ServerSocket serverSocket = null;
 	Socket socket = null;
