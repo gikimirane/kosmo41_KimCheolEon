@@ -29,12 +29,12 @@ create table ZIPCODE_INCHEON(
 
 select count (*) from ZIPCODE_INCHEON;
 
-delete from ZIPCODE_INCHEON; --Æ² ³²±â°í Á¦°Å
+delete from ZIPCODE_INCHEON; --í‹€ ë‚¨ê¸°ê³  ì œê±°
 drop table ZIPCODE_INCHEON;
-commit; --Àû¿ë
+commit; --ì ìš©
 
 
 select zipcode, sido, sigungu, doroname, buildnum1, buildnum2, name3, hangname, jibun1, jibun2
     from zipcode_incheon
-        where sigungu='¹ÌÃßÈ¦±¸' and doroname like '¿ì°¢·Î' and jibun1=104
+        where sigungu='ë¯¸ì¶”í™€êµ¬' and doroname like 'ìš°ê°ë¡œ' and jibun1=104
         order by doroname;

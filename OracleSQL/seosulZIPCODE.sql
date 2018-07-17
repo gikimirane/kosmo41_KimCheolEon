@@ -37,7 +37,7 @@ ALTER TABLE ZIPCODE MODIFY hangname varchar2(50);
 
 select count (*) from ZIPCODE;
 
-delete frome ZIPCODE; --Æ² ³²±â°í Á¦°Å
-commit; --Àû¿ë
+delete frome ZIPCODE; --í‹€ ë‚¨ê¸°ê³  ì œê±°
+commit; --ì ìš©
 
---drop table ZIPCODE; --¿ÏÀüÈ÷ drop
+--drop table ZIPCODE; --ì™„ì „íˆ drop

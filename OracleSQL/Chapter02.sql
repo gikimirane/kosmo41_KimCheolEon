@@ -9,14 +9,14 @@ select * from employee
 --    where ename = 'SMITH';
 --    where job = 'ANALYST';
 --    where MANAGER = 7566;
-    where hiredate <= '1981/01/01'; --³¯Â¥ºñ±³µµ °¡´É
+    where hiredate <= '1981/01/01'; --ë‚ ì§œë¹„êµë„ ê°€ëŠ¥
 
 select * from employee
 --    where dno=10 and job='MANAGER';
 --    where dno=10 or job='MANAGER';
     where not dno=10;
 
---¹«¾ùÀÌ ´õ ¿ì¼öÇÑ °ÍÀÏ±î?, ÆíÀÇ¼ºÀÇ Â÷ÀÌÀÏ±î?
+--ë¬´ì—‡ì´ ë” ìš°ìˆ˜í•œ ê²ƒì¼ê¹Œ?, íŽ¸ì˜ì„±ì˜ ì°¨ì´ì¼ê¹Œ?
 select *from employee
     where salary between 1000 and 1500;
 --    where salary>=1000 and salary<=1500;
@@ -40,4 +40,4 @@ select *from employee
 --    order by salary desc;
 --    order by ename asc;    
 --    order by hiredate desc;
---    order by salary desc, ename asc; --salary °¡ °°À» ½Ã, ÀÌ¸§ÀÇ Á¤·Ä Á¶°Ç Ãß°¡
+--    order by salary desc, ename asc; --salary ê°€ ê°™ì„ ì‹œ, ì´ë¦„ì˜ ì •ë ¬ ì¡°ê±´ ì¶”ê°€

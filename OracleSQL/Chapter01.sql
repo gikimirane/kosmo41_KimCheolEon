@@ -12,7 +12,7 @@
 --    from employee;
 
 --select ename, salary, job, dno, nvl(commission, 0), 
---        salary*12, salary*12+nvl(commission, 0) as "¿¬ ºÀ Å× ÀÌ ºí"
+--        salary*12, salary*12+nvl(commission, 0) as "ì—°ë´‰"
 --    from employee;
 
 --select dno

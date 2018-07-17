@@ -1,19 +1,19 @@
 select count (*) from zipcode
-    where bupname = '½Å»çµ¿';
+    where bupname = 'ì‹ ì‚¬ë™';
     
 select distinct sigungu from zipcode
-    where bupname = '½Å»çµ¿';
+    where bupname = 'ì‹ ì‚¬ë™';
     
 select count (*) from zipcode
-    where bupname like '_½Å%';
+    where bupname like '_ì‹ %';
 
 select * from zipcode
-    where bupname like '_½Å%';
+    where bupname like '_ì‹ %';
 
 select distinct sigungu from zipcode
-    where hangname = '½Å»çµ¿';
+    where hangname = 'ì‹ ì‚¬ë™';
 
 select distinct doroname from zipcode
-    where doroname like '°³Æ÷·Î%'
+    where doroname like 'ê°œí¬ë¡œ%'
     order by doroname;
     
