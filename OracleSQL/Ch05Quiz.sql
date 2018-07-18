@@ -68,24 +68,58 @@ select job, min(salary), max(salary)
 
 --07.각 부서에 대해 부서번호, 사원수, 부서 내의 모든 사원의 평균 급여를 출력하시오. 
 --칼럼의 별칭은 결과 화면과 동일하게 지정하고 평균 급여는 소수점 둘째 자리로 반올림하시오.
+--내가 한 것 이하 해설
 select dno, count(*), round(avg(salary), 2) 
     from employee
         group by dno;
+        
+        
+select dno as DNO,
+    count(*) as "Numbser of People",
+    to_char(avg(salary), '999,999.99') as Salary
+        from employee
+            group by dno
+                order by dno;
 
 --08.각 부서에 대해 부서번호 이름, 지역명, 사원수, 부서내의 모든 사원의 평균 급여를 출력하시오. 
 --칼럼의 별칭은 결과 화면과 동일하게 지정하고 평균 급여는 정수로 반올림하시오.
 --모르겠다
+--해설 : DEPARTMENT 봐서 조건문형식으로 때려야함;
 select department.dno
     from department;
+    
+select dno,
+    decode(dno, 10, 'ACCOUNTING',
+                20, 'RESEARCH',
+                30, 'SALES',
+                40, 'OPERATIONS') as dname,
+    decode(dno, 10, 'NEW YORK',
+                20, 'DALLAS',
+                30, 'CHICAGO',
+                40, 'BOSTON') as location,
+                count (*),
+--                to_char(avg(salary), '999,999,999')
+                round(avg(salary))
+                    from employee
+                        group by dno
+                            order by dno;
 
 --09.업무를 표시한 다음 해당 업무에 대해 부서번호별 급여 및 부서 10, 20, 30의 급여 총액을 각각 출력하시오.
 --각 칼럼에 별칭은 각각 Job, 부서 10, 부서 20, 부서 30, 총액으로 지정하시오.
 --모르겠음
 select job, dno,
-    sum(salary) as "부서 10",
-    sum(salary) as "부서 20",
-    sum(salary) as "부서 30",
+    nvl(decode(dno, 10, sum(salary)), 0) as "부서 10",
+    nvl(decode(dno, 20, sum(salary)), 0) as "부서 20",
+    nvl(decode(dno, 30, sum(salary)), 0) as "부서 30",
     sum(salary) as "총액"
-        from employee group by job, dno;
-        
-select job, dno from employee group by job, dno;
+        from employee group by job, dno
+            order by job, dno;
+    
+--case when then 으로 바꿔볼까?        
+select job, dno,
+    decode(dno, 10, sum(salary)) as "부서 10",
+    decode(dno, 20, sum(salary)) as "부서 20",
+    decode(dno, 30, sum(salary)) as "부서 30",
+    sum(salary) as "총액"
+        from employee group by job, dno
+            order by job, dno;            
