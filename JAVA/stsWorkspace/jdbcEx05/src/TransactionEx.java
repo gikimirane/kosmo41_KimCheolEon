@@ -27,19 +27,19 @@ public class TransactionEx {
 			
 			//----------------------------------------------------
 			
-			String sql = "insert into test3 values('김철언1', '11111')";
+			String sql = "insert into test3 values((select count(*)+1 from test3), '홍길동', '11111')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.executeUpdate();
 			System.out.println("11111");
 
 			
-			sql = "insert into test3 values('김철언2', '22222')";
+			sql = "insert into test3 values((select count(*)+1 from test3), '전우치', '22222')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.executeUpdate();
 			System.out.println("22222");
 			
 //			sql = "insert into test3 values('손오공', '33333'";		//고의적 에러유도 - ) 빠짐
-			sql = "insert into test3 values('김철언3', '33333')";
+			sql = "insert into test3 values((select max(seqno)+1 from test3), '손오공', '33333')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.executeUpdate();
 			System.out.println("33333");
