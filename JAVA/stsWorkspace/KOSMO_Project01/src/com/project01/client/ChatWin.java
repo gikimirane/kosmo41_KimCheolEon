@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
+import java.net.URLEncoder;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -50,7 +52,7 @@ public class ChatWin extends JFrame {
 			this.name = name;
 
 			// 서버에 입력한 사용자이름을 보내준다.
-			out.println(name);
+			out.println(URLEncoder.encode(name, "UTF-8"));
 
 		} catch (Exception e) {
 			System.out.println("예외S3:" + e);
@@ -74,7 +76,13 @@ public class ChatWin extends JFrame {
 				} catch (IOException e1) {
 				}
 			} else {
-				out.println(Header + name + ":" + msg);
+//				out.println(Header + name + ":" + msg);
+				try {
+					out.println(URLEncoder.encode(Header + name + ":" + msg, "UTF-8"));
+				} catch (UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 
 			tf.setText("");
