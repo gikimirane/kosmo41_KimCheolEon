@@ -48,51 +48,33 @@ public class Server {
 		while (it.hasNext()) {
 			try {
 				PrintWriter it_out = (PrintWriter) clientMap.get(it.next());
-				// 이거 안씀
 
-				it_out.println(msg);
+				it_out.println(URLEncoder.encode(msg, "UTF-8"));
 			} catch (Exception e) {
 				System.out.println("예외[Server/sendAllMsg] : " + e);
 			}
 		}
 	}
 
-	public void CommandProcess(String message) {
+	public void CommandProcess(String command, String name, String body) {
 		try {
-			System.out.println("CommandProcess : " + message);
-			message = message.trim();
-			String cmd = null;
-			int check = message.indexOf(":");
-			int check2 = message.indexOf(" ");
+			
+			System.out.println(command);
+			System.out.println(name);
+			System.out.println(body);
 
-			String clientId;
-			clientId = message.substring(0, check);
+			switch (command) {
 
-			System.out.println("check \':\' : " + check);
-			System.out.println("check2 \' \' : " + check2);
-
-			if (check2 != -1) {
-				// case : to
-				cmd = message.substring(check + 2, check2);
-				message = message.substring(check2).trim();
-			} else {
-				// case : list
-				cmd = message.substring(check + 2);
-				message = "";
-			}
-
-			switch (cmd.toLowerCase()) {
-
-			case "list":
-				CmdList(clientId);
+			case "/list":
+				CmdList(name);
 				break;
 
-			case "to":
-				CmdWhisper(clientId, message);
+			case "/to":
+				CmdWhisper(body);
 				break;
 
 			default:
-				CmdDefault(clientId);
+				CmdDefault(name);
 
 			}
 		} catch (Exception e) {
@@ -116,37 +98,34 @@ public class Server {
 					sResult = sResult + ", " + n;
 				}
 			}
-
+			
 			PrintWriter it_out = (PrintWriter) clientMap.get(name);
-			it_out.println(sResult);
+			it_out.println(URLEncoder.encode(sResult.toString(), "UTF-8"));
 
 		} catch (Exception e) {
 			System.out.println("예외[Server/CmdList] : " + e);
 		}
 	}
 
-	public void CmdWhisper(String name, String msg) {
-		int check2 = msg.indexOf(" ");
+	public void CmdWhisper(String msg) {
 
-		// if(check2 != -1) {
-		String sRecv = msg.substring(0, check2);
-		String SMessage = msg.substring(check2).trim();
+		StringTokenizer to = new StringTokenizer(msg, " ");
+		to.nextToken();
+		to.nextToken();
+		to.nextToken();
+		String toName = to.nextToken();
+		String toBody = to.nextToken("").trim();
 
-		// System.out.println("발신자: " + name);
-		// System.out.println("수신자 :[" + sRecv + "]");
-		// System.out.println("메시지: " + SMessage);
+		// System.out.println("[" + toName + "]");
+		// System.out.println("[" + toBody + "]");
 
 		try {
-			PrintWriter it_out = (PrintWriter) clientMap.get(sRecv);
+			PrintWriter it_out = (PrintWriter) clientMap.get(toName);
 
-			it_out.println("From [" + name + "] : " + SMessage);
+			it_out.println(URLEncoder.encode("From [" + toName + "] : " + toBody, "UTF-8"));
 		} catch (Exception e) {
 			System.out.println("예외[Server/CmdWhisper] : " + e);
 		}
-		// }else {
-
-		// }
-
 	}
 
 	public void CmdDefault(String name) {
@@ -154,18 +133,27 @@ public class Server {
 		try {
 			PrintWriter it_out = (PrintWriter) clientMap.get(name);
 
-			it_out.println("알수없는 명령어 입니다.");
+			it_out.println(URLEncoder.encode("알수없는 명령어 입니다.", "UTF-8"));
 		} catch (Exception e) {
 			System.out.println("예외[Server/CmdDefault] : " + e);
 		}
 
 	}
+	
+	static {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		Server ms = new Server();
 		ms.init();
 	}
 
+<<<<<<< HEAD
 	////////////////////////////////////////////////////////////
 	// 내부클래스
 	// 클라이언트로부터 읽어온 메시지를 다른 클라이언트(socket)에 보내는 역할을 하는 메서드
@@ -253,5 +241,98 @@ public class Server {
 			}
 		}
 	}
+=======
+//	////////////////////////////////////////////////////////////
+//	// 내부클래스
+//	// 클라이언트로부터 읽어온 메시지를 다른 클라이언트(socket)에 보내는 역할을 하는 메서드
+//
+//	class MultiServerT extends Thread {
+//		Socket socket;
+//		PrintWriter out = null;
+//		BufferedReader in = null;
+//
+//		// 생성자
+//		public MultiServerT(Socket socket) {
+//			this.socket = socket;
+//			try {
+//				// 서버에서 Out은 Client 것
+//				out = new PrintWriter(this.socket.getOutputStream(), true);
+//				// Read는 서버꺼
+//				in = new BufferedReader(
+//						new InputStreamReader(
+//								this.socket.getInputStream(), "UTF-8"));
+//				
+//			} catch (Exception e) {
+//				System.out.println("예외 : " + e);
+//			}
+//		}
+//
+//		// 쓰레드를 사용하기 위해서 run() 메서드 재정의
+//		@Override
+//		public void run() {
+//			String name = "";
+//
+//			try {
+//				name = in.readLine();
+//				name = URLDecoder.decode(name, "UTF-8");
+//
+//				sendAllMsg(name + " 님이 입장하셨습니다.");
+//				// 현재 객체가 가지고 있는 소켓을 제외하고 다른 소켓(클라이언트)들에게 접속을 알림.
+//				clientMap.put(name, out); // 해쉬맵에 키를 name으로 출력스트림 객체를 저장.
+//				System.out.println("현재 접속자 수는 " + clientMap.size() + "명 입니다.");
+//
+//				// 입력스트림이 null이 아니면 반복.
+//				String s = "";
+//
+//				while (in != null) {
+//					// s = in.readLine();
+//					s = in.readLine();
+//					s = URLDecoder.decode(s, "UTF-8");
+//					
+//					System.out.println(s);
+//
+//					// int check = s.indexOf(":");
+//					if (s.equals("q") || s.equals("Q")) {
+//						break;
+//					}
+//
+//					// ------------------------------------------------------------
+//					StringTokenizer test = new StringTokenizer(s, " ");
+//					System.out.println(test.nextToken());
+//					System.out.println(test.nextToken());
+//					String tokenCommand = test.nextToken();
+//					System.out.println(tokenCommand);
+//
+//					if (tokenCommand.substring(0, 1).equals("/")) {
+//						CommandProcess(tokenCommand, name, s);
+//					} else {
+//						sendAllMsg(s);
+//					}
+//					// ------------------------------------------------------------
+//				}
+//
+//			} catch (
+//
+//			Exception e) {
+//				System.out.println("예외[Server/수신부] : " + e);
+//			} finally {
+//				// 예외가 발생할 때 퇴장. 해쉬맵에서 해당 데이터 제거
+//				// 보통 종료하거나 나가면 java.net.SocketException: 예외발생
+//				clientMap.remove(name);
+//				sendAllMsg(name + "님이 퇴장하셨습니다.");
+//				System.out.println("현재 접속자 수는 " + clientMap.size() + "명 입니다.");
+//
+//				try {
+//					in.close();
+//					out.close();
+//
+//					socket.close();
+//				} catch (Exception e2) {
+//					e2.printStackTrace();
+//				}
+//			}
+//		}
+//	}
+>>>>>>> a9fcf728c4ce50ead3871b4777fb16648fc3eafa
 
 }

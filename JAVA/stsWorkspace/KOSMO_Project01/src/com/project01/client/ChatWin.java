@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.URLEncoder;
+import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,8 +24,10 @@ public class ChatWin extends JFrame {
 	Socket socket;
 	PrintWriter out = null;
 	String name;
-	
-	boolean Whisper = false;
+
+	boolean WhisperCheck = false;
+	String WhisperName = "";
+	String WhisperBody = "";
 
 	ChatWin(Socket socket, String name) {
 
@@ -61,8 +64,6 @@ public class ChatWin extends JFrame {
 
 	// Inner Class TextHandler
 	class TextHandler implements ActionListener {
-		
-		String Header = "";
 
 		public void actionPerformed(ActionEvent e) {
 			String msg = tf.getText();
@@ -75,7 +76,31 @@ public class ChatWin extends JFrame {
 					socket.close();
 				} catch (IOException e1) {
 				}
+			}
+
+			StringTokenizer token = new StringTokenizer(msg, " ");
+
+			if (token.nextToken().equals("/to")) {
+				if (token.countTokens() == 0) {
+					System.out.println("고정귓속말 상대를 적어주세요");
+				} else {
+					WhisperName = token.nextToken();
+					System.out.println(WhisperName);
+					if (token.hasMoreTokens() == false) {
+						System.out.println("고정 귓속말 ON");
+					} else {
+						try {
+							out.println(URLEncoder.encode(name + " : " + msg, "UTF-8"));
+							System.out.println(name + " : " + msg);
+						} catch (UnsupportedEncodingException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				}
+
 			} else {
+<<<<<<< HEAD
 				out.println(Header + name + ":" + msg);
 //				try {
 //					out.println(URLEncoder.encode(Header + name + ":" + msg, "UTF-8"));
@@ -83,10 +108,16 @@ public class ChatWin extends JFrame {
 //					// TODO Auto-generated catch block
 //					e1.printStackTrace();
 //				}
+=======
+				try {
+					out.println(URLEncoder.encode(name + " : " + msg, "UTF-8"));
+				} catch (UnsupportedEncodingException e1) {
+					e1.printStackTrace();
+				}
+>>>>>>> a9fcf728c4ce50ead3871b4777fb16648fc3eafa
 			}
-
 			tf.setText("");
 		}
-	}
 
+	}
 }
