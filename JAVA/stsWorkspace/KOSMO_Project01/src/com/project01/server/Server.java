@@ -57,42 +57,21 @@ public class Server {
 		}
 	}
 
-	public void CommandProcess(String message) {
+	public void CommandProcess(String command, String name, String body) {
 		try {
-			System.out.println("CommandProcess : " + message);
-			message = message.trim();
-			String cmd = null;
-			int check = message.indexOf(":");
-			int check2 = message.indexOf(" ");
 
-			String clientId;
-			clientId = message.substring(0, check);
+			switch (command) {
 
-			System.out.println("check \':\' : " + check);
-			System.out.println("check2 \' \' : " + check2);
-
-			if (check2 != -1) {
-				// case : to
-				cmd = message.substring(check + 2, check2);
-				message = message.substring(check2).trim();
-			} else {
-				// case : list
-				cmd = message.substring(check + 2);
-				message = "";
-			}
-
-			switch (cmd.toLowerCase()) {
-
-			case "list":
-				CmdList(clientId);
+			case "/list":
+				CmdList(name);
 				break;
 
-			case "to":
-				CmdWhisper(clientId, message);
+			case "/to":
+				CmdWhisper(body);
 				break;
 
 			default:
-				CmdDefault(clientId);
+				CmdDefault(name);
 
 			}
 		} catch (Exception e) {
@@ -125,28 +104,25 @@ public class Server {
 		}
 	}
 
-	public void CmdWhisper(String name, String msg) {
-		int check2 = msg.indexOf(" ");
+	public void CmdWhisper(String msg) {
 
-		// if(check2 != -1) {
-		String sRecv = msg.substring(0, check2);
-		String SMessage = msg.substring(check2).trim();
+		StringTokenizer to = new StringTokenizer(msg, " ");
+		to.nextToken();
+		to.nextToken();
+		to.nextToken();
+		String toName = to.nextToken();
+		String toBody = to.nextToken("").trim();
 
-		// System.out.println("발신자: " + name);
-		// System.out.println("수신자 :[" + sRecv + "]");
-		// System.out.println("메시지: " + SMessage);
+		// System.out.println("[" + toName + "]");
+		// System.out.println("[" + toBody + "]");
 
 		try {
-			PrintWriter it_out = (PrintWriter) clientMap.get(sRecv);
+			PrintWriter it_out = (PrintWriter) clientMap.get(toName);
 
-			it_out.println("From [" + name + "] : " + SMessage);
+			it_out.println("From [" + toName + "] : " + toBody);
 		} catch (Exception e) {
 			System.out.println("예외[Server/CmdWhisper] : " + e);
 		}
-		// }else {
-
-		// }
-
 	}
 
 	public void CmdDefault(String name) {
@@ -193,23 +169,20 @@ public class Server {
 		public void run() {
 			String name = "";
 
-			boolean Whisper = false;
-
 			try {
-				//건드림
-				//name = in.readLine();
-				name = URLDecoder.decode(in.readLine(), "URF-8");
+				name = in.readLine();
 
-				sendAllMsg(name + "님이 입장하셨습니다.");
+				sendAllMsg(name + " 님이 입장하셨습니다.");
 				// 현재 객체가 가지고 있는 소켓을 제외하고 다른 소켓(클라이언트)들에게 접속을 알림.
 				clientMap.put(name, out); // 해쉬맵에 키를 name으로 출력스트림 객체를 저장.
 				System.out.println("현재 접속자 수는 " + clientMap.size() + "명 입니다.");
 
 				// 입력스트림이 null이 아니면 반복.
 				String s = "";
+
 				while (in != null) {
-//					s = in.readLine();
-					s = URLEncoder.encode(in.readLine(), "UTF-8");
+					// s = in.readLine();
+					s = in.readLine();
 
 					System.out.println(s);
 
@@ -217,22 +190,24 @@ public class Server {
 					if (s.equals("q") || s.equals("Q")) {
 						break;
 					}
-					// s 를 파싱 해서 명령어가 있는지 판단
-					// 명령어 있으면 명령어 분리
-					// if 명령어 then
-					// { CommandProcess}
-					// else { sendAllMsg}
 
-					// 정규식 - .* .* 하나이상의 문자를 포함하는 문자열
-					if (s.matches(".*:/.*") == true) {
-						CommandProcess(s);
+					// ------------------------------------------------------------
+					StringTokenizer test = new StringTokenizer(s, ":");
+					test.nextToken();
+					test.nextToken(" ");
+					String tokenCommand = test.nextToken();
+
+					if (tokenCommand.substring(0, 1).equals("/")) {
+						CommandProcess(tokenCommand, name, s);
 					} else {
 						sendAllMsg(s);
 					}
-
+					// ------------------------------------------------------------
 				}
 
-			} catch (Exception e) {
+			} catch (
+
+			Exception e) {
 				System.out.println("예외[Server/수신부] : " + e);
 			} finally {
 				// 예외가 발생할 때 퇴장. 해쉬맵에서 해당 데이터 제거

@@ -25,7 +25,7 @@ public class Receiver extends Thread {
 	public void run() {
 		while (in != null) {
 			try {
-				System.out.println("Thread Receive : " + in.readLine());
+				System.out.println("[Thread Receive] " + in.readLine());
 			} catch (java.net.SocketException ne) {
 				break;
 			} catch (Exception e) {

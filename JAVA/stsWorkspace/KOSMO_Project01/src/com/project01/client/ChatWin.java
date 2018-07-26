@@ -5,9 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
-import java.net.URLEncoder;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,7 +24,9 @@ public class ChatWin extends JFrame {
 	PrintWriter out = null;
 	String name;
 	
-	boolean Whisper = false;
+	boolean WhisperCheck = false;
+	String WhisperName = "";
+	String WhisperBody = "";
 
 	ChatWin(Socket socket, String name) {
 
@@ -52,7 +54,7 @@ public class ChatWin extends JFrame {
 			this.name = name;
 
 			// 서버에 입력한 사용자이름을 보내준다.
-			out.println(URLEncoder.encode(name, "UTF-8"));
+			out.println(name);
 
 		} catch (Exception e) {
 			System.out.println("예외S3:" + e);
@@ -61,8 +63,6 @@ public class ChatWin extends JFrame {
 
 	// Inner Class TextHandler
 	class TextHandler implements ActionListener {
-		
-		String Header = "";
 
 		public void actionPerformed(ActionEvent e) {
 			String msg = tf.getText();
@@ -76,12 +76,21 @@ public class ChatWin extends JFrame {
 				} catch (IOException e1) {
 				}
 			} else {
-//				out.println(Header + name + ":" + msg);
-				try {
-					out.println(URLEncoder.encode(Header + name + ":" + msg, "UTF-8"));
-				} catch (UnsupportedEncodingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				StringTokenizer token = new StringTokenizer(msg, " ");
+
+				if (token.nextToken().equals("/to")) {
+					if (token.countTokens() == 0) {
+						System.out.println("고정귓속말 상대를 적어주세요");
+					} else {
+						WhisperName = token.nextToken();
+						System.out.println(WhisperName);
+						if (token.hasMoreTokens() == false) {
+							System.out.println("고정 귓속말 ON");
+						}
+					}
+
+				} else {
+					out.println(name + " : " + msg);
 				}
 			}
 

@@ -1,12 +1,13 @@
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.StringTokenizer;
 
 public class EncodingDecoding {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+			
 		String str1 = "가나다라 마바사 abcd !@#$?★~!@#$%^&*()? ";
 		
 		try {
