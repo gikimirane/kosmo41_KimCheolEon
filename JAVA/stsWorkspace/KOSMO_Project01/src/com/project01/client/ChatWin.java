@@ -5,8 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
-import java.util.NoSuchElementException;
+import java.net.URLEncoder;
 import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
@@ -23,7 +24,7 @@ public class ChatWin extends JFrame {
 	Socket socket;
 	PrintWriter out = null;
 	String name;
-	
+
 	boolean WhisperCheck = false;
 	String WhisperName = "";
 	String WhisperBody = "";
@@ -54,7 +55,7 @@ public class ChatWin extends JFrame {
 			this.name = name;
 
 			// 서버에 입력한 사용자이름을 보내준다.
-			out.println(name);
+			out.println(URLEncoder.encode(name, "UTF-8"));
 
 		} catch (Exception e) {
 			System.out.println("예외S3:" + e);
@@ -75,27 +76,38 @@ public class ChatWin extends JFrame {
 					socket.close();
 				} catch (IOException e1) {
 				}
-			} else {
-				StringTokenizer token = new StringTokenizer(msg, " ");
-
-				if (token.nextToken().equals("/to")) {
-					if (token.countTokens() == 0) {
-						System.out.println("고정귓속말 상대를 적어주세요");
-					} else {
-						WhisperName = token.nextToken();
-						System.out.println(WhisperName);
-						if (token.hasMoreTokens() == false) {
-							System.out.println("고정 귓속말 ON");
-						}
-					}
-
-				} else {
-					out.println(name + " : " + msg);
-				}
 			}
 
+			StringTokenizer token = new StringTokenizer(msg, " ");
+
+			if (token.nextToken().equals("/to")) {
+				if (token.countTokens() == 0) {
+					System.out.println("고정귓속말 상대를 적어주세요");
+				} else {
+					WhisperName = token.nextToken();
+					System.out.println(WhisperName);
+					if (token.hasMoreTokens() == false) {
+						System.out.println("고정 귓속말 ON");
+					} else {
+						try {
+							out.println(URLEncoder.encode(name + " : " + msg, "UTF-8"));
+							System.out.println(name + " : " + msg);
+						} catch (UnsupportedEncodingException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				}
+
+			} else {
+				try {
+					out.println(URLEncoder.encode(name + " : " + msg, "UTF-8"));
+				} catch (UnsupportedEncodingException e1) {
+					e1.printStackTrace();
+				}
+			}
 			tf.setText("");
 		}
-	}
 
+	}
 }

@@ -4,23 +4,16 @@ public class ClientTokenizer {
 
 	public static void main(String[] args) {
 		
-		String msg = "/to ";
+		String msg = "김 철 언 : /to 수신자 ㅋㅋㅋㅋㅋ";
 		
-		StringTokenizer token = new StringTokenizer(msg, " ");
-
-		System.out.println(msg.substring(0,1));
+		StringTokenizer str = new StringTokenizer(msg, ":");
 		
-//		if(token.nextToken().equals("/to")) {
-//			System.out.println(token.countTokens());
-//			token.nextToken();
-//			if( token.hasMoreTokens() == false) {
-//				System.out.println("이제 없엉;");
-//			}
-//		}
-		
-		
-//		System.out.println(token.nextToken());
-//		System.out.println(token.nextToken());
+		System.out.println(str.nextToken());
+		System.out.println(str.nextToken(""));
+		System.out.println(str.nextToken());
+		System.out.println(str.nextToken());
+		System.out.println(str.nextToken());
+		System.out.println(str.nextToken());
 		
 
 	}
