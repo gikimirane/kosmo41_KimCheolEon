@@ -14,6 +14,7 @@ public class Client {
 
 		try {
 			String ServerIP = "ec2-13-124-116-158.ap-northeast-2.compute.amazonaws.com";
+//			String ServerIP = "localhost";
 			if (args.length > 0) {
 				ServerIP = args[0];
 			}

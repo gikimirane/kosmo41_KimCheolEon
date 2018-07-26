@@ -181,6 +181,7 @@ public class Server {
 			try {
 				// 서버에서 Out은 Client 것
 				out = new PrintWriter(this.socket.getOutputStream(), true);
+				
 				// Read는 서버꺼
 				in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			} catch (Exception e) {
@@ -198,7 +199,7 @@ public class Server {
 			try {
 				//건드림
 				//name = in.readLine();
-				name = URLDecoder.decode(in.readLine(), "URF-8");
+				name = in.readLine();
 
 				sendAllMsg(name + "님이 입장하셨습니다.");
 				// 현재 객체가 가지고 있는 소켓을 제외하고 다른 소켓(클라이언트)들에게 접속을 알림.
@@ -209,7 +210,7 @@ public class Server {
 				String s = "";
 				while (in != null) {
 //					s = in.readLine();
-					s = URLEncoder.encode(in.readLine(), "UTF-8");
+					s = in.readLine();
 
 					System.out.println(s);
 

@@ -13,7 +13,7 @@ public class Receiver extends Thread {
 		this.socket = socket;
 
 		try {
-			in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+			in = new BufferedReader(new InputStreamReader(this.socket.getInputStream(), "EUC-KR"));
 
 		} catch (Exception e) {
 			System.out.println("예외 : " + e);
