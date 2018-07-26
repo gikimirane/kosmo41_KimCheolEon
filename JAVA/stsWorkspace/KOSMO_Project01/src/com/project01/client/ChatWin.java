@@ -55,7 +55,7 @@ public class ChatWin extends JFrame {
 			this.name = name;
 
 			// 서버에 입력한 사용자이름을 보내준다.
-			out.println(name);
+			out.println(URLEncoder.encode(name, "UTF-8"));
 
 		} catch (Exception e) {
 			System.out.println("예외S3:" + e);
@@ -100,21 +100,11 @@ public class ChatWin extends JFrame {
 				}
 
 			} else {
-<<<<<<< HEAD
-				out.println(Header + name + ":" + msg);
-//				try {
-//					out.println(URLEncoder.encode(Header + name + ":" + msg, "UTF-8"));
-//				} catch (UnsupportedEncodingException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-=======
 				try {
 					out.println(URLEncoder.encode(name + " : " + msg, "UTF-8"));
 				} catch (UnsupportedEncodingException e1) {
 					e1.printStackTrace();
 				}
->>>>>>> a9fcf728c4ce50ead3871b4777fb16648fc3eafa
 			}
 			tf.setText("");
 		}

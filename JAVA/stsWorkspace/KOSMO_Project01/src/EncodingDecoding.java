@@ -17,9 +17,7 @@ public class EncodingDecoding {
 			
 			System.out.println(encoded);
 			
-			String str2 = encoded;
-			
-			String decoded = URLDecoder.decode(str2, "UTF-8");
+			String decoded = URLDecoder.decode(encoded, "UTF-8");
 			
 			System.out.println(decoded);
 		} catch (UnsupportedEncodingException e) {
