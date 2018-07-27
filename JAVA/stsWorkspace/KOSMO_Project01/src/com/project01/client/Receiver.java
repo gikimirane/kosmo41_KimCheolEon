@@ -13,9 +13,7 @@ public class Receiver extends Thread {
 		this.socket = socket;
 
 		try {
-			in = new BufferedReader(
-					new InputStreamReader(
-							this.socket.getInputStream(), "UTF-8"));
+			in = new BufferedReader(new InputStreamReader(this.socket.getInputStream(), "UTF-8"));
 
 		} catch (Exception e) {
 			System.out.println("예외 : " + e);
@@ -34,7 +32,7 @@ public class Receiver extends Thread {
 				System.out.println("예외 : " + e);
 			}
 		}
-		
+
 		try {
 			in.close();
 		} catch (Exception e) {
