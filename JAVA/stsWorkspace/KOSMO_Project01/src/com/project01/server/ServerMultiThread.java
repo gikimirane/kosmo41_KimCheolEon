@@ -5,11 +5,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 
-////////////////////////////////////////////////////////////
-// 내부클래스
-// 클라이언트로부터 읽어온 메시지를 다른 클라이언트(socket)에 보내는 역할을 하는 메서드
+import com.project01.DB.*;
 
 class ServerMultiThread extends Thread {
 
@@ -42,6 +42,21 @@ class ServerMultiThread extends Thread {
 		try {
 			name = in.readLine();
 			name = URLDecoder.decode(name, "UTF-8");
+
+			// 공사중
+			// ----------------------------------------------------------
+
+//			a02usersDAO udao = new a02usersDAO(); 
+			a02usersDAO a02usersDAO = new a02usersDAO();
+			ArrayList<a01usersDO> udao1 = a02usersDAO.getUsersList();
+			//
+			// System.out.println(udao1.get(0));
+			int totalElements = udao1.size();// arrayList의 요소의 갯수를 구한다.
+			for (int index = 0; index < totalElements; index++) {
+				System.out.println(udao1.get(index).toString());
+			}
+
+			// ----------------------------------------------------------
 
 			func.sendAllMsg(name + " 님이 입장하셨습니다.");
 			// 현재 객체가 가지고 있는 소켓을 제외하고 다른 소켓(클라이언트)들에게 접속을 알림.

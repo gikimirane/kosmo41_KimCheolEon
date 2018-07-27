@@ -4,8 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
-public class a01usersDAO {
+public class a02usersDAO {
 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
@@ -62,27 +63,60 @@ public class a01usersDAO {
 		}
 		return true;
 	}
-
-	public a01usersDO selectUSERS() {
+	
+	public ArrayList<a01usersDO> getUsersList(){
 		connect();
-
+		
+		ArrayList<a01usersDO> list = new ArrayList<a01usersDO>();
 		String sql = "select NAME, BLOCK from USERS";
-		a01usersDO usersList = new a01usersDO();
-
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
-
-			rs.next();
-			usersList.setNAME(rs.getString("NAME"));
-			usersList.setBLOCK(rs.getString("BLOCK"));
+			
+			while(rs.next()) {
+				a01usersDO ulist = new a01usersDO();
+				
+				ulist.setNAME(rs.getString("NAME"));
+				ulist.setBLOCK(rs.getString("BLOCK"));
+				
+				//-----테스트 찍어보는중
+				System.out.println(rs.getString("NAME"));
+				System.out.println(rs.getString("BLOCK"));
+				//-----테스트 찍어보는중
+				
+				list.add(ulist);
+			}
 			rs.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error[selectUSERS] : " + e);
+			System.out.println("Error[selectUSERS_List] : " + e);
 		} finally {
 			disconnect();
 		}
-		return usersList;
+		return list;
 	}
+
+//	public a01usersDO selectUSERS() {
+//		connect();
+//
+//		String sql = "select NAME, BLOCK from USERS";
+//		a01usersDO usersList = new a01usersDO();
+//
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			ResultSet rs = pstmt.executeQuery();
+//
+//			rs.next();
+//			usersList.setNAME(rs.getString("NAME"));
+//			usersList.setBLOCK(rs.getString("BLOCK"));
+//			rs.close();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			System.out.println("Error[selectUSERS] : " + e);
+//		} finally {
+//			disconnect();
+//		}
+//		return usersList;
+//	}
 }

@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class a02chat_usersDAO {
+public class b02chat_usersDAO {
 	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
@@ -43,7 +43,7 @@ public class a02chat_usersDAO {
 		}
 	}
 	
-	public boolean insertCHAT_users(a02chat_usersDO chusers) {
+	public boolean insertCHAT_users(b01chat_usersDO chusers) {
 		connect();
 
 		String sql = "insert into CHAT_USERS(NAME, LOCATION, ROOMADMIN) values(?, ?, ?)";
@@ -63,11 +63,11 @@ public class a02chat_usersDAO {
 		return true;
 	}
 
-	public a02chat_usersDO selectCHAT_users() {
+	public b01chat_usersDO selectCHAT_users() {
 		connect();
 
 		String sql = "select NAME, LOCATION, ROOMADMIN from CHAT_USERS";
-		a02chat_usersDO CHusersList = new a02chat_usersDO();
+		b01chat_usersDO CHusersList = new b01chat_usersDO();
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -88,7 +88,7 @@ public class a02chat_usersDAO {
 		return CHusersList;
 	}
 	
-	public boolean deleteCHAT_users(a02chat_usersDO chusers) {
+	public boolean deleteCHAT_users(b01chat_usersDO chusers) {
 		connect();
 
 		String sql = "delete from CHAT_USERS where name = ?";

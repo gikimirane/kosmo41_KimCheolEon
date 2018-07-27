@@ -4,19 +4,13 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import com.project01.DB.*;
+
 public class Server {
 	static ServerSocket serverSocket = null;
 	static Socket socket = null;
 	static Map<String, PrintWriter> clientMap;
-
-	static {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	
 	public static void main(String[] args) {
 
 		// 클라이언트의 출력스트림을 저장할 해쉬맵 생성.
