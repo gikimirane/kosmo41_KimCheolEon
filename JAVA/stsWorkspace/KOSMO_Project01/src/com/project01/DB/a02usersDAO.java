@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 
 public class a02usersDAO {
@@ -73,7 +74,7 @@ public class a02usersDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
-			
+
 			while(rs.next()) {
 				a01usersDO ulist = new a01usersDO();
 				

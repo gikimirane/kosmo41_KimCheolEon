@@ -45,22 +45,15 @@ class ServerMultiThread extends Thread {
 
 			// 공사중
 			// ----------------------------------------------------------
-
-//			a02usersDAO udao = new a02usersDAO(); 
-//			a02usersDAO a02usersDAO = new a02usersDAO();
-//			ArrayList<a01usersDO> udao1 = a02usersDAO.getUsersList();
-//			//
-//			// System.out.println(udao1.get(0));
-//			int totalElements = udao1.size();// arrayList의 요소의 갯수를 구한다.
-//			for (int index = 0; index < totalElements; index++) {
-//				System.out.println(udao1.get(index).toString());
-//			}
 			
-			a02usersDAO a02usersDAO = new a02usersDAO();
-			a01usersDO udao2 = a02usersDAO.selectUSERS();
+			a02usersDAO uDAO = new a02usersDAO(); 
+			ArrayList<a01usersDO> list = uDAO.getUsersList();
 			
-			System.out.println(udao2.getNAME());
-			System.out.println(udao2.getBLOCK());
+			int totalElements = list.size();// arrayList의 요소의 갯수를 구한다.
+			for (int index = 0; index < totalElements; index++) {
+				System.out.println(list.get(index).getNAME());
+				System.out.println(list.get(index).getBLOCK());
+			}
 
 			// ----------------------------------------------------------
 
