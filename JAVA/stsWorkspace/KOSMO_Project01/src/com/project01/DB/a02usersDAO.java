@@ -97,26 +97,26 @@ public class a02usersDAO {
 		return list;
 	}
 
-//	public a01usersDO selectUSERS() {
-//		connect();
-//
-//		String sql = "select NAME, BLOCK from USERS";
-//		a01usersDO usersList = new a01usersDO();
-//
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			ResultSet rs = pstmt.executeQuery();
-//
-//			rs.next();
-//			usersList.setNAME(rs.getString("NAME"));
-//			usersList.setBLOCK(rs.getString("BLOCK"));
-//			rs.close();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			System.out.println("Error[selectUSERS] : " + e);
-//		} finally {
-//			disconnect();
-//		}
-//		return usersList;
-//	}
+	public a01usersDO selectUSERS() {
+		connect();
+
+		String sql = "select NAME, BLOCK from USERS where NAME = '김철언'";
+		a01usersDO usersList = new a01usersDO();
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+
+			rs.next();
+			usersList.setNAME(rs.getString("NAME"));
+			usersList.setBLOCK(rs.getString("BLOCK"));
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error[selectUSERS] : " + e);
+		} finally {
+			disconnect();
+		}
+		return usersList;
+	}
 }
