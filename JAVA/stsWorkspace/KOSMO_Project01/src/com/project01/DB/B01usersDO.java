@@ -1,6 +1,6 @@
 package com.project01.DB;
 
-public class a01usersDO {
+public class B01usersDO {
 	
 	private String NAME;
 	private String BLOCK;

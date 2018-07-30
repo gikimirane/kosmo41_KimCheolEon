@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class ChatWin extends JFrame {
+public class B01ChatWin extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	JTextField tf;
@@ -29,7 +29,7 @@ public class ChatWin extends JFrame {
 	String WhisperName = "";
 	String WhisperBody = "";
 
-	ChatWin(Socket socket, String name) {
+	B01ChatWin(Socket socket, String name) {
 
 		this.setTitle("Chat Window");
 		this.setSize(600, 100);

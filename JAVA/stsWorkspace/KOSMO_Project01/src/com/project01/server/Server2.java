@@ -4,8 +4,8 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import com.project01.DB.a01usersDO;
-import com.project01.DB.a02usersDAO;
+import com.project01.DB.B01usersDO;
+import com.project01.DB.B02usersDAO;
 
 /*Physical Port
 Logical Port - File Handler
@@ -220,14 +220,14 @@ public class Server2 {
 				clientMap.put(name, out); // 해쉬맵에 키를 name으로 출력스트림 객체를 저장.
 				System.out.println("현재 접속자 수는 " + clientMap.size() + "명 입니다.");
 				
-				a02usersDAO a02usersDAO = new a02usersDAO();
-				ArrayList<a01usersDO> udao1 = a02usersDAO.getUsersList();
+//				B02usersDAO a02usersDAO = new B02usersDAO();
+//				ArrayList<B01usersDO> udao1 = a02usersDAO.getUsersList();
 				//
 				// System.out.println(udao1.get(0));
-				int totalElements = udao1.size();// arrayList의 요소의 갯수를 구한다.
-				for (int index = 0; index < totalElements; index++) {
-					System.out.println(udao1.get(index).toString());
-				}
+//				int totalElements = udao1.size();// arrayList의 요소의 갯수를 구한다.
+//				for (int index = 0; index < totalElements; index++) {
+//					System.out.println(udao1.get(index).toString());
+//				}
 
 				// 입력스트림이 null이 아니면 반복.
 				String s = "";

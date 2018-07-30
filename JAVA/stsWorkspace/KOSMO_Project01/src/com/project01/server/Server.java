@@ -26,7 +26,7 @@ public class Server {
 				socket = serverSocket.accept();
 				System.out.println(socket.getInetAddress() + ":" + socket.getPort());
 
-				Thread msr = new ServerMultiThread(socket); // 쓰레드 생성.
+				Thread msr = new A02ServerMultiThread(socket); // 쓰레드 생성.
 				msr.start();
 			}
 		} catch (Exception e) {

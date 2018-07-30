@@ -1,6 +1,6 @@
 package com.project01.DB;
 
-public class b01chat_usersDO {
+public class C01chat_usersDO {
 	
 	private String NAME;
 	private String LOCATION;

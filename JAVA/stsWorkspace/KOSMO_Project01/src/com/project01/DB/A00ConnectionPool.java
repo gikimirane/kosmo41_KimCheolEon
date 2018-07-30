@@ -1,9 +1,10 @@
+package com.project01.DB;
 import oracle.jdbc.pool.OracleDataSource;
 import oracle.jdbc.pool.OracleConnectionCacheManager;
 import java.util.Properties;
 import java.sql.*;
 
-public class ConnectionPool {
+public class A00ConnectionPool {
     private final  static String CACHE_NAME = "MYCACHE";
     private  static OracleDataSource ods = null;
 
@@ -18,8 +19,8 @@ public class ConnectionPool {
             ods.setConnectionCacheName(CACHE_NAME);
 
             Properties cacheProps = new Properties();
-            cacheProps.setProperty("MinLimit", "5");
-            cacheProps.setProperty("MaxLimit", "5");
+            cacheProps.setProperty("MinLimit", "5");//3
+            cacheProps.setProperty("MaxLimit", "5");//3
             cacheProps.setProperty("InitialLimit", "1");
             cacheProps.setProperty("ConnectionWaitTimeout", "5");
             cacheProps.setProperty("ValidateConnection", "true");
@@ -35,7 +36,7 @@ public class ConnectionPool {
     /**
      * private constructor for static class
      */
-    private ConnectionPool() { }
+    private A00ConnectionPool() { }
 
     public static Connection getConnection() throws SQLException {
         return getConnection("env. unspecified");
