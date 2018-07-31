@@ -10,8 +10,9 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import com.project01.DB.*;
+import com.sun.xml.internal.ws.util.StringUtils;
 
-public class A03ServerFunction {
+public class A02ServerFunction {
 
 	Server svr = new Server();
 
@@ -31,6 +32,7 @@ public class A03ServerFunction {
 		}
 	}
 
+	// 미구현
 	public void sendPersonalMsg(String name, String msg) {
 		try {
 			PrintWriter it_out = (PrintWriter) svr.clientMap.get(name);
@@ -44,9 +46,9 @@ public class A03ServerFunction {
 	public void CommandProcess(String command, String name, String body) {
 		try {
 
-			System.out.println(command);
-			System.out.println(name);
-			System.out.println(body);
+			System.out.println("command : [" + command + "]");
+			System.out.println("name : [" + name + "]");
+			System.out.println("body : [" + body + "]");
 
 			switch (command) {
 
@@ -54,18 +56,16 @@ public class A03ServerFunction {
 				CmdList(name);
 				break;
 
+			case "/roomlist":
+				CmdRoomList(name);
+				break;
+
 			case "/to":
-				CmdWhisper(body);
+				CmdWhisper(name, body);
 				break;
 
 			case "/mkroom":
-				System.out.println("[mkroom] 명령");
 				CmdMKRoom(name, body);
-				break;
-
-			case "/roomlist":
-				System.out.println("[roomlist] 명령");
-				CmdRoomList(name);
 				break;
 
 			default:
@@ -102,34 +102,70 @@ public class A03ServerFunction {
 		}
 	}
 
-	public void CmdWhisper(String msg) {
+	public void CmdWhisper(String name, String body) {
 
-		StringTokenizer to = new StringTokenizer(msg, " ");
-		to.nextToken();
-		to.nextToken();
-		to.nextToken();
-		String toName = to.nextToken();
+		StringTokenizer to = new StringTokenizer(body, " ");
+		String wantName = to.nextToken();
 		String toBody = to.nextToken("").trim();
 
 		try {
-			PrintWriter it_out = (PrintWriter) svr.clientMap.get(toName);
+			PrintWriter it_out = (PrintWriter) svr.clientMap.get(wantName);
+			it_out.println(URLEncoder.encode("From [" + name + "] : " + toBody, "UTF-8"));
 
-			it_out.println(URLEncoder.encode("From [" + toName + "] : " + toBody, "UTF-8"));
+			PrintWriter it_out2 = (PrintWriter) svr.clientMap.get(name);
+			it_out.println(URLEncoder.encode("[정상발송] : " + toBody, "UTF-8"));
 		} catch (Exception e) {
 			System.out.println("예외[Server/CmdWhisper] : " + e);
 		}
 	}
 
 	public void CmdMKRoom(String name, String body) {
-		String sResult = "";
-		System.out.println("mkroomBody : " + body);
-		if (body.equals("")) {
-			sResult = "[MKRoom] 방을 생성합니다.명령어를 작성해주세요.\n" + "/mkroom [방이름] [인원제한] [히든(Y/N)]\n\n"
-					+ "예시)		/mkroom 모두모여랑! 3 n ";
-		}
-		sResult = "몰라 만드는중이야;;;";
-
 		try {
+			String sResult = "";
+
+			String roomName = "";
+			String roomMax = "";
+			String roomHidden = "";
+			String roomPass = "";
+
+			System.out.println("mkroomBody : " + body);
+
+			if (body.equals("")) {
+				sResult = "\n[MKRoom] 방을 생성합니다.명령어를 작성해주세요.\n" + "/mkroom [방이름] [인원제한] [공개/비공개] [비공개 일시, 패스워드]\n\n"
+						+ "예시)		/mkroom 모두모여랑! 3 n";
+			} else {
+				StringTokenizer mkroom = new StringTokenizer(body, " ");
+
+				int tokenCount = mkroom.countTokens();
+
+				if (tokenCount == 3) {
+					roomName = mkroom.nextToken();
+					roomMax = mkroom.nextToken();
+					roomHidden = mkroom.nextToken();
+
+					System.out.println(roomName);
+					System.out.println(roomMax);
+					System.out.println(roomHidden);
+				}
+
+				if (tokenCount == 4) {
+					roomName = mkroom.nextToken();
+					roomMax = mkroom.nextToken();
+					roomHidden = mkroom.nextToken();
+					roomPass = mkroom.nextToken();
+
+					System.out.println(roomName);
+					System.out.println(roomMax);
+					System.out.println(roomHidden);
+					System.out.println(roomPass);
+				}
+
+				if ((!roomHidden.equals("공개") && !roomHidden.equals("비공개")) || (isNumeric(roomMax) == false)
+						|| (tokenCount < 3 || tokenCount > 4)) {
+					sResult = "입력에 문제가 있습니다.";
+				}
+
+			}
 			PrintWriter it_out = (PrintWriter) svr.clientMap.get(name);
 			it_out.println(URLEncoder.encode(sResult.toString(), "UTF-8"));
 
@@ -141,30 +177,28 @@ public class A03ServerFunction {
 	public void CmdRoomList(String name) {
 		String sResult = "";
 
-		System.out.println("CmdRoomList 메소드 진입");
-		
-		D02roomlistDAO chuDAO = new D02roomlistDAO();
-		ArrayList<D01roomlistDO> list = chuDAO.getRoomList();
+		C02roomlistDAO chuDAO = new C02roomlistDAO();
+		ArrayList<C01roomlistDO> list = chuDAO.getRoomList();
 
 		int totalElements = list.size();// arrayList의 요소의 갯수를 구한다.
+
 		for (int index = 0; index < totalElements; index++) {
 			String rnumber = list.get(index).getRNUMBER();
 			String rmax = list.get(index).getRMAX();
 			String rname = list.get(index).getRName();
 			String rhidden = list.get(index).getRHIDDEN();
 
-			sResult = "[" + rnumber + "]\t[" + rmax + "]\t\t[" + rname + "]\t[" + rhidden + "]";
-			System.out.println("sResult 전문 : " + sResult);
-
-			PrintWriter it_out = (PrintWriter) svr.clientMap.get(name);
-			try {
-				it_out.println(URLEncoder.encode(sResult.toString(), "UTF-8"));
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			sResult += "\n\t[" + rnumber + "]\t[" + rmax + "]\t[" + rhidden + "]\n\t[" + rname + "]\n";
 		}
+		System.out.println("sResult 전문 : " + sResult);
+		PrintWriter it_out = (PrintWriter) svr.clientMap.get(name);
+		try {
+			it_out.println(URLEncoder.encode(sResult.toString(), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void CmdDefault(String name) {
@@ -178,4 +212,14 @@ public class A03ServerFunction {
 		}
 
 	}
+
+	public boolean isNumeric(String s) {
+		try {
+			Double.parseDouble(s);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+
 }

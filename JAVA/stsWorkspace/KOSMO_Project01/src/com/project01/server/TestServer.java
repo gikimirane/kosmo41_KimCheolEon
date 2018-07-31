@@ -4,9 +4,6 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import com.project01.DB.B01usersDO;
-import com.project01.DB.B02usersDAO;
-
 /*Physical Port
 Logical Port - File Handler
 
@@ -21,13 +18,13 @@ q2. 서버측에서 겟포트하면 뜨는 포트번호는 왜 9999가 아니라
 궁금증 해결 완
 */
 
-public class Server2 {
+public class TestServer {
 	ServerSocket serverSocket = null;
 	Socket socket = null;
 	Map<String, PrintWriter> clientMap;
 
 	// 생성자
-	public Server2() {
+	public TestServer() {
 		// 클라이언트의 출력스트림을 저장할 해쉬맵 생성.
 		clientMap = new HashMap<String, PrintWriter>();
 		// 해쉬맵 동기화 설정
@@ -179,7 +176,7 @@ public class Server2 {
 	}
 
 	public static void main(String[] args) {
-		Server2 ms = new Server2();
+		TestServer ms = new TestServer();
 		ms.init();
 	}
 

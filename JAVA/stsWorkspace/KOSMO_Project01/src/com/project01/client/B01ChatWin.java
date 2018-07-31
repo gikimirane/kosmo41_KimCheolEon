@@ -25,10 +25,6 @@ public class B01ChatWin extends JFrame {
 	PrintWriter out = null;
 	String name;
 
-	boolean WhisperCheck = false;
-	String WhisperName = "";
-	String WhisperBody = "";
-
 	B01ChatWin(Socket socket, String name) {
 
 		this.setTitle("Chat Window");
@@ -78,28 +74,7 @@ public class B01ChatWin extends JFrame {
 				}
 			}
 
-			StringTokenizer token = new StringTokenizer(msg, " ");
-
-			if (token.nextToken().equals("/to")) {
-				if (token.countTokens() == 0) {
-					System.out.println("고정귓속말 상대를 적어주세요");
-				} else {
-					WhisperName = token.nextToken();
-					System.out.println(WhisperName);
-					if (token.hasMoreTokens() == false) {
-						System.out.println("고정 귓속말 ON");
-					} else {
-						try {
-							out.println(URLEncoder.encode(name + " : " + msg, "UTF-8"));
-							System.out.println(name + " : " + msg);
-						} catch (UnsupportedEncodingException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-				}
-
-			} else {
+			else {
 				try {
 					out.println(URLEncoder.encode(name + " : " + msg, "UTF-8"));
 				} catch (UnsupportedEncodingException e1) {

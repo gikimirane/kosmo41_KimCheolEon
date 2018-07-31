@@ -1,6 +1,6 @@
 package com.project01.DB;
 
-public class D01roomlistDO {
+public class C01roomlistDO {
 	
 	private String RNUMBER;
 	private String RMAX;

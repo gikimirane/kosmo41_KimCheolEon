@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class D02roomlistDAO {
+public class C02roomlistDAO {
 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
@@ -57,10 +57,10 @@ public class D02roomlistDAO {
 		}
 	}
 	
-	public ArrayList<D01roomlistDO> getRoomList() {
+	public ArrayList<C01roomlistDO> getRoomList() {
 		connect();
 
-		ArrayList<D01roomlistDO> list = new ArrayList<D01roomlistDO>();
+		ArrayList<C01roomlistDO> list = new ArrayList<C01roomlistDO>();
 		String sql = "select *from ROOMLIST";
 
 		try {
@@ -68,7 +68,7 @@ public class D02roomlistDAO {
 			ResultSet rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				D01roomlistDO ulist = new D01roomlistDO();
+				C01roomlistDO ulist = new C01roomlistDO();
 				
 				ulist.setRNUMBER(rs.getString("RNUMBER"));
 				ulist.setRMAX(rs.getString("RMAX"));
