@@ -144,7 +144,7 @@ public class A02ServerFunction {
 
 			PrintWriter it_out = (PrintWriter) svr.clientMap.get(name);
 
-			if (chuDAO.checkUSERS(name).getROOMADMIN().equals("ADMIN")) {
+			if (chuDAO.checkUSERS("NAME", name).getROOMADMIN().equals("ADMIN")) {
 				PassCheck -= 99;
 				it_out.println(URLEncoder.encode("ADMIN 상태로 새 방을 생성할 수 없습니다.", "UTF-8"));
 			}
@@ -228,12 +228,12 @@ public class A02ServerFunction {
 		PrintWriter it_out = (PrintWriter) svr.clientMap.get(name);
 
 		try {
-			B01chat_usersDO USER = chuDAO.checkUSERS(name);
+			B01chat_usersDO USER = chuDAO.checkUSERS("NAME", name);
 
-			if (USER.getROOMADMIN().equals("NOADMIN")) {
+			if (!USER.getROOMADMIN().equals("ADMIN")) {
 				it_out.println(URLEncoder.encode("ADMIN 권한이 없습니다.", "UTF-8"));
 			}else {
-				chuDAO.checkUSERS(name);
+				chuDAO.checkUSERS("NAME", name);
 				
 				
 				

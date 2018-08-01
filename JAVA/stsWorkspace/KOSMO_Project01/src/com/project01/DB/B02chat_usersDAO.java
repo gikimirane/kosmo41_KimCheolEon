@@ -59,15 +59,15 @@ public class B02chat_usersDAO {
 	// -------------------------------------------------------------------------------------
 
 	// 최초 접속 체크 (이름 조회, 차단여부)
-	public B01chat_usersDO checkUSERS(String name) {
+	public B01chat_usersDO checkUSERS(String where, String set) {
 		connect();
 
-		String sql = "select * from CHAT_USERS where NAME = ?";
+		String sql = "select * from CHAT_USERS where "+ where +" = ?";
 		B01chat_usersDO users = new B01chat_usersDO();
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, name);
+			pstmt.setString(1, set);
 
 			ResultSet rs = pstmt.executeQuery();
 
