@@ -59,10 +59,9 @@ class A01MultiThreadRun extends Thread {
 			name = URLDecoder.decode(name, "UTF-8");
 
 			// ----------------------------------------------------------
-
 			// DAO 에서 NAME SQL excute 시도 (실패시 없는 계정)
+			System.out.println("[SYSTEM] 회원 테이블 확인중....");
 			B01chat_usersDO checkUSERS = chuDAO.checkUSERS(name);
-
 			// 접속중인 계정인가? 테이블 확인
 			// Q1. 서버가 먼저 껐을때, IN 남은상태로 접속시 어떻게 되는가?
 			// A1. 최초 접속시 접속이 거부당한다. 접속시도시 날린 네임이 UPDATE 되어서 2번째 시도엔 접속된다.
@@ -78,6 +77,7 @@ class A01MultiThreadRun extends Thread {
 				out.close();
 				socket.close();
 			} else {
+				
 				System.out.println("[SYSTEM] 중복되지 않은 접속");
 			}
 
@@ -98,7 +98,7 @@ class A01MultiThreadRun extends Thread {
 
 			// ############################################################
 			// UPDATE IN
-			boolean logIN_chuUSERS = chuDAO.updateLogin(name);
+			boolean logIN_chuUSERS = chuDAO.updateCHAT_USERS("NAME", name, "LOGIN", "IN");
 
 			if (logIN_chuUSERS) {
 				System.out.println("[SYSTEM] 회원정보 LogIN UPDATE TRUE.");
@@ -139,7 +139,7 @@ class A01MultiThreadRun extends Thread {
 				String tokenBody = "";
 				if (test.hasMoreTokens()) {
 					tokenBody = test.nextToken("").trim();
-					System.out.println("토큰4" + tokenBody);
+					System.out.println("토큰4 : " + tokenBody);
 				}
 
 				// 그 토큰3의 첫시작이 "/" 일때 명령어 커맨드로 구분
@@ -162,7 +162,7 @@ class A01MultiThreadRun extends Thread {
 
 			// UPDATE NOTIN
 			B02chat_usersDAO chuDAO = new B02chat_usersDAO();
-			boolean logOUT_chuUSERS = chuDAO.updateLogout(name);
+			boolean logOUT_chuUSERS = chuDAO.updateCHAT_USERS("NAME", name, "LOGIN", "NOTIN");
 			if (logOUT_chuUSERS) {
 				System.out.println("[SYSTEM] 회원정보 logOUT UPDATE TRUE.");
 			} else {

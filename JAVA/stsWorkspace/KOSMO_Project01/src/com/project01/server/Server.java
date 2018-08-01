@@ -10,6 +10,7 @@ public class Server {
 	static ServerSocket serverSocket = null;
 	static Socket socket = null;
 	static Map<String, PrintWriter> clientMap;
+//	static Map<String, PrintWriter> roomMap;
 	
 	public static void main(String[] args) {
 

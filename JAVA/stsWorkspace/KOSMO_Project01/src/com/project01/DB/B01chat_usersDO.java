@@ -11,8 +11,8 @@ public class B01chat_usersDO {
 	private String WHISPERNAME;
 	private String INVITE;
 	private String BANNLIST;
-	
-	
+	private String BANNWORD;
+
 	public String getNAME() {
 		return NAME;
 	}
@@ -83,6 +83,14 @@ public class B01chat_usersDO {
 
 	public void setBANNLIST(String bANNLIST) {
 		BANNLIST = bANNLIST;
+	}
+
+	public String getBANNWORD() {
+		return BANNWORD;
+	}
+
+	public void setBANNWORD(String bANNWORD) {
+		BANNWORD = bANNWORD;
 	}
 
 }

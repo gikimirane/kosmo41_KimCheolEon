@@ -56,7 +56,7 @@ public class C02roomlistDAO {
 			}
 		}
 	}
-	
+
 	public ArrayList<C01roomlistDO> getRoomList() {
 		connect();
 
@@ -69,16 +69,12 @@ public class C02roomlistDAO {
 
 			while (rs.next()) {
 				C01roomlistDO ulist = new C01roomlistDO();
-				
+
 				ulist.setRNUMBER(rs.getString("RNUMBER"));
 				ulist.setRMAX(rs.getString("RMAX"));
-				ulist.setRName(rs.getString("RNAME"));
+				ulist.setRUSERCOUNT(rs.getString("RUSERCOUNT"));
+				ulist.setRNAME(rs.getString("RNAME"));
 				ulist.setRHIDDEN(rs.getString("RHIDDEN"));
-				
-//				System.out.println(rs.getString("RNUMBER"));
-//				System.out.println(rs.getString("RMAX"));
-//				System.out.println(rs.getString("RNAME"));
-//				System.out.println(rs.getString("RHIDDEN"));
 
 				list.add(ulist);
 			}
@@ -91,5 +87,60 @@ public class C02roomlistDAO {
 		}
 		return list;
 	}
-	
+
+	public C01roomlistDO selectRoomList(String roomName) {
+		connect();
+
+		String sql = "select *from ROOMLIST WHERE RNAME = ?";
+		C01roomlistDO roomlist = new C01roomlistDO();
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, roomName);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			rs.next();
+			roomlist.setRNUMBER(rs.getString("RNUMBER"));
+			roomlist.setRMAX(rs.getString("RMAX"));
+			roomlist.setRUSERCOUNT(rs.getString("RUSERCOUNT"));
+			roomlist.setRHIDDEN(rs.getString("RHIDDEN"));
+			roomlist.setRNAME(rs.getString("RNAME"));
+			roomlist.setRPASS(rs.getString("RPASS"));
+
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error[selectUSERS_List] : " + e);
+		} finally {
+			disconnect();
+		}
+		return roomlist;
+	}
+
+	// 방 만들기(INSERT)
+	public boolean insertRoom(C01roomlistDO roomDO) {
+		connect();
+
+		String sql = "insert into ROOMLIST(RNUMBER, RNAME, RMAX, RHIDDEN, RPASS, RUSERCOUNT) values(ROOM_NUM.nextval, ?, ?, ?, ?, ?)";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, roomDO.getRNAME());
+			pstmt.setString(2, roomDO.getRMAX());
+			pstmt.setString(3, roomDO.getRHIDDEN());
+			pstmt.setString(4, roomDO.getRPASS());
+			pstmt.setString(5, "1");
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error[roomlistDAO_insertPublicRoom] : " + e);
+			return false;
+		} finally {
+			disconnect();
+		}
+		return true;
+	}
 }

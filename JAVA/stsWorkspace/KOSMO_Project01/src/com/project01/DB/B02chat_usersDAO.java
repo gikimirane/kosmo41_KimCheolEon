@@ -55,75 +55,62 @@ public class B02chat_usersDAO {
 			}
 		}
 	}
-
+	
 	// -------------------------------------------------------------------------------------
 
 	// 최초 접속 체크 (이름 조회, 차단여부)
 	public B01chat_usersDO checkUSERS(String name) {
 		connect();
 
-		String sql = "select NAME, LOGIN, BLOCK from CHAT_USERS where NAME = ?";
+		String sql = "select * from CHAT_USERS where NAME = ?";
 		B01chat_usersDO users = new B01chat_usersDO();
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
-			
+
 			ResultSet rs = pstmt.executeQuery();
 
 			rs.next();
+			
+			users.setNAME(rs.getString("NAME"));
 			users.setLOGIN(rs.getString("LOGIN"));
 			users.setBLOCK(rs.getString("BLOCK"));
-			
+			users.setLOCATION(rs.getString("LOCATION"));
+			users.setROOMADMIN(rs.getString("ROOMADMIN"));
+			users.setHOLDWHISPER(rs.getString("HOLDWHISPER"));
+			users.setINVITE(rs.getString("INVITE"));
+			users.setBANNLIST(rs.getString("BANNLIST"));
+			users.setBANNWORD(rs.getString("BANNWORD"));
+
 			rs.close();
 			
-			System.out.println("[SYSTEM] 회원 테이블 확인.");
 		} catch (Exception e) {
-//			e.printStackTrace();
-//			System.out.println("Error[chat_usersDAO_checkUSERS] : " + e);
+			// e.printStackTrace();
+			// System.out.println("Error[chat_usersDAO_checkUSERS] : " + e);
 			System.out.println("[접속거부] 회원 테이블에 존재하지 않음.");
 		} finally {
 			disconnect();
 		}
 		return users;
 	}
-	
-	public boolean updateLogin(String name) {
+
+	public boolean updateCHAT_USERS(String where, String name, String column, String set) {
 		connect();
-		
-		String sql = "UPDATE CHAT_USERS SET LOGIN = 'IN' WHERE NAME = ?";
-		
+
+		String sql = "UPDATE CHAT_USERS SET "+ column +" = ? WHERE "+ where +" = ?";
+
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, name);
+			pstmt.setString(1, set);
+			pstmt.setString(2, name);
 			pstmt.executeUpdate();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error[chat_usersDAO_updateLogin] : " + e);
+			System.out.println("Error[chat_usersDAO_updateLOGIN] : " + e);
 			return false;
-			
-		} finally {
-			disconnect();
-		}
-		return true;
-	}
-	
-	public boolean updateLogout(String name) {
-		connect();
-		
-		String sql = "UPDATE CHAT_USERS SET LOGIN = 'NOTIN' WHERE NAME = ?";
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, name);
-			pstmt.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Error[chat_usersDAO_updateLogout] : " + e);
-			return false;
-			
+
 		} finally {
 			disconnect();
 		}

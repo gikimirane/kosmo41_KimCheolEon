@@ -125,7 +125,7 @@ public final class ConnectionPool{
 			try { 
 				_con.close(); 
 			} catch (SQLException e2) { 
-				e2.printStackTrace(); 
+				e2.printStackTrace();
 			} 
 		} 
 	} 
