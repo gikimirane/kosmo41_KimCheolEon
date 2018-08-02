@@ -88,7 +88,8 @@ public class C02roomlistDAO {
 		return list;
 	}
 
-	public C01roomlistDO selectRoomList(String where, String roomName) {
+	
+	public C01roomlistDO selectRoomList(String where, String set) {
 		connect();
 
 		// String sql = "select *from ROOMLIST WHERE RNAME = ?";
@@ -99,7 +100,7 @@ public class C02roomlistDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, roomName);
+			pstmt.setString(1, set);
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -136,6 +137,11 @@ public class C02roomlistDAO {
 			pstmt.setString(5, "1");
 
 			pstmt.executeUpdate();
+			
+//			sql한번 셀렉트
+//			반환값 챙겨서
+//			하여튼 반환 스트링이든 정수든 ㅇㅇ
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error[roomlistDAO_insertRoom] : " + e);
@@ -167,14 +173,14 @@ public class C02roomlistDAO {
 		return true;
 	}
 	
-	public boolean updateRoom(String setNum, String whereRNum) {
+	public boolean updateRoom(String SETCOUNT, String whereRNum) {
 		connect();
 		
-		String sql = "update roomlist set rusercount = ? where RNUMBER = ?";
+		String sql = "update roomlist set RUSERCOUNT = ? where RNUMBER = ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, setNum);
+			pstmt.setString(1, SETCOUNT);
 			pstmt.setString(2, whereRNum);
 
 			pstmt.executeUpdate();

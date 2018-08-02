@@ -10,7 +10,7 @@ public class Server {
 	static ServerSocket serverSocket = null;
 	static Socket socket = null;
 	static Map<String, PrintWriter> clientMap;
-	static Map<String, PrintWriter> PrivateMap;
+//	static Map<String, PrintWriter> PrivateMap;
 
 	public static void main(String[] args) {
 
@@ -19,8 +19,8 @@ public class Server {
 		// 해쉬맵 동기화 설정
 		Collections.synchronizedMap(clientMap);
 		
-		PrivateMap = new HashMap<String, PrintWriter>();
-		Collections.synchronizedMap(PrivateMap);
+//		PrivateMap = new HashMap<String, PrintWriter>();
+//		Collections.synchronizedMap(PrivateMap);
 
 
 		try {

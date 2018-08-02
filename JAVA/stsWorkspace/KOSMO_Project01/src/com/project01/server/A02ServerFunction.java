@@ -35,46 +35,34 @@ public class A02ServerFunction {
 		}
 	}
 
-//	public void sendPrivateMsg(String msg, String name) {
-//		
-//		PrivateMapBuildInsert(name);
-//		
-//		Iterator<?> it = Server.PrivateMap.keySet().iterator();
-//		while (it.hasNext()) {
-//			try {
-//				PrintWriter it_out = (PrintWriter) Server.clientMap.get(it.next());
-//
-//				it_out.println(URLEncoder.encode(msg, "UTF-8"));
-//			} catch (Exception e) {
-//				System.out.println("예외[Server/sendAllMsg] : " + e);
-//			}
-//		}
-//	}
-	
-//	public void PrivateMapBuildInsert(String name) {
-//		ArrayList<B01chat_usersDO> user = chuDAO.checkUSERS("NAME", name);
-//		String location = user.get(0).getLOCATION();
-//		ArrayList<B01chat_usersDO> list = chuDAO.checkUSERS("LOGIN = 'IN' and LOCATION", location);
-//		
-//		int size = list.size();
-//		for (int index = 0; index < size; index++) {
-//			Server.clientMap.put(name, Server.clientMap.get(name));
-//		}
-//	}
-//	
-//	public void PrivateMapBuildClear() {
-//		Server.PrivateMap.clear();
-//	}
-
-
-
 	// Location Msg
 	public void sendPrivateMsg(String msg, String name) {
 
+		// 보내는 사람 정보 추출
 		ArrayList<B01chat_usersDO> user = chuDAO.checkUSERS("NAME", name);
 		String location = user.get(0).getLOCATION();
-		ArrayList<B01chat_usersDO> list = chuDAO.checkUSERS("LOGIN = 'IN' and LOCATION", location);
+		String holdWhisper = user.get(0).getHOLDWHISPER();
+		String holdName = user.get(0).getWHISPERNAME();
 
+		if (holdWhisper.equals("HOLD")) {
+
+			try {
+				PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
+				it_out.println(URLEncoder.encode("[SYSTEM] 고정귓속말상태 \n" + "\t\t [내용] " + msg, "UTF-8"));
+
+				System.out.println(holdName);
+
+				PrintWriter hold = (PrintWriter) Server.clientMap.get(holdName.trim());
+				hold.println(URLEncoder.encode("[귓속말] " + msg, "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+
+		// 같은 로케이션 유저들 추출
+		ArrayList<B01chat_usersDO> list = chuDAO.checkUSERS("LOGIN = 'IN' and LOCATION", location);
 		int size = list.size();
 		for (int index = 0; index < size; index++) {
 			PrintWriter it_out = (PrintWriter) Server.clientMap.get(list.get(index).getNAME());
@@ -85,12 +73,11 @@ public class A02ServerFunction {
 				e.printStackTrace();
 			}
 		}
-		list.clear();
 	}
 
-//	public void PrivateMsgClear() {
-//		list.clear();
-//	}
+	// public void PrivateMsgClear() {
+	// list.clear();
+	// }
 
 	public void CommandProcess(String command, String name, String body) {
 
@@ -112,6 +99,8 @@ public class A02ServerFunction {
 				CmdWhisper(name, body);
 				break;
 
+			// ---------------------------------- //
+
 			case "/roomlist":
 				CmdRoomList(name);
 				break;
@@ -128,8 +117,34 @@ public class A02ServerFunction {
 				CmdRoomIn(name, body);
 				break;
 
-			case "/test":
+			case "/exit":
+				CmdExitRoom(name);
 				break;
+
+			case "/kick":
+				CmdRoomKick(name, body);
+				break;
+
+			case "/adminto":
+				CmdAdminTo(name, body);
+				break;
+
+			case "/myroomlist":
+				CmdMyRoomList(name);
+				break;
+
+			case "/info":
+				CmdUserInfo(name, body);
+				break;
+
+			case "/all":
+				CmdAllMsg(name, body);
+				break;
+
+			case "/toh":
+				CmdHoldWhisper(name, body);
+				break;
+
 			default:
 				CmdDefault(name);
 
@@ -213,6 +228,7 @@ public class A02ServerFunction {
 
 					int tokenCount = mkroom.countTokens();
 
+					// 이 부분은 CASE 로 고치는 부분이 좋다/////////////////////////////////
 					if (tokenCount == 3) {
 						roomName = mkroom.nextToken().trim();
 						roomMax = mkroom.nextToken().trim();
@@ -228,6 +244,7 @@ public class A02ServerFunction {
 
 						PassCheck += 1;
 					}
+					//////////////////////////////////////////////////////////////////////
 
 					if (isNumeric(roomMax) == true) {
 						PassCheck += 2;
@@ -237,10 +254,7 @@ public class A02ServerFunction {
 						PassCheck += 4;
 					}
 
-					if (roomHidden.equals("공개")) {
-						PassCheck += 8;
-					}
-					if (roomHidden.equals("비공개")) {
+					if (roomHidden.equals("공개") || roomHidden.equals("비공개")) {
 						PassCheck += 8;
 					}
 
@@ -254,8 +268,9 @@ public class A02ServerFunction {
 						roomDO.setRPASS(roomPass);
 
 						// 방생성
-						roomDAO.insertRoom(roomDO);
-						sResult = "방이 생성되었습니다.";
+						if (roomDAO.insertRoom(roomDO)) {
+							sResult = "방이 생성되었습니다.";
+						}
 
 						// 방장 권한 업데이트
 						chuDAO.updateCHAT_USERS("NAME", name, "ROOMADMIN", "ADMIN");
@@ -285,6 +300,7 @@ public class A02ServerFunction {
 		// B01chat_usersDO USER = chuDAO.checkUSERS("NAME", name);
 		ArrayList<B01chat_usersDO> USER = chuDAO.checkUSERS("NAME", name);
 
+		String isName = USER.get(0).getNAME();
 		String isAdmin = USER.get(0).getROOMADMIN();
 		String isLocation = USER.get(0).getLOCATION();
 
@@ -295,15 +311,7 @@ public class A02ServerFunction {
 
 				it_out.println(URLEncoder.encode("[SYSTEM] ADMIN 권한이 확인되었습니다. 방을 삭제합니다.", "UTF-8"));
 
-				// B01chat_usersDO userList = chuDAO.checkUSERS("LOCATION", isLocation);
-				ArrayList<B01chat_usersDO> userList = chuDAO.checkUSERS("LOCATION", isLocation);
-				int uListElements = userList.size();
-				for (int i = 0; i < uListElements; i++) {
-					// 여기 문제있다. 이거 운용하는 사람이 마지막에 업데이트되는 바람에 실제로 이 값을 구한놈이 마지막놈밖에 없음
-					// locationArray로 처리할수 있을까?
-					PrintWriter it_out2 = (PrintWriter) Server.clientMap.get(userList.get(i).getNAME());
-					it_out2.println(URLEncoder.encode("[SYSTEM] ADMIN 이 방을 삭제하여, 대기실로 이동합니다.", "UTF-8"));
-				}
+				sendPrivateMsg("[SYSTEM] ADMIN 이 방을 삭제하여, 대기실로 이동합니다.", isName);
 
 				// 로케이션업데이트 하기전에, 파괴하려는 방 어드민 권환 회수
 				chuDAO.updateCHAT_USERS("NAME", name, "ROOMADMIN", "NOADMIN");
@@ -360,130 +368,374 @@ public class A02ServerFunction {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			return;
+		}
 
-		} else {
-			ArrayList<B01chat_usersDO> USER = chuDAO.checkUSERS("NAME", name);
-			// 명령어 날린사람 계급 확보 ADMIN / NOADMIN
-			String isAdmin = USER.get(0).getROOMADMIN();
-			// 명령어 날린사람의 LOCATION 확보
-			String isLocation = USER.get(0).getLOCATION();
+		ArrayList<B01chat_usersDO> USER = chuDAO.checkUSERS("NAME", name);
+		// 명령어 날린사람 계급 확보 ADMIN / NOADMIN
+		String isAdmin = USER.get(0).getROOMADMIN();
+		// 명령어 날린사람의 LOCATION 확보
+		String isLocation = USER.get(0).getLOCATION();
 
-			int PassCheck = 0;
+		int PassCheck = 0;
 
-			// body 분리 및 토큰개수 확보
-			StringTokenizer inToken = new StringTokenizer(body, " ");
-			int tokenCount = inToken.countTokens();
+		// body 분리 및 토큰개수 확보
+		StringTokenizer inToken = new StringTokenizer(body, " ");
+		int tokenCount = inToken.countTokens();
 
-			String tokenBody = "";
-			String tokenPass = "";
+		String tokenBody = "";
+		String tokenPass = "";
 
-			if (tokenCount == 1) {
-				tokenBody = inToken.nextToken();
+		if (tokenCount == 1) {
+			tokenBody = inToken.nextToken();
+		}
+
+		if (tokenCount == 2) {
+			tokenBody = inToken.nextToken();
+			tokenPass = inToken.nextToken();
+		}
+
+		// 방이 존재하는가?
+		// 방이 존재하지 않으면 NULL 뿜어버리는데, CommandProcess 에서 에러처리해버림
+		C01roomlistDO selectRoom = roomDAO.selectRoomList("RNUMBER", tokenBody);
+
+		String doRnumber = selectRoom.getRNUMBER();
+		int doMax = Integer.parseInt(selectRoom.getRMAX());
+		int doUserCount = Integer.parseInt(selectRoom.getRUSERCOUNT());
+		String doHidden = selectRoom.getRHIDDEN();
+		String doPass = selectRoom.getRPASS();
+
+		System.out.println("방의 비밀번호 : " + doPass);
+
+		// 이동할 수 있는 권한인가?
+		if (isAdmin.equals("ADMIN")) {
+			try {
+				it_out.println(
+						URLEncoder.encode("[SYSTEM] ADMIN 이 방을 이동하려면 방파괴(dstroom) / 권한승계(admin) 한 후에 가능합니다", "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			// PassCheck -= 1;
+			return;
+		}
 
-			if (tokenCount == 2) {
-				tokenBody = inToken.nextToken();
-				tokenPass = inToken.nextToken();
+		// 숫자를 입력한 것이 맞는가?
+		if (!isNumeric(tokenBody)) {
+			try {
+				it_out.println(URLEncoder.encode("[SYSTEM] 숫자가 아닙니다.", "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			// PassCheck -= 1;
+			return;
+		}
 
-			// 방이 존재하는가?
-			// 방이 존재하지 않으면 NULL 뿜어버리는데, CommandProcess 에서 에러처리해버림
-			C01roomlistDO selectRoom = roomDAO.selectRoomList("RNUMBER", tokenBody);
+		// 토큰의 갯수가 최대 2개를 넘지 않는가?
+		if (tokenCount > 2) {
+			try {
+				it_out.println(URLEncoder.encode("[SYSTEM] 입력 인자 갯수가 다릅니다.", "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// PassCheck -= 1;
+			return;
+		}
 
-			String doRnumber = selectRoom.getRNUMBER();
-			int doMax = Integer.parseInt(selectRoom.getRMAX());
-			int doUserCount = Integer.parseInt(selectRoom.getRUSERCOUNT());
-			String doHidden = selectRoom.getRHIDDEN();
-			String doPass = selectRoom.getRPASS();
+		// 방에 들어갈수 있는 인원수인가?
+		if (doMax == doUserCount) {
+			try {
+				it_out.println(URLEncoder.encode("[SYSTEM] 방의 인원이 꽉찼습니다.", "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// PassCheck -= 1;
+			return;
+		}
 
-			System.out.println("방의 비밀번호 : " + doPass);
+		System.out.println("PassCheck : " + PassCheck);
 
-			// 이동할 수 있는 권한인가?
-			if (isAdmin.equals("ADMIN")) {
+		if (PassCheck != 0) {
+			try {
+				it_out.println(URLEncoder.encode("[SYSTEM] 조건이 맞지 않습니다. (번호 : " + tokenBody + ")", "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+
+		// 에러 검출 안됬을 시 시작
+		System.out.println("IN 처리 시작");
+
+		// 토큰 1개짜리, 공개방 입장
+		if (doHidden.equals("공개")) {
+			chuDAO.updateCHAT_USERS("NAME", name, "LOCATION", tokenBody);
+
+			// 새로 만들어진 방번호 선택, 추출된 방번호를 +1 해서 UPDATE
+			C01roomlistDO selectCreateRoom = roomDAO.selectRoomList("RNUMBER", tokenBody);
+			int AddCount = Integer.parseInt(selectCreateRoom.getRUSERCOUNT()) + 1;
+
+			roomDAO.updateRoom(Integer.toString(AddCount), selectCreateRoom.getRNUMBER());
+
+			try {
+				it_out.println(URLEncoder.encode("[SYSTEM] 방이 이동되었습니다. (번호 : " + tokenBody + ")", "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		// 토큰 2개짜리, 비공개방 입장
+		if (doHidden.equals("비공개")) {
+			if (tokenPass.equals(doPass)) {
+				chuDAO.updateCHAT_USERS("NAME", name, "LOCATION", tokenBody);
+
+				C01roomlistDO selectCreateRoom = roomDAO.selectRoomList("RNUMBER", tokenBody);
+
 				try {
-					it_out.println(URLEncoder.encode("[SYSTEM] ADMIN 이 방을 이동하려면 방파괴(dstroom) / 권한승계(admin) 한 후에 가능합니다",
-							"UTF-8"));
+					it_out.println(URLEncoder.encode("[SYSTEM] 방이 이동되었습니다. (번호 : " + tokenBody + ")", "UTF-8"));
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				PassCheck -= 1;
-			}
-
-			// 숫자를 입력한 것이 맞는가?
-			if (!isNumeric(tokenBody)) {
+			} else {
 				try {
-					it_out.println(URLEncoder.encode("[SYSTEM] 숫자가 아닙니다.", "UTF-8"));
+					it_out.println(URLEncoder.encode("[SYSTEM] 비밀번호가 틀렸습니다.", "UTF-8"));
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
-				PassCheck -= 1;
-			}
-
-			// 토큰의 갯수가 최대 2개를 넘지 않는가?
-			if (tokenCount > 2) {
-				try {
-					it_out.println(URLEncoder.encode("[SYSTEM] 입력 인자 갯수가 다릅니다.", "UTF-8"));
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				PassCheck -= 1;
-			}
-
-			// 방에 들어갈수 있는 인원수인가?
-			if (doMax == doUserCount) {
-				try {
-					it_out.println(URLEncoder.encode("[SYSTEM] 방의 인원이 꽉찼습니다.", "UTF-8"));
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				PassCheck -= 1;
-			}
-
-			System.out.println("PassCheck : " + PassCheck);
-
-			// 에러 검출 안됬을 시 입장 시행
-			if (PassCheck == 0) {
-				System.out.println("뭐야 여기 진입 안함?");
-				System.out.println(tokenPass.equals(doPass));
-				System.out.println("비밀번호 확인결과");
-
-				// 토큰 1개짜리, 공개방 입장
-				if (doHidden.equals("공개")) {
-					chuDAO.updateCHAT_USERS("NAME", name, "LOCATION", tokenBody);
-//					roomDAO.
-					try {
-						it_out.println(URLEncoder.encode("[SYSTEM] 방이 이동되었습니다. (번호 : " + tokenBody + ")", "UTF-8"));
-					} catch (UnsupportedEncodingException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-
-				// 토큰 2개짜리, 비공개방 입장
-				if (doHidden.equals("비공개")) {
-					if (tokenPass.equals(doPass)) {
-						chuDAO.updateCHAT_USERS("NAME", name, "LOCATION", tokenBody);
-						try {
-							it_out.println(URLEncoder.encode("[SYSTEM] 방이 이동되었습니다. (번호 : " + tokenBody + ")", "UTF-8"));
-						} catch (UnsupportedEncodingException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					} else {
-						try {
-							it_out.println(URLEncoder.encode("[SYSTEM] 비밀번호가 틀렸습니다.", "UTF-8"));
-						} catch (UnsupportedEncodingException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
 				}
 			}
 		}
+
+	}
+
+	public void CmdExitRoom(String name) {
+
+		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
+
+		ArrayList<B01chat_usersDO> USER = chuDAO.checkUSERS("NAME", name);
+
+		String isName = USER.get(0).getNAME();
+		String isAdmin = USER.get(0).getROOMADMIN();
+		String isLocation = USER.get(0).getLOCATION();
+
+		try {
+			if (isAdmin.equals("ADMIN")) {
+				it_out.println(
+						URLEncoder.encode("[SYSTEM] ADMIN 권한을 가지고 Exit 할 수 없습니다.(/admin 혹은 /dstroom 가능)", "UTF-8"));
+			} else {
+
+				it_out.println(URLEncoder.encode("[SYSTEM] 대기실로 이동합니다.", "UTF-8"));
+
+				// 로케이션 업데이트
+				chuDAO.updateCHAT_USERS("NAME", isName, "LOCATION", "1");
+
+			}
+
+		} catch (Exception e) {
+			System.out.println("예외[Server/CmdDefault] : " + e);
+		}
+	}
+
+	public void CmdRoomKick(String name, String body) {
+
+		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
+
+		if (body.equals("")) {
+			try {
+				it_out.println(URLEncoder.encode("\n\t예시)\n" + "\t\t/kick [상대방닉네임]", "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+
+		ArrayList<B01chat_usersDO> USER = chuDAO.checkUSERS("NAME", name);
+
+		String isName = USER.get(0).getNAME();
+		String isAdmin = USER.get(0).getROOMADMIN();
+		String isLocation = USER.get(0).getLOCATION();
+
+		try {
+			if (!isAdmin.equals("ADMIN")) {
+				it_out.println(URLEncoder.encode("[SYSTEM] ADMIN 권한이 있어야 KiCK 할 수 있습니다.", "UTF-8"));
+			} else {
+
+				chuDAO.updateCHAT_USERS("NAME", body.trim(), "LOCATION", "1");
+
+				PrintWriter kick = (PrintWriter) Server.clientMap.get(body.trim());
+				kick.println(URLEncoder.encode("[SYSTEM] ADMIN에 의해, ROOM에서 KICK 당했습니다.", "UTF-8"));
+			}
+
+		} catch (Exception e) {
+			System.out.println("예외[Server/CmdDefault] : " + e);
+		}
+	}
+
+	public void CmdAdminTo(String name, String body) {
+
+		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
+
+		if (body.equals("")) {
+			try {
+				it_out.println(URLEncoder.encode("\n\t예시)\n" + "\t\t/adminto [상대방닉네임]", "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+
+		ArrayList<B01chat_usersDO> USER = chuDAO.checkUSERS("NAME", name);
+
+		String isName = USER.get(0).getNAME();
+		String isAdmin = USER.get(0).getROOMADMIN();
+		String isLocation = USER.get(0).getLOCATION();
+
+		try {
+			if (!isAdmin.equals("ADMIN")) {
+				it_out.println(URLEncoder.encode("[SYSTEM] ADMIN 권한이 있어야 ADMIN을 물려줄 수 있습니다.", "UTF-8"));
+			} else {
+
+				// ADMIN UPDATE
+				chuDAO.updateCHAT_USERS("NAME", body.trim(), "ROOMADMIN", "ADMIN");
+
+				// 방장 권환 회수
+				chuDAO.updateCHAT_USERS("NAME", name, "ROOMADMIN", "NOADMIN");
+
+				PrintWriter AdminTo = (PrintWriter) Server.clientMap.get(body.trim());
+				AdminTo.println(URLEncoder.encode("[SYSTEM] 당신은 ADMIN에 의해 ADMIN 권한을 물려받았습니다.", "UTF-8"));
+			}
+
+		} catch (Exception e) {
+			System.out.println("예외[Server/CmdDefault] : " + e);
+		}
+	}
+
+	// private MSG 절도해옴
+	public void CmdMyRoomList(String name) {
+
+		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
+		String Result = "";
+
+		// NAME 정보 따옴
+		ArrayList<B01chat_usersDO> user = chuDAO.checkUSERS("NAME", name);
+		// NAME의 로케이션 따옴
+		String location = user.get(0).getLOCATION();
+
+		// LOCATION 에서, IN 상태인 놈들 찾음
+		ArrayList<B01chat_usersDO> list = chuDAO.checkUSERS("LOGIN = 'IN' and LOCATION", location);
+
+		// 사이즈 구해서 전문구성
+		int size = list.size();
+		for (int index = 0; index < size; index++) {
+			Result += list.get(index).getNAME() + " ";
+		}
+
+		try {
+			it_out.println(URLEncoder.encode(Result, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void CmdUserInfo(String name, String body) {
+		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
+		String Result = "";
+
+		// BODY 정보 따옴 (상대방)
+		ArrayList<B01chat_usersDO> user = chuDAO.checkUSERS("NAME", body.trim());
+		// BODY의 정보들
+		String bodyName = user.get(0).getNAME();
+		String bodyLogin = user.get(0).getLOGIN();
+		String bodyBlock = user.get(0).getBLOCK();
+		String bodyLoc = user.get(0).getLOCATION();
+		String bodyAdmin = user.get(0).getROOMADMIN();
+
+		Result = "\n\n닉네임 : [" + bodyName + "]\n상태 : [" + bodyLogin + "]\n계정상태 : [" + bodyBlock + "]\n마지막위치 : [룸번호-"
+				+ bodyLoc + "]\n방장여부 : [" + bodyAdmin + "]";
+
+		try {
+			it_out.println(URLEncoder.encode(Result, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	// Send AllMSG 복붙해옴.
+	public void CmdAllMsg(String name, String body) {
+
+		Iterator<?> it = Server.clientMap.keySet().iterator();
+
+		while (it.hasNext()) {
+			try {
+				PrintWriter it_out = (PrintWriter) Server.clientMap.get(it.next());
+
+				it_out.println(URLEncoder.encode("[(발송자) " + name + "] " + body, "UTF-8"));
+			} catch (Exception e) {
+				System.out.println("예외[Server/sendAllMsg] : " + e);
+			}
+		}
+	}
+
+	public void CmdHoldWhisper(String name, String body) {
+
+		System.out.println("고정귓 내부진입");
+		System.out.println("[" + name + "]");
+		System.out.println("[" + body + "]");
+
+		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
+
+		ArrayList<B01chat_usersDO> USER = chuDAO.checkUSERS("NAME", name);
+
+		// String isName = USER.get(0).getNAME();
+		String isHold = USER.get(0).getHOLDWHISPER();
+		String isHoldName = USER.get(0).getWHISPERNAME();
+		
+		if (isHold.equals("HOLD") || body.equals("")) {
+			try {
+				it_out.println(URLEncoder.encode("\n\t[고정귓속말을 해제합니다]", "UTF-8"));
+				chuDAO.updateCHAT_USERS("NAME", name, "HOLDWHISPER = 'NOHOLD', WHISPERNAME", "");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+		
+		ArrayList<B01chat_usersDO> user = chuDAO.checkUSERS("NAME", body.trim());
+		
+		if(user.get(0).getLOGIN().equals("NOTIN")) {
+			try {
+				it_out.println(URLEncoder.encode("[SYSTEM] 대상이 접속중이지 않습니다.", "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+
+		if (isHold.equals("NOHOLD")) {
+			try {
+				it_out.println(URLEncoder.encode("\n\t[고정귓속말로 전환합니다]", "UTF-8"));
+				chuDAO.updateCHAT_USERS("NAME", name, "HOLDWHISPER = 'HOLD', WHISPERNAME", body.trim());
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+
+		
+
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -504,7 +756,8 @@ public class A02ServerFunction {
 
 	public boolean isNumeric(String s) {
 		try {
-			Double.parseDouble(s);
+			// Double.parseDouble(s);
+			Integer.parseInt(s);
 			return true;
 		} catch (NumberFormatException e) {
 			return false;

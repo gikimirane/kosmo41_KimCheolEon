@@ -143,10 +143,8 @@ class A01MultiThreadRun extends Thread {
 
 				// 그 토큰3의 첫시작이 "/" 일때 명령어 커맨드로 구분
 				if (tokenCommand.substring(0, 1).equals("/")) {
-//					func.CommandProcess(tokenCommand, sendName, s);
 					func.CommandProcess(tokenCommand, sendName, tokenBody);
 				} else {
-//					func.sendAllMsg(s);
 					func.sendPrivateMsg(s, name);
 				}
 				// **********************************************************************

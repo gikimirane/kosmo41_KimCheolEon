@@ -83,6 +83,7 @@ public class B02chat_usersDAO {
 				chusers.setLOCATION(rs.getString("LOCATION"));
 				chusers.setROOMADMIN(rs.getString("ROOMADMIN"));
 				chusers.setHOLDWHISPER(rs.getString("HOLDWHISPER"));
+				chusers.setWHISPERNAME(rs.getString("WHISPERNAME"));
 				chusers.setINVITE(rs.getString("INVITE"));
 				chusers.setBANNLIST(rs.getString("BANNLIST"));
 				chusers.setBANNWORD(rs.getString("BANNWORD"));
