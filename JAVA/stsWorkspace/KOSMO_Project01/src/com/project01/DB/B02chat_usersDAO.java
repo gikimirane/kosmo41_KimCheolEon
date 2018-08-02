@@ -3,6 +3,7 @@ package com.project01.DB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class B02chat_usersDAO {
 
@@ -10,7 +11,7 @@ public class B02chat_usersDAO {
 	PreparedStatement pstmt = null;
 
 	String jdbc_driver = "oracle.jdbc.driver.OracleDriver";
-	String jdbc_url = "jdbc:oracle:thin:@localhost:1521:xe";
+//	String jdbc_url = "jdbc:oracle:thin:@localhost:1521:xe";
 
 	private String noThread = "00";
 
@@ -55,36 +56,42 @@ public class B02chat_usersDAO {
 			}
 		}
 	}
-	
+
 	// -------------------------------------------------------------------------------------
 
-	// 최초 접속 체크 (이름 조회, 차단여부)
-	public B01chat_usersDO checkUSERS(String where, String set) {
+	public ArrayList<B01chat_usersDO> checkUSERS(String where, String set) {
 		connect();
 
-		String sql = "select * from CHAT_USERS where "+ where +" = ?";
-		B01chat_usersDO users = new B01chat_usersDO();
+		ArrayList<B01chat_usersDO> chuList = new ArrayList<B01chat_usersDO>();
+
+		String sql = "select * from CHAT_USERS where " + where + " = ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, set);
 
 			ResultSet rs = pstmt.executeQuery();
-
-			rs.next();
 			
-			users.setNAME(rs.getString("NAME"));
-			users.setLOGIN(rs.getString("LOGIN"));
-			users.setBLOCK(rs.getString("BLOCK"));
-			users.setLOCATION(rs.getString("LOCATION"));
-			users.setROOMADMIN(rs.getString("ROOMADMIN"));
-			users.setHOLDWHISPER(rs.getString("HOLDWHISPER"));
-			users.setINVITE(rs.getString("INVITE"));
-			users.setBANNLIST(rs.getString("BANNLIST"));
-			users.setBANNWORD(rs.getString("BANNWORD"));
+			//이거 여기 있게 했더니 나 울기 직전까지 갔음.마ㅣㄴ어ㅏㅁ;어;ㅣㅏㄴ머아;ㅣ머나ㅣ어
+//			B01chat_usersDO chusers = new B01chat_usersDO();
+
+			while (rs.next()) {
+				B01chat_usersDO chusers = new B01chat_usersDO();
+				chusers.setNAME(rs.getString("NAME"));
+				chusers.setLOGIN(rs.getString("LOGIN"));
+				chusers.setBLOCK(rs.getString("BLOCK"));
+				chusers.setLOCATION(rs.getString("LOCATION"));
+				chusers.setROOMADMIN(rs.getString("ROOMADMIN"));
+				chusers.setHOLDWHISPER(rs.getString("HOLDWHISPER"));
+				chusers.setINVITE(rs.getString("INVITE"));
+				chusers.setBANNLIST(rs.getString("BANNLIST"));
+				chusers.setBANNWORD(rs.getString("BANNWORD"));
+
+				chuList.add(chusers);
+			}
 
 			rs.close();
-			
+
 		} catch (Exception e) {
 			// e.printStackTrace();
 			// System.out.println("Error[chat_usersDAO_checkUSERS] : " + e);
@@ -92,13 +99,13 @@ public class B02chat_usersDAO {
 		} finally {
 			disconnect();
 		}
-		return users;
+		return chuList;
 	}
 
 	public boolean updateCHAT_USERS(String where, String name, String column, String set) {
 		connect();
 
-		String sql = "UPDATE CHAT_USERS SET "+ column +" = ? WHERE "+ where +" = ?";
+		String sql = "UPDATE CHAT_USERS SET " + column + " = ? WHERE " + where + " = ?";
 
 		try {
 			pstmt = conn.prepareStatement(sql);

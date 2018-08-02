@@ -12,7 +12,7 @@ public class C02roomlistDAO {
 	PreparedStatement pstmt = null;
 
 	String jdbc_driver = "oracle.jdbc.driver.OracleDriver";
-	String jdbc_url = "jdbc:oracle:thin:@localhost:1521:xe";
+//	String jdbc_url = "jdbc:oracle:thin:@localhost:1521:xe";
 
 	private String noThread = "00";
 
@@ -61,7 +61,7 @@ public class C02roomlistDAO {
 		connect();
 
 		ArrayList<C01roomlistDO> list = new ArrayList<C01roomlistDO>();
-		String sql = "select *from ROOMLIST";
+		String sql = "select *from ROOMLIST order by RNUMBER";
 
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -88,10 +88,12 @@ public class C02roomlistDAO {
 		return list;
 	}
 
-	public C01roomlistDO selectRoomList(String roomName) {
+	public C01roomlistDO selectRoomList(String where, String roomName) {
 		connect();
 
-		String sql = "select *from ROOMLIST WHERE RNAME = ?";
+		// String sql = "select *from ROOMLIST WHERE RNAME = ?";
+		String sql = "select *from ROOMLIST WHERE " + where + " = ?";
+
 		C01roomlistDO roomlist = new C01roomlistDO();
 
 		try {
@@ -112,7 +114,7 @@ public class C02roomlistDAO {
 			rs.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error[selectUSERS_List] : " + e);
+			System.out.println("Error[roomlistDAO_selectRoomList] : " + e);
 		} finally {
 			disconnect();
 		}
@@ -136,7 +138,49 @@ public class C02roomlistDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error[roomlistDAO_insertPublicRoom] : " + e);
+			System.out.println("Error[roomlistDAO_insertRoom] : " + e);
+			return false;
+		} finally {
+			disconnect();
+		}
+		return true;
+	}
+
+	// 방 부숴버리기
+	public boolean deleteRoom(String RNUMBER) {
+		connect();
+
+		String sql = "delete from ROOMLIST where RNUMBER = ?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, RNUMBER);
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error[roomlistDAO_deleteRoom] : " + e);
+			return false;
+		} finally {
+			disconnect();
+		}
+		return true;
+	}
+	
+	public boolean updateRoom(String setNum, String whereRNum) {
+		connect();
+		
+		String sql = "update roomlist set rusercount = ? where RNUMBER = ?";
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, setNum);
+			pstmt.setString(2, whereRNum);
+
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error[roomlistDAO_updateRoom] : " + e);
 			return false;
 		} finally {
 			disconnect();

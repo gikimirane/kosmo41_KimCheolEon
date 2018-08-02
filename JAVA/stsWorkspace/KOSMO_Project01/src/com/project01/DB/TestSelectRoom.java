@@ -10,8 +10,8 @@ public class TestSelectRoom {
 		
 		System.out.println(roomName);
 		
-		C01roomlistDO selectRoom = roomDAO.selectRoomList(roomName);
-		System.out.println(selectRoom.getRNUMBER());
+//		C01roomlistDO selectRoom = roomDAO.selectRoomNAME(roomName);
+//		System.out.println(selectRoom.getRNUMBER());
 	}
 
 }

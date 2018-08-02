@@ -10,14 +10,18 @@ public class Server {
 	static ServerSocket serverSocket = null;
 	static Socket socket = null;
 	static Map<String, PrintWriter> clientMap;
-//	static Map<String, PrintWriter> roomMap;
-	
+	static Map<String, PrintWriter> PrivateMap;
+
 	public static void main(String[] args) {
 
 		// 클라이언트의 출력스트림을 저장할 해쉬맵 생성.
 		clientMap = new HashMap<String, PrintWriter>();
 		// 해쉬맵 동기화 설정
 		Collections.synchronizedMap(clientMap);
+		
+		PrivateMap = new HashMap<String, PrintWriter>();
+		Collections.synchronizedMap(PrivateMap);
+
 
 		try {
 			serverSocket = new ServerSocket(9999);
