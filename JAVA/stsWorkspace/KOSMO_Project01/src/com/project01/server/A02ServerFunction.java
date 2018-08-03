@@ -44,8 +44,8 @@ public class A02ServerFunction {
 		String holdWhisper = user.get(0).getHOLDWHISPER();
 		String holdName = user.get(0).getWHISPERNAME();
 
+		// 테이블 확인해서 유저가 HOLD 상태일때의 플래그
 		if (holdWhisper.equals("HOLD")) {
-
 			try {
 				PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
 				it_out.println(URLEncoder.encode("[SYSTEM] 고정귓속말상태 \n" + "\t\t [내용] " + msg, "UTF-8"));
@@ -75,16 +75,12 @@ public class A02ServerFunction {
 		}
 	}
 
-	// public void PrivateMsgClear() {
-	// list.clear();
-	// }
-
+	// 커맨드 처리 부분 (switch ~ case로 분류 및 메소드 호출)
 	public void CommandProcess(String command, String name, String body) {
 
 		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
 
 		try {
-
 			System.out.println("command : [" + command + "]");
 			System.out.println("name : [" + name + "]");
 			System.out.println("body : [" + body + "]");
@@ -161,6 +157,8 @@ public class A02ServerFunction {
 
 	}
 
+	// 명령어) /list
+	// ClientMap 을 조사해서 전체 접속자 리스트를 불러옴
 	public void CmdList(String name) {
 		String sResult = "";
 
@@ -176,7 +174,6 @@ public class A02ServerFunction {
 					sResult = sResult + ", " + n;
 				}
 			}
-
 			PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
 			it_out.println(URLEncoder.encode(sResult.toString(), "UTF-8"));
 
@@ -185,8 +182,9 @@ public class A02ServerFunction {
 		}
 	}
 
+	// 명령어) /to 상대방 내용
+	// 토크나이징을 통해 상대방에게 메시지 전달
 	public void CmdWhisper(String name, String body) {
-
 		StringTokenizer to = new StringTokenizer(body, " ");
 		String wantName = to.nextToken();
 		String toBody = to.nextToken("").trim();
@@ -202,6 +200,10 @@ public class A02ServerFunction {
 		}
 	}
 
+	// 명령어) /mkroom 방제목 # 인원수 # 공개/비공개 # 비밀번호
+	// 토크나이징을 통해 토큰을 분류해서 정보들을 ROOMLIST 테이블에 insert
+	// 보낼 메시지는 전문 작성, 최종전송 방식
+	// 패스 합을 통해서 Check 되어야 최종 insert
 	public void CmdMKRoom(String name, String body) {
 		try {
 			String sResult = "";
@@ -216,6 +218,7 @@ public class A02ServerFunction {
 
 			PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
 
+			// 확인1) ADMIN 권한을 갖고있는가?
 			if (chuDAO.checkUSERS("NAME", name).get(0).getROOMADMIN().equals("ADMIN")) {
 				PassCheck -= 99;
 				it_out.println(URLEncoder.encode("ADMIN 상태로 새 방을 생성할 수 없습니다.", "UTF-8"));
@@ -224,11 +227,14 @@ public class A02ServerFunction {
 					sResult = "\n[MKRoom] 방을 생성합니다.명령어를 작성해주세요.\n" + "/mkroom [방이름]#[인원제한]#[공개/비공개]#[비공개시, 패스워드]\n\n"
 							+ "\t예시)\n" + "\t\t /mkroom 모두모여랑!#3#공개\n" + "\t\t /mkroom 방이름입니다 # 3 # 비공개 # 1324";
 				} else {
+
+					// 토크나이징 시작
 					StringTokenizer mkroom = new StringTokenizer(body, "#");
 
 					int tokenCount = mkroom.countTokens();
 
 					// 이 부분은 CASE 로 고치는 부분이 좋다/////////////////////////////////
+					// 확인2) 토큰 3개 - 공개방의 토크나이징
 					if (tokenCount == 3) {
 						roomName = mkroom.nextToken().trim();
 						roomMax = mkroom.nextToken().trim();
@@ -236,6 +242,7 @@ public class A02ServerFunction {
 
 						PassCheck += 1;
 					}
+					// 확인2) 토큰 4개 - 비공개방의 토크나이징
 					if (tokenCount == 4) {
 						roomName = mkroom.nextToken().trim();
 						roomMax = mkroom.nextToken().trim();
@@ -246,20 +253,24 @@ public class A02ServerFunction {
 					}
 					//////////////////////////////////////////////////////////////////////
 
+					// 확인3) 최대인원수가 숫자로 설정된게 맞는가? / Integer.parseInt로 TRUE, FALSE 반환
 					if (isNumeric(roomMax) == true) {
 						PassCheck += 2;
 					}
 
+					// 확인4) 최대인원수가 0으로 되어있지 않은가?
 					if (!roomMax.equals("0")) {
 						PassCheck += 4;
 					}
 
+					// 확인5) 방구별이 공개/비공개 로만 설정되어있는가?
 					if (roomHidden.equals("공개") || roomHidden.equals("비공개")) {
 						PassCheck += 8;
 					}
 
 					System.out.println(PassCheck);
 
+					// 확인6) 상기의 패스사항을 모두 만족해야 insert 가능
 					if (PassCheck == 15) {
 						C01roomlistDO roomDO = new C01roomlistDO();
 						roomDO.setRNAME(roomName);
@@ -274,9 +285,8 @@ public class A02ServerFunction {
 
 						// 방장 권한 업데이트
 						chuDAO.updateCHAT_USERS("NAME", name, "ROOMADMIN", "ADMIN");
-						// 로케이션 업데이트 (룸리스트 조회한 다음에..... 룸 이름 equals 로 찾아서 로케이션딴다음에 번호를 때려넣어야하네)
+						// 로케이션 업데이트 (룸리스트 조회한 후 생성된 방을 이름으로 검색하여 룸번호 확보 - sequence 로 준비)
 						C01roomlistDO selectRoom = roomDAO.selectRoomList("RNAME", roomName);
-						System.out.println("생성된 방번호 : " + selectRoom.getRNUMBER());
 						chuDAO.updateCHAT_USERS("NAME", name, "LOCATION", selectRoom.getRNUMBER());
 
 					} else {
@@ -284,15 +294,17 @@ public class A02ServerFunction {
 						it_out.println(URLEncoder.encode("작성한 옵션 : [" + body.toString() + "]", "UTF-8"));
 					}
 				}
-
+				// 작성된 전문 최종 전송 (오류)
 				it_out.println(URLEncoder.encode(sResult.toString(), "UTF-8"));
 			}
-
 		} catch (Exception e) {
 			System.out.println("예외[Server/CmdList] : " + e);
 		}
 	}
 
+	// 명령어) /dstroom
+	// 명령어를 보낸 사람이 ADMIN 인지 확인후에, 가차없이 방을 delete.
+	// 후에 ADMIN 권한을 NOADMIN 으로 UPDATE 한 후에, LOCATION이 같은 전부를 대기실 (1번) 으로 UPDATE
 	public void CmdDSTRoom(String name) {
 
 		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
@@ -316,19 +328,20 @@ public class A02ServerFunction {
 				// 로케이션업데이트 하기전에, 파괴하려는 방 어드민 권환 회수
 				chuDAO.updateCHAT_USERS("NAME", name, "ROOMADMIN", "NOADMIN");
 
-				// 방 삭XE
+				// 방 삭제
 				if (roomDAO.deleteRoom(isLocation)) {
 					// 로케이션 업데이트
 					chuDAO.updateCHAT_USERS("LOCATION", isLocation, "LOCATION", "1");
 				}
 			}
-
 		} catch (Exception e) {
 			System.out.println("예외[Server/CmdDefault] : " + e);
 		}
-
 	}
 
+	// 명령어) /roomlist
+	// select * from roomlist 를 통해 획득한 정보를 ArrayList 에서 반복해서 꺼내서 전문작성
+	// 최종으로 커맨드를 시행한 사람에게 전문 전송
 	public void CmdRoomList(String name) {
 		String sResult = "";
 
@@ -354,9 +367,10 @@ public class A02ServerFunction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
+	// 명령어) /in [방번호] [비밀번호]
+	// 토큰의 갯수를 통해 공개방/비공개방의 경우 판단, 조건 확인후 UPDATE 함
 	public void CmdRoomIn(String name, String body) {
 
 		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
@@ -386,6 +400,7 @@ public class A02ServerFunction {
 		String tokenBody = "";
 		String tokenPass = "";
 
+		// 토큰의 갯수에 따른 토큰데이터 확보
 		if (tokenCount == 1) {
 			tokenBody = inToken.nextToken();
 		}
@@ -396,18 +411,17 @@ public class A02ServerFunction {
 		}
 
 		// 방이 존재하는가?
-		// 방이 존재하지 않으면 NULL 뿜어버리는데, CommandProcess 에서 에러처리해버림
+		// 방이 존재하지 않으면 NULLpoint error, CommandProcess 에서 에러처리
 		C01roomlistDO selectRoom = roomDAO.selectRoomList("RNUMBER", tokenBody);
 
+		// 대상된 방의 정보 확보
 		String doRnumber = selectRoom.getRNUMBER();
 		int doMax = Integer.parseInt(selectRoom.getRMAX());
 		int doUserCount = Integer.parseInt(selectRoom.getRUSERCOUNT());
 		String doHidden = selectRoom.getRHIDDEN();
 		String doPass = selectRoom.getRPASS();
 
-		System.out.println("방의 비밀번호 : " + doPass);
-
-		// 이동할 수 있는 권한인가?
+		// 이동할 수 있는 권한인가? - ADMIN 이면 방을 삭제하거나 계승후에 이동할 수 있도록 제한
 		if (isAdmin.equals("ADMIN")) {
 			try {
 				it_out.println(
@@ -457,7 +471,6 @@ public class A02ServerFunction {
 		}
 
 		System.out.println("PassCheck : " + PassCheck);
-
 		if (PassCheck != 0) {
 			try {
 				it_out.println(URLEncoder.encode("[SYSTEM] 조건이 맞지 않습니다. (번호 : " + tokenBody + ")", "UTF-8"));
@@ -514,6 +527,8 @@ public class A02ServerFunction {
 
 	}
 
+	// 명령어) /exit
+	// ADMIN 권한이 없다면 누구나 대기실로 UPDATE
 	public void CmdExitRoom(String name) {
 
 		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
@@ -534,14 +549,16 @@ public class A02ServerFunction {
 
 				// 로케이션 업데이트
 				chuDAO.updateCHAT_USERS("NAME", isName, "LOCATION", "1");
-
 			}
-
 		} catch (Exception e) {
 			System.out.println("예외[Server/CmdDefault] : " + e);
 		}
 	}
 
+	// 명령어) /kick
+	// ADMIN 권한이 없다면 누구나 대기실로 UPDATE
+	// !! 오류  !!
+	// 상대방이 같은 방에 있는지 검사를 안함
 	public void CmdRoomKick(String name, String body) {
 
 		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
@@ -578,6 +595,11 @@ public class A02ServerFunction {
 		}
 	}
 
+	// 명령어) /adminto
+	// ADMIN 권한이 상대에게 강제 승계
+	// !! 오류  !!
+	// 1. 상대방이 같은 방에 있는지 검사를 안함
+	// 2. 상대가 ADMIN 인지를 확인하지 않음
 	public void CmdAdminTo(String name, String body) {
 
 		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
@@ -618,7 +640,7 @@ public class A02ServerFunction {
 		}
 	}
 
-	// private MSG 절도해옴
+	// 명령어) /roomlist
 	public void CmdMyRoomList(String name) {
 
 		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
@@ -646,6 +668,7 @@ public class A02ServerFunction {
 		}
 	}
 
+	// 명령어) /info [닉네임]
 	public void CmdUserInfo(String name, String body) {
 		PrintWriter it_out = (PrintWriter) Server.clientMap.get(name);
 		String Result = "";
@@ -670,7 +693,8 @@ public class A02ServerFunction {
 		}
 	}
 
-	// Send AllMSG 복붙해옴.
+
+	// 명령어) /all [메시지]
 	public void CmdAllMsg(String name, String body) {
 
 		Iterator<?> it = Server.clientMap.keySet().iterator();
@@ -686,8 +710,8 @@ public class A02ServerFunction {
 		}
 	}
 
+	// 명령어) /toh 상대방
 	public void CmdHoldWhisper(String name, String body) {
-
 		System.out.println("고정귓 내부진입");
 		System.out.println("[" + name + "]");
 		System.out.println("[" + body + "]");
@@ -699,7 +723,7 @@ public class A02ServerFunction {
 		// String isName = USER.get(0).getNAME();
 		String isHold = USER.get(0).getHOLDWHISPER();
 		String isHoldName = USER.get(0).getWHISPERNAME();
-		
+
 		if (isHold.equals("HOLD") || body.equals("")) {
 			try {
 				it_out.println(URLEncoder.encode("\n\t[고정귓속말을 해제합니다]", "UTF-8"));
@@ -710,10 +734,10 @@ public class A02ServerFunction {
 			}
 			return;
 		}
-		
+
 		ArrayList<B01chat_usersDO> user = chuDAO.checkUSERS("NAME", body.trim());
-		
-		if(user.get(0).getLOGIN().equals("NOTIN")) {
+
+		if (user.get(0).getLOGIN().equals("NOTIN")) {
 			try {
 				it_out.println(URLEncoder.encode("[SYSTEM] 대상이 접속중이지 않습니다.", "UTF-8"));
 			} catch (UnsupportedEncodingException e) {
@@ -733,8 +757,6 @@ public class A02ServerFunction {
 			}
 			return;
 		}
-
-		
 
 	}
 

@@ -14,7 +14,6 @@ import com.project01.DB.B02chat_usersDAO;
 
 class A01MultiThreadRun extends Thread {
 
-//	Server svr = new Server();
 	A02ServerFunction func = new A02ServerFunction();
 
 	Socket socket;
@@ -31,7 +30,7 @@ class A01MultiThreadRun extends Thread {
 			out.close();
 			socket.close();
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 	}
 
@@ -48,7 +47,7 @@ class A01MultiThreadRun extends Thread {
 			System.out.println("예외 : " + e);
 		}
 	}
-	
+
 	// 쓰레드를 사용하기 위해서 run() 메서드 재정의
 	@Override
 	public void run() {
@@ -61,11 +60,10 @@ class A01MultiThreadRun extends Thread {
 			// ----------------------------------------------------------
 			// DAO 에서 NAME SQL excute 시도 (실패시 없는 계정)
 			System.out.println("[SYSTEM] 회원 테이블 확인중....");
-			
-//			B01chat_usersDO checkUSERS = chuDAO.checkUSERS("NAME", name);
+
 			ArrayList<B01chat_usersDO> checkUSERS = chuDAO.checkUSERS("NAME", name);
 			String getuLoc = checkUSERS.get(0).getLOCATION();
-			
+
 			if (checkUSERS.get(0).getLOGIN().equals("IN")) {
 				System.out.println("[접속거부] 중복 접속");
 				ConnectionDennied();
@@ -73,7 +71,7 @@ class A01MultiThreadRun extends Thread {
 				out.close();
 				socket.close();
 			} else {
-				
+
 				System.out.println("[SYSTEM] 중복되지 않은 접속");
 			}
 
@@ -91,10 +89,7 @@ class A01MultiThreadRun extends Thread {
 			// 현재 객체가 가지고 있는 소켓을 제외하고 다른 소켓(클라이언트)들에게 접속을 알림.
 			Server.clientMap.put(name, out); // 해쉬맵에 키를 name으로 출력스트림 객체를 저장.
 			System.out.println("현재 접속자 수는 " + Server.clientMap.size() + "명 입니다.");
-			
-//			ArrayList<B01chat_usersDO> user = chuDAO.checkUSERS("NAME", name);
-//			svr.LocationArrayAdd(user.get(0).getLOCATION());
-			
+
 			// ############################################################
 			// UPDATE IN
 			boolean logIN_chuUSERS = chuDAO.updateCHAT_USERS("NAME", name, "LOGIN", "IN");
@@ -104,7 +99,6 @@ class A01MultiThreadRun extends Thread {
 			} else {
 				System.out.println("[SYSTEM] 회원정보 LogIN UPDATE FALSE");
 			}
-
 			// ############################################################
 
 			// 입력스트림이 null이 아니면 반복.
@@ -120,25 +114,19 @@ class A01MultiThreadRun extends Thread {
 
 				// **********************************************************************
 				// 제대로 토큰될라면, 아이디에 공백이 없어야함
-				System.out.println("전송된 메시지 : " + s);
 				StringTokenizer test = new StringTokenizer(s, " ");
 
-				// 토큰1 - 보낸사람 NAME
 				String sendName = test.nextToken();
-				System.out.println("토큰1 : " + sendName);
 
 				// 토큰2 - : (콜론)
 				String unWokrd = test.nextToken();
-				System.out.println("토큰2 : " + unWokrd);
 
 				// 토큰3 - 콜론 이후 내용물 시작
 				String tokenCommand = test.nextToken();
-				System.out.println("토큰3 : " + tokenCommand);
 
 				String tokenBody = "";
 				if (test.hasMoreTokens()) {
 					tokenBody = test.nextToken("").trim();
-					System.out.println("토큰4 : " + tokenBody);
 				}
 
 				// 그 토큰3의 첫시작이 "/" 일때 명령어 커맨드로 구분
@@ -158,6 +146,8 @@ class A01MultiThreadRun extends Thread {
 			func.sendAllMsg("[" + name + "] 님이 퇴장하셨습니다.");
 			System.out.println("현재 접속자 수는 " + Server.clientMap.size() + "명 입니다.");
 
+			// -----------------------------------------------------------------------------------
+
 			// UPDATE NOTIN
 			B02chat_usersDAO chuDAO = new B02chat_usersDAO();
 			boolean logOUT_chuUSERS = chuDAO.updateCHAT_USERS("NAME", name, "LOGIN", "NOTIN");
@@ -166,6 +156,7 @@ class A01MultiThreadRun extends Thread {
 			} else {
 				System.out.println("[SYSTEM] 회원정보 logOUT UPDATE FALSE");
 			}
+			// -----------------------------------------------------------------------------------
 
 			try {
 				in.close();
