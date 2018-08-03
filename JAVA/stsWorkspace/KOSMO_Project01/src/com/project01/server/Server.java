@@ -4,8 +4,6 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import com.project01.DB.*;
-
 public class Server {
 	static ServerSocket serverSocket = null;
 	static Socket socket = null;

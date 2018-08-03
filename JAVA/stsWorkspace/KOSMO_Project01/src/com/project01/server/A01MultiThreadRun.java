@@ -113,6 +113,8 @@ class A01MultiThreadRun extends Thread {
 				}
 
 				// **********************************************************************
+				
+				System.out.println("전송된 메시지 : " + s);
 				// 제대로 토큰될라면, 아이디에 공백이 없어야함
 				StringTokenizer test = new StringTokenizer(s, " ");
 
