@@ -246,7 +246,7 @@ public class A02ServerFunction {
 					}
 					//////////////////////////////////////////////////////////////////////
 
-					if (isNumeric(roomMax) == true) {
+					if (isDigit(roomMax) == true) {
 						PassCheck += 2;
 					}
 
@@ -421,7 +421,7 @@ public class A02ServerFunction {
 		}
 
 		// 숫자를 입력한 것이 맞는가?
-		if (!isNumeric(tokenBody)) {
+		if (!isDigit(tokenBody)) {
 			try {
 				it_out.println(URLEncoder.encode("[SYSTEM] 숫자가 아닙니다.", "UTF-8"));
 			} catch (UnsupportedEncodingException e) {
@@ -699,7 +699,7 @@ public class A02ServerFunction {
 		// String isName = USER.get(0).getNAME();
 		String isHold = USER.get(0).getHOLDWHISPER();
 		String isHoldName = USER.get(0).getWHISPERNAME();
-		
+
 		if (isHold.equals("HOLD") || body.equals("")) {
 			try {
 				it_out.println(URLEncoder.encode("\n\t[고정귓속말을 해제합니다]", "UTF-8"));
@@ -710,10 +710,10 @@ public class A02ServerFunction {
 			}
 			return;
 		}
-		
+
 		ArrayList<B01chat_usersDO> user = chuDAO.checkUSERS("NAME", body.trim());
-		
-		if(user.get(0).getLOGIN().equals("NOTIN")) {
+
+		if (user.get(0).getLOGIN().equals("NOTIN")) {
 			try {
 				it_out.println(URLEncoder.encode("[SYSTEM] 대상이 접속중이지 않습니다.", "UTF-8"));
 			} catch (UnsupportedEncodingException e) {
@@ -734,8 +734,6 @@ public class A02ServerFunction {
 			return;
 		}
 
-		
-
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -754,14 +752,27 @@ public class A02ServerFunction {
 
 	// -------------------------------------------------------------------------------------------//
 
-	public boolean isNumeric(String s) {
-		try {
-			// Double.parseDouble(s);
-			Integer.parseInt(s);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		}
-	}
+	// public boolean isDigit(String s) {
+	// try {
+	// // Double.parseDouble(s);
+	// Integer.parseInt(s);
+	// return true;
+	// } catch (NumberFormatException e) {
+	// return false;
+	// }
+	// }
 
+	public boolean isDigit(String s) {
+		int MaxLength = s.length() - 1;
+
+		for (int i = 0; i < MaxLength; i++) {
+			switch (s.charAt(i)) {
+			case '0':case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':
+				return true;
+			default:
+				break;
+			}
+		}
+		return false;
+	}
 }
