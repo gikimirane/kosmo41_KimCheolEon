@@ -61,15 +61,12 @@ public class B02chat_usersDAO {
 
 	public ArrayList<B01chat_usersDO> checkUSERS(String where, String set) {
 		connect();
-
+		
 		ArrayList<B01chat_usersDO> chuList = new ArrayList<B01chat_usersDO>();
-
 		String sql = "select * from CHAT_USERS where " + where + " = ?";
-
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, set);
-
 			ResultSet rs = pstmt.executeQuery();
 			
 			//이거 여기 있게 했더니 나 울기 직전까지 갔음.마ㅣㄴ어ㅏㅁ;어;ㅣㅏㄴ머아;ㅣ머나ㅣ어

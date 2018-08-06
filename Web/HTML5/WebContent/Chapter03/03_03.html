@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Chapter03</title>
+</head>
+
+<body>
+	<h1 align="center">03-03. 테이블 태그 - rowspan</h1>
+	<hr>
+	<!-- 테이블 구성할때 행열 구조 헷갈린다 싶으면
+	tr 행에, td 열로 이어붙여서 작성한 뒤에 자동줄맞춤(Ctrl+shift+f) 로 정렬해버리면 됨 -->
+	<table border="1" align="center">
+		<tr>
+			<td rowspan="3">수영</td><td>새벽</td><td>am 06:00</td>
+		</tr>
+		<tr>
+			<td>아침</td><td>am 07:00</td>
+		</tr>
+		<tr>
+			<td>오후</td><td>pm 13:00</td>
+		</tr>
+		<!-- 이렇게 될줄알았는데 안됨<tr colspan="3"></tr> -->
+		<tr><td colspan="3">&nbsp</td></tr>
+		<tr>
+			<td rowspan="3">에어로빅</td><td>새벽</td><td>am 06:00</td>
+		</tr>
+		<tr>
+			<td>아침</td><td>am 07:00</td>
+		</tr>
+		<tr>
+			<td>오후</td><td>pm 13:00</td>
+		</tr>
+
+	</table>
+
+</body>
+</html>
