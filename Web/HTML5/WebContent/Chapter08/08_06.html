@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Chapter08</title>
+
+<style>
+	
+	/* h3 이후에 나오는 div 전부 */
+	h3 ~ div{
+		font-size : 20px;
+		color : orange;
+	}
+	
+	/* h3 바로 뒤에 있는 div */
+	h3 + div {
+		font-size : 30px;
+		font-weight : bold;
+		color : blue;
+	}
+	
+	#title ~ div{
+		width : 300px;
+		background-color : yellow;
+	}
+	
+	.hoverSel:hover{
+		font-size : 2em;
+		color : #ff0000;
+		font-weight : bolder;
+	}
+	
+	/* 여기서는 일단 안쓰는 부분 */
+	/*
+	input:checked{
+		font-size : 2em;
+		background : #ffffff;
+	}
+	*/
+	
+	[type="checkbox"].checked:hover{
+		color : green;
+		font-size : 2em;
+	}
+	
+	input{
+		font-size : 1em;
+		background : #ffffff;
+	}
+	
+	input:focus{
+		font-size : 2em;
+		background : #dddddd;
+	}
+	
+</style>
+</head>
+
+<body>
+	<h1 align="center">08-06. 동위, 반응, 상태 선택자</h1>
+	<hr>
+
+	<br>
+	<br>
+	
+	<!-- 동위선택자 -->
+	<h3 id="tittle">동위 선택자 (+, ~)</h3>
+	<div>div_01</div>
+	<div>div_02</div>
+	<div>div_03</div>
+	<div>div_04</div>
+	<div>div_05</div>
+	<br><br>
+	
+	<!-- 반응선택자 -->
+	<div class="hoverSel">반응 선택자</div>
+	<br><br>
+	
+	<!-- 상태 선택자 -->
+	<div>
+		아이디 : <input type="text"><br>
+		<input type="checkbox" />
+		<label>Styled Check Box</label>
+	</div>
+	
+	<input type="checkbox" />
+	<label>Styled Check Box</label>
+
+</body>
+</html>
