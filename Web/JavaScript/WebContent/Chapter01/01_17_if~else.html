@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript01</title>
+
+<script>
+    let grade;
+    let score = prompt("홍길동님의 점수를 입력?", 100);
+    score = parseInt(score);
+
+    if(score >= 90){
+        grade = "A";
+    }
+    else if((score < 90)&&(score>=80)){
+        grade = "B";
+    }
+    else if((score < 80)&&(score >= 70)){
+        grade = "C";
+    }
+    else if((score < 70)&&(score >= 60)){
+        grade = "D";
+    }
+    else{
+        grade = "F";
+    }
+
+    document.write(score + "는 " + grade + "입니다. <br>");
+</script>
+
+</head>
+
+<body>
+
+
+	
+</body>
+</html>

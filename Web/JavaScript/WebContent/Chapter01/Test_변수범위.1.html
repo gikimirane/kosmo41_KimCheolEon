@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript01</title>
+
+
+
+</head>
+
+<body>
+
+	<script>
+		var aNumber = 100;
+		tweak();
+
+		function tweak() {
+
+			// This prints "undefined", because aNumber is also defined locally below.
+			document.write(aNumber);
+
+			if (false) {
+				var aNumber = 123;
+			}
+		}
+	</script>
+
+</body>
+</html>

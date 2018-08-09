@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript02</title>
+
+</head>
+
+<body>
+    <h3>Date 객체로 현재 시간 알아내기</h3>
+    <hr>
+    
+    <script>
+        let now = new Date();
+        document.write("현재시간 : " + now.toUTCString() + "<br><hr>");
+
+        document.write(now.getFullYear() + "년도<br>");
+        document.write(now.getMonth()+1 + "월<br>");
+        document.write(now.getDate() + "일<br>");
+        document.write(now.getHours() + "시<br>");
+        document.write(now.getMinutes() + "분<br>");
+        document.write(now.getSeconds() + "초<br>");
+        document.write(now.getMilliseconds() + "밀리초<br><hr>");
+
+        // date input format 참고
+        // https://www.w3schools.com/js/js_date_formats.asp
+        let next = new Date(2018, 7, 15, 12, 12, 12); //8월 15일 12시 12분
+        document.write("next.to.LocaleString() : " + next.toLocaleDateString("ko-KR") + "<br>");
+        //https://stackoverflow.com/questions/2388115/get-locale-short-date-format-using-javascript
+        //toLocaleDateString 은 포맷이 지역별로 나뉘어있는듯... 잘은 모르겠음
+
+        let diff = next - now;
+        let day = 1000 * 60 * 60 * 24;
+        document.write("차이 일수 : " + parseInt(diff/day) + "<br>");
+
+        let diff2 = next.getDate() - now.getDate();
+        document.write("차이 일수2 : " + diff2);
+
+       
+    </script>
+        
+
+
+	
+</body>
+</html>

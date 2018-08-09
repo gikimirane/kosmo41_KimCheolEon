@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript01</title>
+
+
+
+</head>
+
+<body>
+
+	<script>
+		// Global definition of aCentaur.
+		var aCentaur = "a horse with rider,";
+
+		// A local aCentaur variable is declared in this function.
+		function antiquities() {
+
+			var aCentaur = "A centaur is probably a mounted Scythian warrior";
+		}
+
+		antiquities();
+		aCentaur += " as seen from a distance by a naive innocent.";
+
+		document.write(aCentaur);
+
+		// Output: "a horse with rider, as seen from a distance by a naive innocent."
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript02</title>
+
+</head>
+
+<body>
+    <h3>Array 객체 사용</h3>
+    <hr>
+    
+    <script>
+        let tempeture = new Array();
+
+        tempeture[0] = 15.1;
+        tempeture[1] = 15.4;
+        tempeture[2] = 16.1
+        tempeture[3] = 17.5
+        tempeture[4] = 19.2
+        tempeture[5] = 21.4
+
+        let sum = 0;
+        for(let i=0; i<tempeture.length; i++){
+            sum += tempeture[i];
+        }
+
+        document.write("평균온도 : " + (sum/tempeture.length) + "<br>");
+        
+
+       
+    </script>
+        
+
+
+	
+</body>
+</html>
