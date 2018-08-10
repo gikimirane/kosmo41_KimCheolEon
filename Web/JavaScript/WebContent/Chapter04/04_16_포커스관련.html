@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript04</title>
+
+<script>
+    function checkFilled(obj){
+        if(obj.value == ""){
+            alert("enter name!");
+            obj.focus();
+        }
+    }
+</script>
+
+</head>
+
+<body onload="document.getElementById('name').focus">
+    <h3>onfocus와 onblur 사용</h3>
+    <hr>
+    <p>이름을 입력하지않고 다른창으로 이동할 수 없다</p>
+    <!-- <form>
+        이름 <input type="text" id="name" onblur="checkFilled(this)"><p></p>
+        학번 <input type="text">
+    </form> -->
+    
+    <!-- 내가 생각해낸 수정 -->
+    <form>
+        이름 <input type="text" id="name"><p></p>
+        학번 <input type="text" onfocus="checkFilled(getElementById('name'))">
+    </form>
+    
+</body>
+</html>

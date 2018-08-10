@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript04</title>
+
+<script>
+    var files = ["image/Penguins.png",
+                "image/Lighthouse.png",
+                "image/Chrysanthemum.png",
+                "image/Tulips.png"];
+    
+    var imgs = new Array();
+    for(let i=0; i<files.length; i++){
+        imgs[i] = new Image();
+        imgs[i].src = files[i];
+    }
+
+    var next = 1; //이게 왜 0이 아니냐 하면, 이미 첫 이미지 링크가 0번의 펭귄그림이라서.
+    function change(img){
+        img.src = imgs[next].src;
+        next++;
+        next %= imgs.length; //처음으로 돌아가게하는거 이런건 쓸모있겠다
+    }
+</script>
+
+</head>
+
+<body>
+    <h3>new Image()로 이미지 로딩</h3>
+    <hr>
+    이미지를 클릭하면 다음이미지<p></p>
+    <img style="border: 20px ridge wheat"
+            src="image/Penguins.png" alt="." width="200" height="200"
+            onclick="change(this)">
+</body>
+</html>

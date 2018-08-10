@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript03</title>
+
+<script>
+    function createDiv(){
+        var obj = document.getElementById("parent");
+        
+        var newDiv = document.createElement("div");
+        newDiv.innerHTML = "새로 생성된 div이다.";
+        newDiv.setAttribute = ("id", "myDiv");
+        newDiv.style.backgroundColor = "yellow";
+        newDiv.onclick = function(){
+            var p = this.parentElement;
+            p.removeChild(this);//자신을 부모로부터 제거
+        };
+        
+        // 참고했음
+        // https://www.w3schools.com/jsref/met_node_insertbefore.asp
+        var p2 = document.getElementById("p2");
+        // p2.insertBefore(newDiv, p2.childNodes[0])
+        p2.insertBefore(newDiv, p2.childNodes[1])
+        // obj.appendChild(newDiv);
+    }
+</script>
+
+</head>
+
+<!-- 어쩐지 null 뜬다 했더니, 부모식별이 안되서... body id -->
+<body id="parent">
+    <h3>HTML태그의 동적추가 및 삭제</h3>
+    <hr>
+    <p>
+        DOM트리에 동적으로 객체 삽입
+        createElement(), appendChild(), removeChild()....
+    </p>
+    <a href="javascript:createDiv()">Div의 생성</a>
+    <p>
+        p1 번
+    </p>
+    <p id="p2">
+        p2 번
+    </p>
+    <p>
+        p3 번
+    </p>
+
+</body>
+</html>

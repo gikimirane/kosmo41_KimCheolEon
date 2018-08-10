@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript03</title>
+
+<script>
+    function change(){
+        let spanArray = document.getElementsByTagName("span");
+        for(let i=0; i<spanArray.length; i++){
+            let span = spanArray[i];
+            span.style.color = "orchid";
+            span.style.fontSize = "20px";
+        }
+    }
+    
+    function changeClassSnack(){
+        let spanArray = document.getElementsByClassName("snack")
+        for(let i=0; i<spanArray.length; i++){
+            let span = spanArray[i];
+            span.style.color = "red";
+            span.style.fontSize = "20px";
+        }
+    }
+</script>
+
+</head>
+
+<body>
+    <h3>태그 이름으로 객체 찾아서 조작하기</h3>
+    <button onclick="changeClassSnack()">누르시오</button>
+    <hr>
+    빨간 <span>사과</span>를 먹는다. <span>바나나</span>는 길다.
+    <span>체리</span>는 안 좋아한다. <span>자두</span>보다는 나는
+    <span>천도복숭아</span>가 좋다.        
+    <br>
+    <span class="snack">과자1</span><br>
+    <span class="snack">과자2</span><br>
+    <span class="snack">과자3</span><br>
+    <span class="snack">과자4</span><br>
+    <span class="snack">과자5</span><br>
+    <div class="snack">snack클래스 div</div>
+    </script>
+    
+</body>
+</html>

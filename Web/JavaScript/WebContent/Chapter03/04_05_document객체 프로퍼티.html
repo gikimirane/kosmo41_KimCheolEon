@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript03</title>
+
+<script>
+    let text = "문서 로딩중일 때 readyState = " + document.readyState + "\n";
+</script>
+
+</head>
+
+<body style="background-color: yellow; color: blue; direction: rtl"
+    onload="printProperties()">
+    <h3>document 객체의 주요 프로퍼티</h3>
+    <hr>
+    <a href="http://www.naver.com">네이버 홈페이지</a>
+    <div>이곳은 div 영역</div>
+    <input id="input" type="text" value="여기 포커스가 있습니다">
+
+    <script>
+        //문서 완전히 로드시, 현재 document 프로퍼티 출력
+        function printProperties(){
+            document.getElementById("input").focus();
+            //input 태그에 포커스
+            //focus 만 하는게 아니라 focus() 해야 포커스 잡힘.
+            //이건 개발자도구로도 디버깅이 안잡히더라.
+
+            text += "1. location = " + document.location + "\n";
+            text += "2. URL = " + document.URL + "\n";
+            text += "3. title = " + document.title + "\n";
+            text += "4. head의 id = " + document.head.id + "\n";
+            text += "5. body color = " + document.body.style.color + "\n";
+            text += "6. domain = " + document.domain + "\n";
+            text += "7. lastModified = " + document.lastModified + "\n";
+            text += "8. defaultView = " + document.defaultView + "\n";
+            text += "9. 문서의 로드완료 후 readyState = " + document.readyState + "\n";
+            text += "10. referrer = " + document.referrer + "\n";
+            text += "11. activeElement = " + document.activeElement + "\n";
+            text += "12. documentElement의 태그 이름 = " + document.documentElement.tagName + "\n";
+            alert(text);
+        }
+        
+    </script>
+
+
+
+</body>
+</html>

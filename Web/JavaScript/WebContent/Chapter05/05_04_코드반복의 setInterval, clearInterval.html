@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript05</title>
+
+</head>
+
+<body>
+    <h3>텍스트가 자동으로 지나가며, 마우스 클릭하면 중단한다.</h3>
+    <hr>
+    <div>
+        <span id="div" style="background-color: yellow">자동 회전하는 텍스트입니다.</span>
+    </div>
+    <script>
+        // var play = true;
+        var div = document.getElementById("div");
+        var timerID = setInterval("doRotate()", 200); //0.2 초 주기로 doRotate 호출
+
+        div.onclick = function(e){
+            if(play == true){
+                clearInterval(timerID);
+                play = false;
+            }
+            // else{
+            //     timerID = setInterval("doRotate()", 200);
+            //     play = true;
+            // }
+            
+        }
+
+
+        function doRotate(){
+            var str = div.innerHTML;
+            var firstChar = str.substr(0, 1);
+            var remains = str.substr(1, str.length-1);
+            str = remains + firstChar;
+            div.innerHTML = str;
+        }
+    </script>
+    
+</body>
+</html>

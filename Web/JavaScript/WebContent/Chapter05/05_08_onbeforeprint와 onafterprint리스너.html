@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript05</title>
+
+<style>
+    #logoDiv{
+        display: none;
+        position: absolute; left: 0; top: 0;
+        width: 100%; height: 100%;
+    }
+</style>
+
+<script>
+    window.onbeforeprint = function(e){
+        logoDiv = document.getElementById("logoDiv");
+        logoDiv.style.display = "block";
+    }
+    window.onafterprint = hideLogo;
+    function hideLogo(){
+        logoDiv = document.getElementById("logoDiv");
+        logoDiv.style.display = "none";
+        logoDiv.style.zIndex = -1;
+    }
+</script>
+
+</head>
+
+<body>
+    <h3>onafterprint, onbeforeprint 예제 (유사 워터마크)</h3>
+    <hr>
+    
+    <div id="logoDiv">
+        <img src="media/logo.png" alt="이미지가 없습니다.">
+    </div>
+    <p>
+        브라우저에서는 보이지 않지만, 프린트할때 이미지 보임<br>
+        브라우저에서는 보이지 않지만, 프린트할때 이미지 보임<br>
+        브라우저에서는 보이지 않지만, 프린트할때 이미지 보임<br>
+        브라우저에서는 보이지 않지만, 프린트할때 이미지 보임<br>
+        브라우저에서는 보이지 않지만, 프린트할때 이미지 보임<br>
+        브라우저에서는 보이지 않지만, 프린트할때 이미지 보임<br>
+       
+    </p>
+    
+    
+</body>
+</html>

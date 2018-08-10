@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript04</title>
+
+<script>
+    function changeImage(){
+        let sel = document.getElementById("sel");
+        let img = document.getElementById("myImg");
+
+        img.onload = function(){
+            let mySpan = document.getElementById("mySpan");
+            mySpan.innerHTML = img.width + "x" + img.height;
+        }
+        let index = sel.selectedIndex;
+        img.src = sel.options[index].value;
+    }
+</script>
+
+</head>
+    
+<body onload="changeImage()">
+<!-- <body> -->
+<h3>onload로 이미지 크기 구하기</h3>
+<hr>
+<form>
+    <select id="sel" onchange="changeImage()">
+        <option value="image/apple.png">사과</option>
+        <option value="image/banana.png">바나나</option>
+        <option value="image/mango.png">망고</option>
+    </select>
+    <span id="mySpan">이미지크기</span>
+</form>
+<p><img id="myImg" src="image/apple.png" alt="."></p>
+
+<!-- 오류의 예시, onload가 끝나기전에 계산이되기때문에 0x0 나오고 이후에 제대로 나옴 -->
+<!-- <script>
+    let img = document.getElementById("myImg");
+    let mySpan = document.getElementById("mySpan");
+    mySpan.innerHTML = img.width + "x" + img.height;
+</script> -->
+
+
+    
+</body>
+</html>

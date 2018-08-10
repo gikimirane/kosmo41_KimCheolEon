@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript05</title>
+
+</head>
+
+<body>
+    <h3>이미지에 마우스를 올리고 5초간 있을시 사이트로 이동</h3>
+    <hr>
+    <img id="img" src="media/naver.gif"
+        onmouseover="startTimeer(5000)"
+        onmouseout="cancleTimer()">
+    <script>
+        var timerID = null;
+        
+        function startTimeer(time){
+            timerID = setTimeout("load('http://www.naver.com')", time);
+
+            document.getElementById("img").title = "타이머 작동 시작...";
+        }
+        
+        function cancleTimer(){
+            if(timerID != null){
+                clearTimeout(timerID);
+            }
+        }
+
+        function load(url){
+            window.location = url;
+        }
+    </script>
+    
+</body>
+</html>

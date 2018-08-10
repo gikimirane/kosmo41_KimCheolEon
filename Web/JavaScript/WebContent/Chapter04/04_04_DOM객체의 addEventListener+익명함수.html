@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript04</title>
+
+<script>
+    let p;
+    function init(){
+        p = document.getElementById("p");
+        p.addEventListener("mouseover", 
+            function (){
+                this.style.backgroundColor = "orchid";
+            }
+        );
+
+        p.addEventListener("mouseout", 
+            function out(){
+                this.style.backgroundColor = "white";
+            }
+        );
+    }
+  
+</script>
+
+</head>
+
+<body onload="init()">
+    <h3>DOM객체 이벤트 리스너 함수등록</h3>
+    <hr>
+    <p id="p">
+        마우스 올리면 orchid 색으로 변경
+    </p>
+
+</body>
+</html>

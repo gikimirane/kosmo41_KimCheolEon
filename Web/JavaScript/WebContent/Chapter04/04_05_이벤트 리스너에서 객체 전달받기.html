@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript04</title>
+
+</head>
+
+<body onload="init()">
+    <h3>이벤트 객체 전달받기</h3>
+    <hr>
+    <p id="p">
+        마우스를 올려보세요
+    </p>
+    <button onclick="f(event)">클릭하세요</button>
+    <script>
+        function f(e){
+            alert(e.type);
+        }
+        document.getElementById("p").onmouseover = f;
+    </script>
+
+</body>
+</html>
