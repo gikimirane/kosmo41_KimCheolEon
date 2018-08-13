@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.item').css('color', 'Orange');
+        $('h1.item').css('background', 'Red');
+        // $('h1.item').css('background-color', 'Red');
+        // 백그라운드랑 백그라운드-컬러랑 같이 적용됨
+    });
+</script>
+
+</head>
+<body>
+    <h1 class="item">Header-0</h1>
+    <h1 class="item select">Header-1</h1>
+    <h1 class="item">Header-2</h1>
+    <p class="item">pHeader-3</p>
+</body>
+</html>

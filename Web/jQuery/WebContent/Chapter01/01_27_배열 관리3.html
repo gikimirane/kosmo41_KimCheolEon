@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+        var array = [
+            {name : 'Google', link: 'http://google.com'},
+            {name : 'Naver', link: 'http://naver.com'},
+            {name : 'CheolEon Hompage', link: 'http://rumen-scholar.tk'}
+        ];
+
+        $.each(array, function(index, item){
+            var output = '';
+            
+            output += '<a href="' + item.link + '" target="_blank">';
+                //타겟 블랭크는 내가 심심해서 걸어봄
+            output += '<h1>' + item.name + '</h1>';
+            output += '</a>';
+
+            document.body.innerHTML += output;
+        });
+    });
+</script>
+
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Chapter08</title>
+</head>
+
+<body>
+    <h3>getCurrentPosition() 위치정보 파악</h3>
+    <hr>
+
+    <div id="msg">이곳에 위치 정보 출력</div>
+    <div id="map"></div>
+
+    <script>
+        if(!navigator.geolocation){
+            alert("지원하지 않음.");
+        }else{
+            // position 아니고 options 임;; 멍충이;;
+            var options = {
+                enableHighAccuracy:false,
+                timeout:5000,
+                maximumAge:0
+            };
+
+            var img = new Image();
+            var count = 0;
+            var watchID;
+
+            watchID = navigator.geolocation.watchPosition(changed, null,
+					options);
+        }
+
+        function changed(position){
+            if (count == 5) { // clearWatch() 테스트를 위해 5번만 서비스
+				navigator.geolocation.clearWatch(watchID); // 반복 서비스 종료
+				document.getElementById("msg").innerHTML = "위치 서비스 종료";
+				return;
+			}
+
+            var lat = position.coords.latitude; //위도
+            var lon = position.coords.longitude;//경도
+            
+            var text = count + ": (위도 : " + lat + "', 경도 : " + lon + "') 로 변경됨<br>";
+            document.getElementById("msg").innerHTML = text;
+
+            img.src =  "https://maps.googleapis.com/maps/api/staticmap?center=" + lat
+            + "," + lon + "&zoom=13&size=400x300&sensor=false&markers=color:red%7Clabel:C%7C"+lat+"," +lon;
+
+            if(count == 0 ){
+                document.getElementById("map").appendChild(img);
+            }
+            count++;
+            
+        }
+    </script>
+</body>
+</html>

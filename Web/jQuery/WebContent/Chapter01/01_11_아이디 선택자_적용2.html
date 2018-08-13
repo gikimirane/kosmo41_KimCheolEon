@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+        $('h1#target').css('color', 'Orange');
+        // ID는 유니크하기때문에, 이렇게 태그를 굳이 붙일 필요가 없음.
+        // 그렇다고 안된다는건 아님.
+        // 그렇다면, 클래스를 이용할때는 쓸 수 있겠지.
+    });
+</script>
+
+</head>
+<body>
+    <h1>Header-0</h1>
+    <h1 id="target">Header-1</h1>
+    <h1>Header-2</h1>
+</body>
+</html>

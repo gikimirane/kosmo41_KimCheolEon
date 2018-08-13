@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Chapter08</title>
+</head>
+
+<body>
+    <h3>오디오 연주 끝나면 배경 바꾸기</h3>
+    <hr>
+
+    <audio id="audio" src="media/EmbraceableYou.mp3" autoplay controls></audio>
+    <!-- audio에 loop 속성 붙으면 onended 호출이 안됨ㅋㅋㅋㅋ 삽질함ㅋㅋㅋㅋ -->
+    <script>
+        var audio = document.getElementById("audio");
+
+        // https://www.w3schools.com/tags/av_event_ended.asp
+        audio.onended = function(e){
+            document.body.style.backgroundColor = "yellow";
+        }
+
+        // https://www.w3schools.com/tags/av_event_play.asp
+        audio.onplay = function(e){
+            document.body.style.backgroundColor = "white";
+        }
+    </script>
+
+    
+</body>
+</html>

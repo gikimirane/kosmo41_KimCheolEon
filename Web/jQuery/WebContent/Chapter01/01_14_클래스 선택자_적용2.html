@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.item.select').css('color', 'Orange');
+        // 'item select' 가 통으로 하나인줄 알았는데, 아니구나.
+        // 띄어써도 안됨
+        // 두개 클래스 상태?
+    });
+</script>
+
+</head>
+<body>
+    <h1 class="item">Header-0</h1>
+    <h1 class="item select">Header-1</h1>
+    <h1 class="item">Header-2</h1>
+    <p class="item">pHeader-3</p>
+</body>
+</html>

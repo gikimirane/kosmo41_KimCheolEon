@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+    .high_light{
+        background-color: yellow;
+    }
+</style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+    // 플러그인간의 충돌 방지
+    $.noConflict();
+    var j = jQuery;
+
+    j(document).ready(function(){
+        j('h1').removeClass('high_light');
+        // j('h1').css('background', 'red');
+    });
+</script>
+
+</head>
+<body>
+    <h1>class1</h1>
+    <h1 class="high_light">class2</h1>
+    <h1>class3</h1>    
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Chapter08</title>
+</head>
+
+<body>
+    <h3>getCurrentPosition() 위치정보 파악</h3>
+    <hr>
+
+    <div id="msg">이곳에 위치 정보 출력</div>
+    <div id="map"></div>
+
+    <script>
+        if(!navigator.geolocation){
+            alert("지원하지 않음.");
+        }else{
+            navigator.geolocation.getCurrentPosition(found);
+        }
+
+
+        function found(position){
+            // https://www.w3schools.com/html/html5_geolocation.asp
+            
+            // https://console.cloud.google.com/home/dashboard?project=object-detection-g-api
+            // https://cloud.google.com/maps-platform/maps/?hl=ko
+            // https://developers.google.com/maps/documentation/?hl=ko&__utma=236542612.355215460.1534128542.1534128732.1534128732.1&__utmb=236542612.0.10.1534128732&__utmc=236542612&__utmx=-&__utmz=236542612.1534128732.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)&__utmv=-&__utmk=261827150&_ga=2.113685317.-355215460.1534128542
+            
+            var now = new Date(position.timestamp);
+            var lat = position.coords.latitude; //위도
+            var lon = position.coords.longitude;//경도
+            var acc = position.coords.accuracy; //정확도
+
+            lat = lat.toPrecision(6);
+            lon = lon.toPrecision(6);
+
+            var text = "현재시간 : " + now.toUTCString() + "<br>";
+            text += "현재위치 (위도 : " + lat + "', 경도 : " + lon + "') <br>";
+            text += "정확도 : " + acc + "m <br>";
+
+            document.getElementById("msg").innerHTML = text;
+            var img = new Image();
+            img.src =  "https://maps.googleapis.com/maps/api/staticmap?center=" + lat
+            + "," + lon + "&zoom=13&size=400x300&sensor=false&markers=color:red%7Clabel:C%7C"+lat +"," +lon;
+
+            document.getElementById("map").appendChild(img);
+
+
+        }
+    </script>
+</body>
+</html>
