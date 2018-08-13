@@ -3,46 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <title>08-09 : 타이머를 가진 웹 워커 만들기</title>
+
+<script>
+var btnStartWorker = document.getElementById( 'btnStartWorker' );     // worker 실행 버튼
+    var btnStopWorker = document.getElementById( 'btnStopWorker' );       // worker 중지 버튼
+    var output = document.getElementById( 'output' );                     // 받은 메시지 출력
+    var worker;                                                           // worker
+
+    btnStartWorker.addEventListener( 'click', startWorker );
+    btnStopWorker.addEventListener( 'click',stopWorker );
+
+    // worker 실행
+    function startWorker() {
+
+      // Worker 지원 유무 확인
+      if ( !!window.Worker ) {
+
+        // 실행하고 있는 워커 있으면 중지시키기
+        if ( worker ) {
+          stopWorker();
+        }
+
+        worker = new Worker( 'worker.js' );
+        worker.postMessage( '워커 실행' );    // 워커에 메시지를 보낸다.
+
+        // 메시지는 JSON구조로 직렬화 할 수 있는 값이면 사용할 수 있다. Object등
+        // worker.postMessage( { name : '302chanwoo' } );
+
+        // 워커로 부터 메시지를 수신한다.
+        worker.onmessage = function( e ) {
+          console.log('호출 페이지 - ', e.data );
+          output.innerHTML += e.data;
+        };
+      }
+
+    }
+
+    // worker 중지
+    function stopWorker() {
+
+      if ( worker ) {
+        worker.terminate();
+        worker = null;
+      }
+
+    }
+
+</script>
 </head>
 <body>
-	<h3>타이머를 가진 웹 워커 만들기</h3>
-	<hr>
-	<div>
-		<span id="timer">타이머카운트</span>
-	</div>
-	<button id="start" onclick="start()">start</button>
-	<button id="stop" onclick="stop()">stop</button>
-	<script>
-		function worker_function() {
-			var i = 0;
-
-			function timedCount() {
-				i = i + 1;
-				postMessage(i);
-				setTimeout("timedCount()", 500);
-			}
-
-			timedCount();
-		}
-		// This is in case of normal worker start
-		// "window" is not defined in web worker
-		// so if you load this file directly using `new Worker`
-		// the worker code will still execute properly
-		var addWorker = new Worker(URL.createObjectURL(new Blob(["("+worker_function.toString()+")()"], {type: 'text/javascript'})));
-
-
-		// var addWorker = new Worker("js/timer.js"); // 워커 태스크 생성
-		addWorker.onmessage = function(e) {
-			document.getElementById("timer").innerHTML = e.data;
-		}
-		function start() {
-			addWorker.postMessage("start");
-		}
-		function stop() {
-			addWorker.postMessage("stop");
-		}
-
-		
-	</script>
+	<button id="btnStartWorker" class="btn">워커 시작</button>
+	<button id="btnStopWorker" class="btn">워커 중지</button>
+	<div id="output"></div> 
 </body>
 </html>
