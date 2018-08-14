@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    *{
+        margin: 0px; padding: 0px;   
+    }
+    div{
+        margin: 10px; padding: 10px;
+        border: 3px solid black;
+        border-radius: 10px;
+    }
+</style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.7.js"></script> -->
+
+<script>
+    $(document).ready(function(){
+        $('textarea').keyup(function(){
+
+            var inputLength = $(this).val().length;
+            var remain = 150 - inputLength;
+
+            $('h1').html(remain);
+
+            // 이거는 그냥 넣어봄
+            if (inputLength > 150) {
+                $(this).val($(this).val().substr(0, 150));
+                remain = 0;
+            }
+        });
+    });
+      
+</script>
+
+</head>
+<body>
+    <div>
+        <p>지금 내 생각을...</p>
+        <h1>150</h1>
+        <textarea cols="70" rows="5"></textarea>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+
+<!-- <script src="http://code.jquery.com/jquery.js"></script> -->
+<script src="http://code.jquery.com/jquery-1.7.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('h1').click(function(){
+            $(this).html(function(index, html){
+                return html + '★';
+            });
+        });
+
+        setInterval(function(){
+            $('h1').last().click();
+            // .....별로 차이가 없지만 하여튼...
+        }, 1000);
+    });
+    
+    
+</script>
+
+</head>
+<body>
+    <h1>Start : </h1>
+    <h1>Start : </h1>
+</body>
+</html>

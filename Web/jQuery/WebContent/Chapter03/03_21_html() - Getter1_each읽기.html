@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+    // $(document).ready(function(){
+    //     var html = $('h1').html();
+
+    //     alert(html);
+    // });
+
+    $(document).ready(function(){
+        var array = [];
+        $('h1').each(function(index){
+            array[index] = $(this).html();
+        });
+
+        var text = array.join(", ");
+        alert(text);
+    });
+
+</script>
+
+</head>
+<body>
+    <h1 >Header-0</h1>
+    <h1 >Header-1</h1>
+    <h1 >Header-2</h1>
+</body>
+</html>

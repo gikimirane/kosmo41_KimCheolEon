@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+
+<!-- <script src="http://code.jquery.com/jquery.js"></script> -->
+<script src="http://code.jquery.com/jquery-1.7.js"></script>s
+
+<script>
+    $(document).ready(function(){
+        $('#all_check').change(function(){
+            if(this.checked){
+                // jquery 버전을 1.7로 낮춰버리니까 잘 되네;;
+                // https://stackoverflow.com/questions/426258/setting-checked-for-a-checkbox-with-jquery
+                $('#check_item').children().attr('checked', true);
+            }else{
+                $('#check_item').children().attr('checked', false);
+                // prop 으로 쓰기를 권장한다네?? 잘모르겠네
+            }
+        });
+    });
+</script>
+
+</head>
+<body>
+    <input type="checkbox" id="all_check">
+    <label>ALL</label>
+    <div id="check_item">
+        <input type="checkbox">
+        <label>A Option</label>
+        <input type="checkbox">
+        <label>B Option</label>
+        <input type="checkbox">
+        <label>C Option</label>
+    </div>
+</body>
+</html>

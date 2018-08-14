@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .first{
+        color: red;
+    }
+    .second{
+        color: pink;
+    }
+    .third{
+        color: orange;
+    }
+</style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+    // $(document).ready(function(){
+    //     var color = $('h1').css('color');
+    //     alert(color)
+    // });
+
+    ////////////////////////////////////////////
+
+    $(document).ready(function(){
+        var array = [];
+        $('h1').each(function(index){
+            array[index] = $(this).css('color');
+        });
+
+        var text = array.join(", ");
+        alert(text);
+    });    
+    
+</script>
+
+</head>
+<body>
+    <h1 class="first">Header-0</h1>
+    <h1 class="second">Header-1</h1>
+    <h1 class="third">Header-2</h1>
+</body>
+</html>

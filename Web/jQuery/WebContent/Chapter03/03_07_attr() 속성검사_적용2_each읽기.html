@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+        // var d = [];
+
+        // $('img').each(function(i) {
+
+        // d[i] = $(this).attr('data-key');
+        // });
+        
+        // join(d, ',') ;
+
+        //////////////////////////////////////
+        // $('img').attr('src');
+
+        // alert(src);
+        // 여러개 속성값 어떻게 뽑아내지?
+        // https://opentutorials.org/module/10/227
+        // https://okky.kr/article/282979
+        // each 나 map 을 써서 떙겨야한다는듯
+        
+        var array = [];
+        $('img').each(function(index){
+            array[index] = $(this).attr('src');
+        });
+        
+        var text = array.join(", ");
+        alert(text);
+        
+    });
+
+</script>
+
+</head>
+<body>
+    <img src="Chrysanthemum.png">
+    <img src="Desert.png">
+    <img src="Hydrangeas.png">
+</body>
+</html>

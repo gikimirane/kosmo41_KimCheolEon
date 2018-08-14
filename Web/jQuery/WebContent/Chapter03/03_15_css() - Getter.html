@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .first{
+        color: red;
+    }
+    .second{
+        color: pink;
+    }
+    .third{
+        color: orange;
+    }
+</style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+        var color = $('h1').css('color');
+        alert(color)
+    });
+
+    // 이것도 속성검사처럼 여러개 가져오려면, 내가 성공한 30_07 적용2를 써본다
+    
+
+</script>
+
+</head>
+<body>
+    <h1 class="first">Header-0</h1>
+    <h1 class="second">Header-1</h1>
+    <h1 class="third">Header-2</h1>
+</body>
+</html>

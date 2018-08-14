@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+
+<!-- <script src="http://code.jquery.com/jquery.js"></script> -->
+<script src="http://code.jquery.com/jquery-1.7.js"></script>
+<!-- 아;;; 1.7 버전에서 사용해야한다고 함;;; pageX 못알아먹고 막 난리남 -->
+<script>
+    $(document).ready(function(){
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        $(canvas).toggle(function(event){
+            var position = $(this).offset();
+            var x = event.pageX - position.left;
+            var y = event.pageY - position.top;
+
+            context.beginPath();
+            context.moveTo(x, y);
+
+        }, function(event){
+            var position = $(this).offset();
+            var x = event.pageX - position.left;
+            var y = event.pageY - position.top;
+
+            context.lineTo(x, y);
+            context.stroke();
+        });
+    });
+</script>
+
+</head>
+<body>
+    <canvas id="canvas" width="500" height="300"></canvas>
+</body>
+</html>

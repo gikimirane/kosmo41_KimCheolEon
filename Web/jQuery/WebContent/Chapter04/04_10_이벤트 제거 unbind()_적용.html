@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.7.js"></script> -->
+<script>
+    $(document).ready(function(){
+        $('h1').click(function(){
+            $(this).html('CLICK 발생');
+            alert('클릭 이벤트가 발생!');
+
+            $(this).unbind();   //이벤트 제거
+        })
+    });    
+
+</script>
+
+</head>
+<body>
+    <h1>Header-0</h1>
+    <h1>Header-1</h1>
+    <h1>Header-2</h1>
+
+</body>
+</html>

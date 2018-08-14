@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+
+<!-- <script src="http://code.jquery.com/jquery.js"></script> -->
+<script src="http://code.jquery.com/jquery-1.7.js"></script>
+
+<script>
+    var textTest;
+    var arg1 = "Custom";
+    var arg2 = "Event";
+    $(document).ready(function(){
+        $('h1').click(function(event, data1, data2){
+            alert(data1 + ' : ' + data2);
+        });
+        $('h1').eq(0).trigger('click', [273, 52]);
+
+        
+        // https://stackoverflow.com/questions/15519410/how-to-run-a-callback-function-on-a-jquery-triggerclick
+        // $( "h1" ).on( "click", function( event, param1, param2 ) {
+            
+        //     alert( param1 + "\n" + param2 );
+        //     // alert($(this).text())
+        //     textTest = param1 + ', ' + param2;
+        // });
+
+        // $('h1').on('click', function(){
+        //         $("h1").trigger( "click", [273, 52] );
+        // });        
+        
+    });
+    
+    
+</script>
+
+</head>
+<body>
+    <h1>TRIGGER</h1>
+</body>
+</html>

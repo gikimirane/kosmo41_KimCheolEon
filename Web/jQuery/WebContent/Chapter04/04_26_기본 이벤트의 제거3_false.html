@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    *{
+        margin: 5px; padding: 5px;
+        border: 3px solid black;
+    }
+</style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.7.js"></script> -->
+
+<script>
+    $(document).ready(function(){
+        $('a').click(function(event){
+            $(this).css('background-color', 'blue');
+            // event.stopPropagation();
+            // //google 이 들어있는 a태그 선에서 차단당함. 해당 블록에서 차단
+            // event.preventDefault();
+            // // a태그의 기본 이벤트를 제거함
+            return false;
+            // 두 기능을 한방에
+        });
+
+        $('h1').click(function(){
+            $(this).css('background-color', 'red');
+        });
+    });
+      
+</script>
+
+</head>
+<body>
+    <h1>
+        <a href="http://google.com">Google 이동</a>
+    </h1>
+</body>
+</html>
