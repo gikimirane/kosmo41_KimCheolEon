@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<script>
+    // 06_10_함수 예외처리+함수추가+추가(모든브라우저동작)+구형 브라우저
+
+    // XMLHttpRequest 객체 생성 함수
+    function createRequest(){
+        
+        try{
+            return new XMLHttpRequest();
+        }catch(exception){
+            var versions = [
+                'Msxml2.XMLHTTP.6.0',
+                'Msxml2.XMLHTTP.5.0',
+                'Msxml2.XMLHTTP.4.0',
+                'Msxml2.XMLHTTP.3.0',
+                'Msxml2.XMLHTTP',
+                'Microsoft.XMLHTTP'
+            ];
+            for(var i = 0; i<versions.length; i++){
+                try{
+                    return new ActiveXObject(versions[i]);
+                }catch(e){
+
+                }
+            }
+            
+        }
+        return request;
+    }
+    
+    // 06_15_JSON 요청과조작 - 파일 지정
+    
+    // http://rank.search.naver.com/rank.js
+    // 나중에 랭킹 파싱해보고싶다...
+
+    // XMLHttpRequest 객체 생성
+    var request = createRequest();
+    request.onreadystatechange = function(event){
+        if(request.readyState == 4){
+            if(request.status == 200){
+                var json = eval('(' + request.responseText + ')');
+            
+            };
+        };
+    };
+    request.open('GET', './data2.json', true);
+
+    // Ajax 수행하기
+    request.send();
+
+</script>
+
+</body>
+</html>

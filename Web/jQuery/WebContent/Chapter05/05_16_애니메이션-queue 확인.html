@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    div{
+        width: 50px; height: 50px;
+        background-color: orange;
+        position: relative;
+    }
+</style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+
+<script>
+    // 효과가 누적되서 시행되는걸 확인할 수 있다.
+    // Queue
+    $(document).ready(function(){
+        $('div').click(function(){
+            $(this).animate({
+                left: '+=60'
+            }, 2000).animate({
+                width: '+=60'
+            }, 2000).animate({
+                height: '+=60'
+            }, 2000)
+        });
+    });
+
+</script>
+
+</head>
+<body>
+    <div></div>
+
+</body>
+</html>

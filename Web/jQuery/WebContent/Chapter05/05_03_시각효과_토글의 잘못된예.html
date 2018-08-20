@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+
+<!-- <script src="http://code.jquery.com/jquery.js"></script> -->
+<script src="http://code.jquery.com/jquery-1.7.js"></script>
+<script>
+    $(document).ready(function(){
+        // $('h1').click(function(){
+        //     $(this).next().toggle('slow', function(){
+        //         alert('EFFECT END....!');
+        //     });
+        // });
+        
+        // h1에 토글을 걸면 안되고 클릭 넥스트에 토글을 걸어야한다.
+        // 뭔가 오류가 있음
+        // 더군다나 1.7로 버전을 내리니까 안되야하는게 잘 됨;;
+        $('h1').toggle(function(){
+            $(this).next().hide('slow');
+        }, function(){
+            $(this).next().show('slow');
+        });
+        
+    });
+
+</script>
+
+</head>
+<body>
+    <h1>OPEN & CLOSE</h1>
+    <div>
+        <h1>Lorem 어버버....</h1>
+        <p>Please Text Message Test, Please Text Message Test, Please Text Message Test?</p>
+    </div>
+    <h1>OPEN & CLOSE</h1>
+    <div>
+        <h1>Lorem 어버버....</h1>
+        <p>텍스트 메시지 공간입니다. 텍스트 메시지 공간입니다, 텍스트 메시지 공간입니다.?</p>
+    </div>
+
+</body>
+</html>

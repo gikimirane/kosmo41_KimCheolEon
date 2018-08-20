@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .reverse{
+        color:white;
+        background-color: black;
+    }
+</style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-1.7.js"></script> -->
+<script src="media/jquery-ui-1.12.1.min.js"></script>
+
+<!-- 교재용으로 drive에 올라온 1.8.x min 은 jquery-1.7에서 동작, 새 파일 받으면 최신호환o -->
+
+<script>
+    // https://jqueryui.com/
+    $(document).ready(function(){
+        $('div').hover(function(){
+            $(this).addClass('reverse', 1000);
+        }, function(){
+            $(this).removeClass('reverse', 1000);
+        });
+    });
+
+</script>
+
+</head>
+<body>
+    <div>
+        <h1>Lorem ipsum</h1>
+        <p>흑흑 광광 우럭따..............abcdefghij....</p>
+    </div>
+    <div>
+        <h1>Lorem ipsum</h1>
+        <p>흑흑 광광 우럭따..............abcdefghij....</p>
+    </div>
+    <div>
+        <h1>Lorem ipsum</h1>
+        <p>흑흑 광광 우럭따..............abcdefghij....</p>
+    </div>
+    
+
+</body>
+</html>

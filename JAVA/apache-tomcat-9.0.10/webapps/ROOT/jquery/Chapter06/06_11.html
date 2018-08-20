@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<script>
+    // 06_10_함수 예외처리+함수추가+추가(모든브라우저동작)+구형 브라우저
+
+    // XMLHttpRequest 객체 생성 함수
+    function createRequest(){
+        
+        try{
+            return new XMLHttpRequest();
+        }catch(exception){
+            var versions = [
+                'Msxml2.XMLHTTP.6.0',
+                'Msxml2.XMLHTTP.5.0',
+                'Msxml2.XMLHTTP.4.0',
+                'Msxml2.XMLHTTP.3.0',
+                'Msxml2.XMLHTTP',
+                'Microsoft.XMLHTTP'
+            ];
+            for(var i = 0; i<versions.length; i++){
+                try{
+                    return new ActiveXObject(versions[i]);
+                }catch(e){
+
+                }
+            }
+            
+        }
+        return request;
+    }
+    
+    // 06_11_동기방식일 때 소비되는 시간 측정
+
+    // XMLHttpRequest 객체 생성
+    var request = createRequest();
+
+    request.open('GET', './data.html', false);
+
+    var prevDate = new Date();
+    // Ajax 수행하기
+    request.send();
+    var nowDate = new Date();
+
+    // 출력
+    alert(nowDate-prevDate);
+
+</script>
+
+</body>
+</html>

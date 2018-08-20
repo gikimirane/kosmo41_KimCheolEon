@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    *{
+        margin: 0px; padding: 0px;
+    }
+
+    ul{
+        list-style: none;
+    }
+
+    img{
+        width: 500px; height: 350px;
+    }
+</style>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="media/jquery.innerfade.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#inner_fade').innerfade({
+            animationtype: 'fade',
+            speed: 750,
+            timeout: 2000,
+            type: 'random',
+            containerheight: '350px'
+        });
+    });
+
+</script>
+
+</head>
+<body>
+    <ul id="inner_fade">
+        <li><img src="media/Chrysanthemum.jpg"></li>
+        <li><img src="media/Desert.jpg"></li>
+        <li><img src="media/Hydrangeas.jpg"></li>
+        <li><img src="media/Jellyfish.jpg"></li>
+        <li><img src="media/Koala.jpg"></li>
+        <li><img src="media/Lighthouse.jpg"></li>
+        <li><img src="media/Penguins.jpg"></li>
+        <li><img src="https://www.google.co.kr/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"></li>
+    </ul>
+
+</body>
+</html>
