@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Test Ajax Basic</title>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script>
+        // serialize 관련 예제
+
+        $(document).ready(function(){
+            $('#my-form').submit(function(event){
+
+                // 입력 양식의 value 속성을 가져온다.
+                var name = $('#name').val();
+                var region = $('#region').val();
+
+                var url = '/parameter?name=' + name + '&region=' + region;
+                $('#wrap').load(url);
+
+                // 기본 이벤트 제거
+                event.preventDefault();
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <form id="my-form">
+        <table>
+            <tr>
+                <td><label for="name">Name</label></td>
+                <td><input id="name" name="name" type="text"></td>
+            </tr>
+            <tr>
+                <td><label for="region">Region</label></td>
+                <td><input id="region" name="region" type="text"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Get Ajax String">
+    </form>
+    <div id="wrap">
+        
+    </div>
+
+</body>
+</html>

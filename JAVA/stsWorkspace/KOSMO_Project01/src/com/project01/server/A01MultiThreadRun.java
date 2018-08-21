@@ -42,7 +42,7 @@ class A01MultiThreadRun extends Thread {
 			out = new PrintWriter(this.socket.getOutputStream(), true);
 			// Read는 서버꺼
 			in = new BufferedReader(new InputStreamReader(this.socket.getInputStream(), "UTF-8"));
-
+			in.
 		} catch (Exception e) {
 			System.out.println("예외 : " + e);
 		}
