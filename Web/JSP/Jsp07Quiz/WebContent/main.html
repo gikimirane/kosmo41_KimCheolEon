@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ajax 추가버전</title>
+
+<script src="http://code.jquery.com/jquery.js"></script>
+<script>
+	function form_check() {
+
+		// 예외처리 및 기타등등 체크 후 submit 실행.
+		// 실패시 에러뱉고 리턴처리하면 될듯
+		submit_ajax();
+	}
+
+	function submit_ajax() {
+
+		var num1 = $('#num1').val();
+		alert("javascript : [" + num1 + "]");
+		var num2 = $('#num2').val();
+		alert("javascript : [" + num2 + "]");
+	
+		var queryString = $('#testForm').serialize();
+		alert("javascript : [" + queryString + "]");
+
+		$.ajax({
+			url : '/Jsp07Quiz/Cal',
+			type : 'POST',
+			data : queryString,
+			dataType : 'json',
+			error : function(xhr, status, error) {
+				alert(error);
+			},
+
+			success : function(json) {
+				alert(json);
+			}
+		})
+	}
+</script>
+
+</head>
+<body>
+	<!-- <form action="Cal" method="post"> -->
+	<form id="testForm">
+		첫번째 수 : <input type="text" id="num1" name="num1" size="10"><br>
+		두번째 수 : <input type="text" id="num2" name="num2" size="10"><br>
+
+		[계산]<br> <input type="radio" name="calcradio" value="+" class="calcradio">더하기
+		<input type="radio" name="calcradio" value="-" class="calcradio">빼기
+		<input type="radio" name="calcradio" value="*" class="calcradio">곱하기 
+		<input type="radio" name="calcradio" value="/" class="calcradio">나누기 <br> 
+		<input type="submit" value="계산하기" onclick="form_check()"> 
+		<input type="reset" value="초기화">
+
+	</form>
+</body>
+</html>
