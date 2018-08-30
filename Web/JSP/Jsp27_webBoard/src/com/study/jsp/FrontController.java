@@ -42,15 +42,24 @@ public class FrontController extends HttpServlet {
 		String viewPage = null;
 		BCommand command = null;
 
+		
 		String uri = request.getRequestURI();
-		System.out.println("uri : " + uri);
-
 		String conPath = request.getContextPath();
-		System.out.println("conPath : " + conPath);
-
 		String com = uri.substring(conPath.length());
+		
+		
+		System.out.println("uri : " + uri);
+		System.out.println("conPath : " + conPath);
 		System.out.println("command : " + com);
-
+		
+		
+		HttpSession session = null;
+		session = request.getSession();
+		int curPage = 1;
+		if(session.getAttribute("cpage") != null) {
+			curPage = (int)session.getAttribute("cpage");
+		}
+		
 		if (com.equals("/write_view.do")) {
 			viewPage = "write_view.jsp";
 
@@ -84,18 +93,25 @@ public class FrontController extends HttpServlet {
 //			"content_view.do" 로 쏴도 비슷하긴 한데, 조금 다름
 //			viewPage = "content_view.do";
 			viewPage = "content_view.jsp";
-			
+
 		} else if (com.equals("/delete.do")) {
+			System.out.println("curPage : " + curPage);
 			command = new BDeleteCommand();
 			command.execute(request, response);
-			viewPage = "list.do";
+			viewPage = "list.do?page="+curPage;
 			
 		} else if (com.equals("/reply_view.do")) {
 			command = new BReplyViewCommand();
 			command.execute(request, response);
 			viewPage = "reply_view.jsp";
+			
+		} else if (com.equals("/reply.do")) {
+			System.out.println("curPage : " + curPage);
+			command = new BReplyCommand();
+			command.execute(request, response);
+			viewPage = "list.do?page="+curPage;
 		}
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 
