@@ -255,12 +255,11 @@ public class A02ServerFunction {
 					}
 					//////////////////////////////////////////////////////////////////////
 
-<<<<<<< HEAD
-					if (isDigit(roomMax) == true) {
-=======
+
+
 					// 확인3) 최대인원수가 숫자로 설정된게 맞는가? / Integer.parseInt로 TRUE, FALSE 반환
-					if (isNumeric(roomMax) == true) {
->>>>>>> 0c04ca62c7d749d6f0c56921f82d85cf193b84a4
+					if (isDigit(roomMax) == true) {
+
 						PassCheck += 2;
 					}
 
