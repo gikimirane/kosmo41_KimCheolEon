@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bootstrap Example</title>
+  <title>KOSMO Project02-Main</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -39,13 +39,15 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li class="active"><a href="A01Main.jsp">Home</a></li>
         <li><a href="#">About</a></li>
-        <li><a href="#">WebBoard</a></li>
+        <li><a href="list.do">WebBoard</a></li>
         <li><a href='#' onclick='javascript:window.open("http://www.naver.com","name99", "width=500px,height=650px,left=100px,top=100px");'>testNaver</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="#"
+        		onclick='javascript:window.open("A03Login.jsp","name99", "width=500px,height=650px,left=100px,top=100px");'>
+        		<span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Join</a></li>
       </ul>
     </div>

@@ -26,17 +26,21 @@ public class FrontController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("doGet");
 		actionDo(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("doPost");
 		actionDo(request, response);
 	}
 
 	private void actionDo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		System.out.println("actionDo called!");
+		
 		request.setCharacterEncoding("UTF-8");
 
 		String viewPage = null;
@@ -52,6 +56,7 @@ public class FrontController extends HttpServlet {
 		System.out.println("conPath : " + conPath);
 		System.out.println("command : " + com);
 		
+		Service service = null;
 		
 		HttpSession session = null;
 		session = request.getSession();
@@ -111,9 +116,44 @@ public class FrontController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "list.do?page="+curPage;
 		}
+		
+		////////////////////////////////////////////////////////////////////
+		
+		if (com.equals("/JoinOK.do")) {
+			System.out.println("JoinOK");
+			service = new JoinOK();
+			service.execute(request, response);
+//			viewPage = 
+		}
+		if (com.equals("/LoginOK.do")) {
+			System.out.println("LoginOK");
+			service = new LoginOK();
+			service.execute(request, response);
+		}
+		if (com.equals("/ModifyOK.do")) {
+			System.out.println("Modify");
+			service = new ModifyOK();
+			service.execute(request, response);
+		}
+		if (com.equals("/LogOUT.do")) {
+			System.out.println("LogOUT");
+			LogOutOK(request, response);
+		}
+		
 
+//		여기가 로그인때는 필요없는데 null 교체되서 죽는 부분
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 
 	}
+	
+	private void LogOutOK(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
+		session.invalidate();
+		response.sendRedirect("A03Login.jsp");
+
+	}
+	
 }

@@ -24,11 +24,8 @@ public class LoginOK implements Service {
 
 		MemberDAO dao = MemberDAO.getInstance();
 
-		
-//		여기서 체크하고 밑에 주르륵 간다음에 페이지 리다이렉트 하는 부분인듯
 		int checkNum = dao.userCheck(id, pw);
-		
-		
+
 		if (checkNum == -1) {
 			// html 출력
 			/*
@@ -59,9 +56,6 @@ public class LoginOK implements Service {
 				out.println("</script>");
 
 			} else {
-				///////////////////////////////////////////////////////
-				//여기가 AllPass 스타트
-				
 				String name = dto.getName();
 				HttpSession session = request.getSession();
 				session.setAttribute("id", id);
