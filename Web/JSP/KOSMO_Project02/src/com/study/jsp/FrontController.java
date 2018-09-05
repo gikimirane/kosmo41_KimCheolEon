@@ -40,31 +40,29 @@ public class FrontController extends HttpServlet {
 			throws ServletException, IOException {
 
 		System.out.println("actionDo called!");
-		
+
 		request.setCharacterEncoding("UTF-8");
 
 		String viewPage = null;
 		BCommand command = null;
 
-		
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();
 		String com = uri.substring(conPath.length());
-		
-		
+
 		System.out.println("uri : " + uri);
 		System.out.println("conPath : " + conPath);
 		System.out.println("command : " + com);
-		
+
 		Service service = null;
-		
+
 		HttpSession session = null;
 		session = request.getSession();
 		int curPage = 1;
-		if(session.getAttribute("cpage") != null) {
-			curPage = (int)session.getAttribute("cpage");
+		if (session.getAttribute("cpage") != null) {
+			curPage = (int) session.getAttribute("cpage");
 		}
-		
+
 		if (com.equals("/write_view.do")) {
 			viewPage = "write_view.jsp";
 
@@ -103,22 +101,29 @@ public class FrontController extends HttpServlet {
 			System.out.println("curPage : " + curPage);
 			command = new BDeleteCommand();
 			command.execute(request, response);
-			viewPage = "list.do?page="+curPage;
-			
+			viewPage = "list.do?page=" + curPage;
+
 		} else if (com.equals("/reply_view.do")) {
 			command = new BReplyViewCommand();
 			command.execute(request, response);
 			viewPage = "reply_view.jsp";
-			
+
 		} else if (com.equals("/reply.do")) {
 			System.out.println("curPage : " + curPage);
 			command = new BReplyCommand();
 			command.execute(request, response);
-			viewPage = "list.do?page="+curPage;
+			viewPage = "list.do?page=" + curPage;
+
 		}
-		
+		/////////////////////////////////////////////////////
+		else if (com.equals("/search.do")) {
+			command = new BSearchCommand();
+			command.execute(request, response);
+			viewPage = "list.jsp";
+
+		}
 		////////////////////////////////////////////////////////////////////
-		
+
 		if (com.equals("/JoinOK.do")) {
 			System.out.println("JoinOK");
 			service = new JoinOK();
@@ -139,14 +144,13 @@ public class FrontController extends HttpServlet {
 			System.out.println("LogOUT");
 			LogOutOK(request, response);
 		}
-		
 
 //		여기가 로그인때는 필요없는데 null 교체되서 죽는 부분
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 
 	}
-	
+
 	private void LogOutOK(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -155,5 +159,5 @@ public class FrontController extends HttpServlet {
 		response.sendRedirect("A03Login.jsp");
 
 	}
-	
+
 }

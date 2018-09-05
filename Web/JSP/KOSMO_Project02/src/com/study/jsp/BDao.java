@@ -96,6 +96,10 @@ public class BDao {
 		int nStart = (curPage - 1) * listCount + 1;
 		int nEnd = (curPage - 1) * listCount + listCount;
 		
+		System.out.println("nStart : " + nStart);
+		System.out.println("nEnd : " + nEnd);
+		
+		
 		try {
 			con = dataSource.getConnection(); // ConnectionPool
 
@@ -471,5 +475,156 @@ public class BDao {
 			}
 		}
 	}
+	
+	public ArrayList<BDto> searchList(int curPage, String select, String word) {
+
+		ArrayList<BDto> dtos = new ArrayList<BDto>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int nStart = (curPage - 1) * listCount + 1;
+		int nEnd = (curPage - 1) * listCount + listCount;
+		
+		try {
+			con = dataSource.getConnection(); // ConnectionPool
+
+//			String query = "select * " + "from mvc_board " + "order by bGroup desc, bStep asc";
+			String query = "select *\r\n" + 
+					"  from (\r\n" + 
+					"   select rownum num, A.*\r\n" + 
+					"     from (\r\n" + 
+					"        select *\r\n" + 
+					"          from mvc_board where "+ select +" like ?\r\n" + 
+					"         order by bgroup desc, bstep asc ) A\r\n" + 
+					"    where rownum <= ? ) B\r\n" + 
+					"    where B.num >= ?";
+
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "%"+word+"%");
+			pstmt.setInt(2, nEnd);
+			pstmt.setInt(3, nStart);
+			rs = pstmt.executeQuery();
+						
+			while (rs.next()) {
+				
+				int bId = rs.getInt("bID");
+				String bName = rs.getString("bName");
+				String bTitle = rs.getString("bTitle");
+				String bContent = rs.getString("bContent");
+				Timestamp bDate = rs.getTimestamp("bDate");
+				int bHit = rs.getInt("bHit");
+				int bGroup = rs.getInt("bGroup");
+				int bStep = rs.getInt("bStep");
+				int bIndent = rs.getInt("bIndent");
+
+				BDto dto = new BDto(bId, bName, bTitle, bContent, bDate, 
+						bHit, bGroup, bStep, bIndent);
+
+				dtos.add(dto);
+			}			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		return dtos;
+	}
+	
+	public BPageInfo search_articlePage(int curPage, String select, String word) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int nStart = (curPage - 1) * listCount + 1;
+		int nEnd = (curPage - 1) * listCount + listCount;
+		
+		
+		System.out.println("curPage : " + curPage);
+		System.out.println("select : " + select);
+		System.out.println("word : " + word);
+		
+
+		// Paging Logic----------------------
+		// 총 게시물의 갯수
+		int totalCount = 0;
+		try {
+			con = dataSource.getConnection();
+
+//			String query = "select count(*) as total from mvc_board";
+			String query = "select count(*) as SEARCHTOTAL from mvc_board where "+ select +" like ?";
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "%"+word+"%");
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				totalCount = rs.getInt("SEARCHTOTAL");
+			}
+			
+			System.out.println("SEARCHTOTAL1 : " + rs.getInt("SEARCHTOTAL"));
+			System.out.println("SEARCHTOTAL2 : " + totalCount);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		// 총 페이지 수
+		int totalPage = totalCount / listCount;
+		if (totalCount % listCount > 0) {
+			totalPage++;
+		}
+
+		// 현재 페이지
+		int myCurPage = curPage;
+		if (myCurPage > totalPage) {
+			myCurPage = totalPage;
+		}
+		if (myCurPage < 1) {
+			myCurPage = 1;
+		}
+		
+		// 시작 페이지
+		int startPage = ((myCurPage - 1) / pageCount) * pageCount + 1;
+		
+		// 끝 페이지
+		int endPage = startPage + pageCount - 1;
+		if(endPage > totalPage) {
+			endPage = totalPage;
+		}
+	
+		
+		// PageInfo Set
+		BPageInfo pInfo = new BPageInfo();
+		pInfo.setTotalCount(totalCount);
+		pInfo.setListCount(listCount);
+		pInfo.setTotalPage(totalPage);
+		pInfo.setCurPage(myCurPage);
+		pInfo.setPageCount(pageCount);
+		pInfo.setStartPage(startPage);
+		pInfo.setEndPage(endPage);
+		
+		return pInfo;
+	}
+	
 
 }
