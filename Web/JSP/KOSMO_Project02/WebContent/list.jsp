@@ -136,7 +136,7 @@ th, td {
 					[ &lt; ]
 				</c:when>
 							<c:otherwise>
-								<a href="list.do?page=${page.curPage-1}&select=${select}&word=${word}">[ &lt; ]</a>
+								<a href="list.do?select=${select}&word=${word}&page=${page.curPage-1}">[ &lt; ]</a>
 							</c:otherwise>
 						</c:choose> <!------------------------------------------------------------------>
 
@@ -147,7 +147,7 @@ th, td {
 						[ ${fEach} ]&nbsp;
 					</c:when>
 								<c:otherwise>
-									<a href="list.do?page=${fEach}&select=${select}&word=${word}">[ ${fEach} ]</a>&nbsp;		
+									<a href="list.do?select=${select}&word=${word}&page=${fEach}">[ ${fEach} ]</a>&nbsp;		
 					</c:otherwise>
 							</c:choose>
 						</c:forEach> <!------------------------------------------------------------------>
@@ -158,14 +158,14 @@ th, td {
 					[ &gt; ]		
 				</c:when>
 							<c:otherwise>
-								<a href="list.do?page=${page.curPage+1}&select=${select}&word=${word}">[ &gt; ]</a>
+								<a href="list.do?select=${select}&word=${word}&page=${page.curPage+1}">[ &gt; ]</a>
 							</c:otherwise>
 						</c:choose> <!-- 끝버튼 --> <c:choose>
 							<c:when test="${page.curPage == page.totalPage}">
 					[ &gt;&gt; ]
 				</c:when>
 							<c:otherwise>
-								<a href="list.do?page=${page.totalPage}&select=${select}&word=${word}">[ &gt;&gt; ]</a>
+								<a href="list.do?select=${select}&word=${word}&page=${page.totalPage}">[ &gt;&gt; ]</a>
 							</c:otherwise>
 						</c:choose>
 					</td>
