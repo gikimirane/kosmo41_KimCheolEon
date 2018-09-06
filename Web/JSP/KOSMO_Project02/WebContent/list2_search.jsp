@@ -24,6 +24,8 @@
 		if(select != "" && word!= ""){
 			alert("둘다 내용 있음");	
 			document.getElementById('search_form').submit();
+		}else{
+			alert("내용이 비었음");
 		}
 	}
 
@@ -82,6 +84,19 @@ th, td {
 	</nav>
 	<div>
 		<br>
+		해당 검색결과입니다
+		<br>
+		<form id="search_form" action="search.do" method="post">
+							<div style="text-align: center;">
+							<select id="search_select" name="select">
+								<option selected="selected" value="bname">이름</option>
+								<option name="word" value="btitle">제목</option>
+							</select>
+							<input type="text" placeholder="검색어" id="search_word" name="word">
+							<input type="button" value="검색" onclick="search_check()">
+						</div>
+						</form>
+						<br>
 		<div>
 			<table width="90%" border="1" style="margin: auto;">
 				<tr>
@@ -106,20 +121,11 @@ th, td {
 				<tr>
 					<td colspan="5">
 						<div style="text-align: right;">
+							<button type="button" class="btn btn-success"
+								onclick="window.location.href='list.do'">목록으로</button>
 							<button type="button" class="btn btn-primary"
-								onclick="window.location.href='write_view.do'">글작성</button>
-						</div>
-						<form id="search_form" action="search.do" method="post">
-							<div style="text-align: center;">
-							<select id="search_select" name="select">
-								<option selected="selected" value="bname">이름</option>
-								<option name="word" value="btitle">제목</option>
-							</select>
-							<input type="text" placeholder="검색어" id="search_word" name="word">
-							<input type="button" value="검색" onclick="search_check()">
-						</div>
-						</form>
-						
+								onclick="window.location.href='write_view.do'">글작성</button>							
+						</div>						
 					</td>
 				</tr>
 				<tr>
@@ -129,14 +135,14 @@ th, td {
 					[ &lt;&lt; ]		
 				</c:when>
 							<c:otherwise>
-								<a href="list.do?page=1">[ &lt;&lt; ]</a>
+								<a href="list2_search.do?page=1&select=${select}&word=${word}">[ &lt;&lt; ]</a>
 							</c:otherwise>
 						</c:choose> <!-- 이전버튼 --> <c:choose>
 							<c:when test="${(page.curPage)-1 < 1}">
 					[ &lt; ]
 				</c:when>
 							<c:otherwise>
-								<a href="list.do?page=${page.curPage-1}">[ &lt; ]</a>
+								<a href="list2_search.do?select=${select}&word=${word}&page=${page.curPage-1}">[ &lt; ]</a>
 							</c:otherwise>
 						</c:choose> <!------------------------------------------------------------------>
 
@@ -147,7 +153,7 @@ th, td {
 						[ ${fEach} ]&nbsp;
 					</c:when>
 								<c:otherwise>
-									<a href="list.do?page=${fEach}">[ ${fEach} ]</a>&nbsp;		
+									<a href="list2_search.do?select=${select}&word=${word}&page=${fEach}">[ ${fEach} ]</a>&nbsp;		
 					</c:otherwise>
 							</c:choose>
 						</c:forEach> <!------------------------------------------------------------------>
@@ -158,14 +164,14 @@ th, td {
 					[ &gt; ]		
 				</c:when>
 							<c:otherwise>
-								<a href="list.do?page=${page.curPage+1}">[ &gt; ]</a>
+								<a href="list2_search.do?select=${select}&word=${word}&page=${page.curPage+1}">[ &gt; ]</a>
 							</c:otherwise>
 						</c:choose> <!-- 끝버튼 --> <c:choose>
 							<c:when test="${page.curPage == page.totalPage}">
 					[ &gt;&gt; ]
 				</c:when>
 							<c:otherwise>
-								<a href="list.do?page=${page.totalPage}">[ &gt;&gt; ]</a>
+								<a href="list2_search.do?select=${select}&word=${word}&page=${page.totalPage}">[ &gt;&gt; ]</a>
 							</c:otherwise>
 						</c:choose>
 					</td>
@@ -185,6 +191,8 @@ th, td {
 	<br> pageCount : ${page.pageCount }
 	<br> startPage : ${page.startPage }
 	<br> endPage : ${page.endPage }
+	<br> select : ${select }
+	<br> word : ${word }
 
 </body>
 </html>

@@ -44,14 +44,11 @@ public class BSearchCommand implements BCommand {
 			
 		HttpSession session = null;
 		session = request.getSession();
-//		session.setAttribute("curpage", nPage);
 		session.setAttribute("cpage", nPage);
 		session.setAttribute("select", select);
 		session.setAttribute("word", word);
 
 		
-//		ArrayList<BDto> dtos = dao.list(nPage);
-//		ArrayList<BDto> dtos = dao.list();
 		ArrayList<BDto> dtos2 = dao.searchList(nPage, select, word);
 		request.setAttribute("list", dtos2);
 	}

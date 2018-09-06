@@ -116,12 +116,17 @@ public class FrontController extends HttpServlet {
 
 		}
 		/////////////////////////////////////////////////////
+		
 		else if (com.equals("/search.do")) {
 			command = new BSearchCommand();
 			command.execute(request, response);
-			viewPage = "list.jsp";
-
+			viewPage = "list2_search.jsp";
+		}else if (com.equals("/list2_search.do")) {
+			command = new BSearchCommand();
+			command.execute(request, response);
+			viewPage = "list2_search.jsp";
 		}
+		
 		////////////////////////////////////////////////////////////////////
 
 		if (com.equals("/JoinOK.do")) {

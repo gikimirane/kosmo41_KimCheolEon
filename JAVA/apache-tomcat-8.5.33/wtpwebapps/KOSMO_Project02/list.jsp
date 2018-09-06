@@ -24,6 +24,8 @@
 		if(select != "" && word!= ""){
 			alert("둘다 내용 있음");	
 			document.getElementById('search_form').submit();
+		}else{
+			alert("내용이 비었음");
 		}
 	}
 

@@ -546,9 +546,6 @@ public class BDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		int nStart = (curPage - 1) * listCount + 1;
-		int nEnd = (curPage - 1) * listCount + listCount;
-		
 		
 		System.out.println("curPage : " + curPage);
 		System.out.println("select : " + select);
