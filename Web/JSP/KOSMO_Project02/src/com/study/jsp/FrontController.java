@@ -65,26 +65,31 @@ public class FrontController extends HttpServlet {
 
 		if (com.equals("/write_view.do")) {
 			viewPage = "write_view.jsp";
+			DispatcherPage(request, response, viewPage);
 
 		} else if (com.equals("/write.do")) {
 			command = new BWriteCommamd();
 			command.execute(request, response);
 			viewPage = "list.do";
+			DispatcherPage(request, response, viewPage);
 
 		} else if (com.equals("/list.do")) {
 			command = new BListCommand();
 			command.execute(request, response);
 			viewPage = "list.jsp";
+			DispatcherPage(request, response, viewPage);
 
 		} else if (com.equals("/content_view.do")) {
 			command = new BContentCommand();
 			command.execute(request, response);
 			viewPage = "content_view.jsp";
+			DispatcherPage(request, response, viewPage);
 
 		} else if (com.equals("/modify_view.do")) {
 			command = new BContentCommand();
 			command.execute(request, response);
 			viewPage = "modify_view.jsp";
+			DispatcherPage(request, response, viewPage);
 
 		} else if (com.equals("/modify.do")) {
 			command = new BModifyCommand();
@@ -96,37 +101,51 @@ public class FrontController extends HttpServlet {
 //			"content_view.do" 로 쏴도 비슷하긴 한데, 조금 다름
 //			viewPage = "content_view.do";
 			viewPage = "content_view.jsp";
+			DispatcherPage(request, response, viewPage);
 
 		} else if (com.equals("/delete.do")) {
 			System.out.println("curPage : " + curPage);
 			command = new BDeleteCommand();
 			command.execute(request, response);
 			viewPage = "list.do?page=" + curPage;
+			DispatcherPage(request, response, viewPage);
 
 		} else if (com.equals("/reply_view.do")) {
 			command = new BReplyViewCommand();
 			command.execute(request, response);
 			viewPage = "reply_view.jsp";
+			DispatcherPage(request, response, viewPage);
 
 		} else if (com.equals("/reply.do")) {
 			System.out.println("curPage : " + curPage);
 			command = new BReplyCommand();
 			command.execute(request, response);
 			viewPage = "list.do?page=" + curPage;
-
+			DispatcherPage(request, response, viewPage);
 		}
 		/////////////////////////////////////////////////////
-		
+
 		else if (com.equals("/search.do")) {
 			command = new BSearchCommand();
 			command.execute(request, response);
 			viewPage = "list2_search.jsp";
-		}else if (com.equals("/list2_search.do")) {
+			DispatcherPage(request, response, viewPage);
+
+		} else if (com.equals("/list2_search.do")) {
 			command = new BSearchCommand();
 			command.execute(request, response);
 			viewPage = "list2_search.jsp";
+			DispatcherPage(request, response, viewPage);
+
+		} else if (com.equals("/acclogin.do")) {
+			command = new BAccuntInfoSet();
+			command.execute(request, response);
+			
+		} else if (com.equals("/acclogout.do")) {
+			command = new BAccuntInfoDel();
+			command.execute(request, response);
 		}
-		
+
 		////////////////////////////////////////////////////////////////////
 
 		if (com.equals("/JoinOK.do")) {
@@ -150,9 +169,9 @@ public class FrontController extends HttpServlet {
 			LogOutOK(request, response);
 		}
 
-//		여기가 로그인때는 필요없는데 null 교체되서 죽는 부분
-		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
-		dispatcher.forward(request, response);
+////		여기가 로그인때는 필요없는데 null 교체되서 죽는 부분
+//		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+//		dispatcher.forward(request, response);
 
 	}
 
@@ -162,7 +181,13 @@ public class FrontController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		response.sendRedirect("A03Login.jsp");
-
 	}
 
+	private void DispatcherPage(HttpServletRequest request, HttpServletResponse response, String viewPage)
+			throws ServletException, IOException {
+
+//		여기가 로그인때는 필요없는데 null 교체되서 죽는 부분
+		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+		dispatcher.forward(request, response);
+	}
 }
