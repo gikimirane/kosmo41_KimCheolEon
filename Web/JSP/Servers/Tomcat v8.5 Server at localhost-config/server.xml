@@ -107,7 +107,7 @@
 				<Context docBase="SNS_NaverLogin" path="/SNS_NaverLogin" reloadable="true" source="org.eclipse.jst.jee.server:SNS_NaverLogin"/>
 				<Context docBase="SNS_KakaoLogin" path="/SNS_KakaoLogin" reloadable="true" source="org.eclipse.jst.jee.server:SNS_KakaoLogin"/>
 				<Context docBase="Jsp19_2" path="/Jsp19_2" reloadable="true" source="org.eclipse.jst.jee.server:Jsp19_2"/>
-			<Context docBase="Jsp22" path="/Jsp22" reloadable="true" source="org.eclipse.jst.jee.server:Jsp22"/></Host>
+			<Context docBase="Jsp22" path="/Jsp22" reloadable="true" source="org.eclipse.jst.jee.server:Jsp22"/><Context docBase="WebSocket01" path="/WebSocket01" reloadable="true" source="org.eclipse.jst.jee.server:WebSocket01"/></Host>
 		</Engine>
 	</Service>
 </Server>
