@@ -12,7 +12,16 @@ public class BDto {
 	private int bGroup;
 	private int bStep;
 	private int bIndent;
+	private String bFilename;
 	
+	public String getbFilename() {
+		return bFilename;
+	}
+
+	public void setbFilename(String bFilename) {
+		this.bFilename = bFilename;
+	}
+
 	public BDto() {
 		
 	}

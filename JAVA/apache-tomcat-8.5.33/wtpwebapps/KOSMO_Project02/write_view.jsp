@@ -31,6 +31,10 @@
 		                CKEDITOR.replace( 'bContent' );
 	            	</script>
 				</td>
+				<form action="A02fileFormOK.jsp" method="post" enctype="multipart/form-data">
+				<td>첨부파일</td>
+				<td><input type="file" name="filename"></td>
+				</form>
 			</tr>
 			<tr>
 				<td colspan="2">
