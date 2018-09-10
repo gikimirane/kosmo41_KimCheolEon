@@ -3,9 +3,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html>
 <head>
 <title>KOSMO Project02-WebBoard</title>
+<%
+	if (session.getAttribute("ggEmail") == null) {
+%>
+<%-- <jsp:forward page="A01Main.jsp" /> --%>
+<%
+		out.println(
+		"<script> "+
+			"alert('로그인이 필요한 컨텐츠입니다.'); "+
+			"document.location.href='A01Main.jsp' "+
+		"</script>");
+	}
+	String ggName = (String) session.getAttribute("ggName");
+	String ggEmail = (String) session.getAttribute("ggEmail");
+%>	
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -15,6 +30,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+	
 	function search_check() {
 		var select = $("#search_select option:selected").val();
 		var word = $("#search_word").val();

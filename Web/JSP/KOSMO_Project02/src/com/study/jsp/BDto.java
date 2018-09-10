@@ -27,7 +27,7 @@ public class BDto {
 	}
 
 	public BDto(int bId, String bName, String bTitle, String bContent, 
-			Timestamp bDate, int bHit, int bGroup, int bStep, int bIndent) {
+			Timestamp bDate, int bHit, int bGroup, int bStep, int bIndent, String bFilename) {
 		this.bId = bId;
 		this.bName = bName;
 		this.bTitle = bTitle;
@@ -37,6 +37,7 @@ public class BDto {
 		this.bGroup = bGroup;
 		this.bStep = bStep;
 		this.bIndent = bIndent;
+		this.bFilename = bFilename;
 	}
 
 	public int getbId() {

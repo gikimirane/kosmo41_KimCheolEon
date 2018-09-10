@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context docBase="C:\kchy12345\SourceTree\JAVA\apache-tomcat-8.5.33\wtpwebapps\SNS_KakaoLogin" path="/SNS_KakaoLogin" reloadable="true" source="org.eclipse.jst.jee.server:SNS_KakaoLogin"/>
+<Context docBase="D:\kchy12345\SourceTree\JAVA\apache-tomcat-8.5.33\wtpwebapps\SNS_KakaoLogin" path="/SNS_KakaoLogin" reloadable="true" source="org.eclipse.jst.jee.server:SNS_KakaoLogin"/>

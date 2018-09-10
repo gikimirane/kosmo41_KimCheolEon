@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 public class BDao {
@@ -53,12 +55,12 @@ public class BDao {
 //		return con;
 //	}
 
-	public void write(String bName, String bTitle, String bContent) {
+	public void write(String bName, String bTitle, String bContent, String bFilename) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		String query = "insert into mvc_board (bId, bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) "
-				+ "values (mvc_board_seq.nextval, ?, ?, ?, 0, mvc_board_seq.currval, 0, 0)";
+		String query = "insert into mvc_board (bId, bName, bTitle, bContent, bHit, bGroup, bStep, bIndent, bFilename) "
+				+ "values (mvc_board_seq.nextval, ?, ?, ?, 0, mvc_board_seq.currval, 0, 0, ?)";
 
 		try {
 			con = dataSource.getConnection(); // ConnectionPool
@@ -67,6 +69,7 @@ public class BDao {
 			pstmt.setString(1, bName);
 			pstmt.setString(2, bTitle);
 			pstmt.setString(3, bContent);
+			pstmt.setString(4, bFilename);
 
 			int rn = pstmt.executeUpdate();
 
@@ -130,9 +133,11 @@ public class BDao {
 				int bGroup = rs.getInt("bGroup");
 				int bStep = rs.getInt("bStep");
 				int bIndent = rs.getInt("bIndent");
+				String bFilename = rs.getString("bFilename");
+				
 
 				BDto dto = new BDto(bId, bName, bTitle, bContent, bDate, 
-						bHit, bGroup, bStep, bIndent);
+						bHit, bGroup, bStep, bIndent, bFilename);
 
 				dtos.add(dto);
 			}
@@ -228,13 +233,15 @@ public class BDao {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public BDto contentView(String strID) {
+	public BDto contentView(String strID, HttpServletRequest request) {
 		upHit(strID);
 
 		BDto dto = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet resultSet = null;
+		
+		HttpSession session = request.getSession();
 
 		try {
 			con = dataSource.getConnection(); // ConnectionPool
@@ -255,8 +262,20 @@ public class BDao {
 				int bGroup = resultSet.getInt("bGroup");
 				int bStep = resultSet.getInt("bStep");
 				int bIndent = resultSet.getInt("bIndent");
+				String bFilename = resultSet.getString("bFilename");
 
-				dto = new BDto(bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent);
+				dto = new BDto(bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent, bFilename);
+				
+				
+				// content_view.jsp 에서 비교되어야 했으나, 기묘하게도 String이 같은데 false 뜸.
+				// 해서, 여기는 true false 구별이 되기에 강제로 만들고 세션 생성을 시도함.
+				if(session.getAttribute("ggName").equals(bName)) {
+					System.out.println("ggName checkSuccess");
+					session.setAttribute("contentNameCheck", true);
+				}else {
+					System.out.println("ggName checkFail");
+					session.setAttribute("contentNameCheck", false);
+				}
 			}
 
 		} catch (Exception e) {
@@ -388,8 +407,9 @@ public class BDao {
 				int bGroup = resultSet.getInt("bGroup");
 				int bStep = resultSet.getInt("bStep");
 				int bIndent = resultSet.getInt("bIndent");
+				String bFilename = resultSet.getString("bFilename");
 
-				dto = new BDto(bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent);
+				dto = new BDto(bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent, bFilename);
 			}
 
 		} catch (Exception e) {
@@ -409,18 +429,20 @@ public class BDao {
 	}
 
 	public void reply(String bId, String bName, String bTitle, String bContent, String bGroup, String bStep,
-			String bIndent) {
+			String bIndent, String bFilename, HttpServletRequest request) {
 
 		replyShape(bGroup, bStep);
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		
+		HttpSession session = request.getSession();
 
 		try {
 			con = dataSource.getConnection(); // ConnectionPool
 
-			String query = "insert into mvc_board (bId, bName, bTitle, bContent, bGroup, bStep, bIndent) "
-					+ "values (mvc_board_seq.nextval, ?, ?, ?, ?, ?, ?)";
+			String query = "insert into mvc_board (bId, bName, bTitle, bContent, bGroup, bStep, bIndent, bFilename) "
+					+ "values (mvc_board_seq.nextval, ?, ?, ?, ?, ?, ?, ?)";
 
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, bName);
@@ -429,8 +451,18 @@ public class BDao {
 			pstmt.setInt(4, Integer.parseInt(bGroup));
 			pstmt.setInt(5, Integer.parseInt(bStep) + 1);
 			pstmt.setInt(6, Integer.parseInt(bIndent) + 1);
+			pstmt.setString(7, bFilename);
 
 			int rn = pstmt.executeUpdate();
+			
+			
+			if(session.getAttribute("ggName").equals(bName)) {
+				System.out.println("ggName checkSuccess");
+				session.setAttribute("contentNameCheck", true);
+			}else {
+				System.out.println("ggName checkFail");
+				session.setAttribute("contentNameCheck", false);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -517,9 +549,10 @@ public class BDao {
 				int bGroup = rs.getInt("bGroup");
 				int bStep = rs.getInt("bStep");
 				int bIndent = rs.getInt("bIndent");
+				String bFilename = rs.getString("bFilename");
 
 				BDto dto = new BDto(bId, bName, bTitle, bContent, bDate, 
-						bHit, bGroup, bStep, bIndent);
+						bHit, bGroup, bStep, bIndent, bFilename);
 
 				dtos.add(dto);
 			}			

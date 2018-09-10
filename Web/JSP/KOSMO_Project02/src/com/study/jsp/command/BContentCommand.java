@@ -13,7 +13,7 @@ public class BContentCommand implements BCommand {
 
 		String bId = request.getParameter("bId");
 		BDao dao = BDao.getInstance();
-		BDto dto = dao.contentView(bId);
+		BDto dto = dao.contentView(bId, request);
 		
 		request.setAttribute("content_view", dto);
 	}

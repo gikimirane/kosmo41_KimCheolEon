@@ -140,9 +140,12 @@ public class FrontController extends HttpServlet {
 		} else if (com.equals("/acclogin.do")) {
 			command = new BAccuntInfoSet();
 			command.execute(request, response);
-			
+
 		} else if (com.equals("/acclogout.do")) {
 			command = new BAccuntInfoDel();
+			command.execute(request, response);
+		} else if (com.equals("/download.do")) {
+			command = new BDownloadCommand();
 			command.execute(request, response);
 		}
 

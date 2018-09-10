@@ -11,13 +11,14 @@
 	<%
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-
+		
 		if (id == null) {
 	%>
 	<jsp:forward page="Login.jsp"></jsp:forward>
 	<%
 		} else {
 			session.setAttribute("uid", id);
+			/* httpSession */
 		}
 	%>
 

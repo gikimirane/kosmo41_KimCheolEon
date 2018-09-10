@@ -11,8 +11,18 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/websocketendpoint2")
 public class WsServer02 {
 
-	private static final java.util.Set<Session> sessions = java.util.Collections
-			.synchronizedSet(new java.util.HashSet<Session>());
+	// set<Session> 기존에는 hashMap, key / value 였다면, 지금은 session 하나만 넣어놓음
+	// 여러개가 필요하다면 그냥 맵으로 넣어버려서 처리해야 함.
+	// 이게 싫다면 데이터베이스를 연결해서 써야함
+	// 핵심적으로 수정해야 할 부분
+	private static final java.util.Set<Session> sessions = 
+			java.util.Collections.synchronizedSet(new java.util.HashSet<Session>());
+	
+	
+//	private static final java.util.Map<String, Session> clientMap = 
+//			java.util.Collections.synchronizedMap(new java.util.HashMap<String, Session>());
+	
+	///////////////////////////////////////////////////////////////////////////////////////////
 
 	@OnOpen
 	public void onOpen(Session session) {

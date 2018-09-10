@@ -1,8 +1,14 @@
 package com.study.jsp.command;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.study.jsp.BDao;
 
 public class BModifyCommand implements BCommand {
@@ -20,5 +26,4 @@ public class BModifyCommand implements BCommand {
 		
 		dao.modify(bId, bName, bTitle, bContent);
 	}
-
 }
