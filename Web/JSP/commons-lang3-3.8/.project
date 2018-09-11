@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>KOSMO_Project02</name>
+	<name>commons-lang3-3.8</name>
 	<comment></comment>
 	<projects>
-		<project>commons-lang3-3.8</project>
-		<project>cos</project>
-		<project>json_simple-1.1</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

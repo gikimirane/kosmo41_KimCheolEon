@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.study.jsp.google.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -229,7 +228,7 @@ footer {
 					<li><a href="#">About</a></li>
 					<li><a href="list.do">WebBoard</a></li>
 					<li><a href='#'
-						onclick='javascript:window.open("http://www.naver.com","name99", "width=500px,height=650px,left=100px,top=100px");'>testNaver</a></li>
+						onclick='javascript:window.open("WA02Client.jsp","WA02Client", "width=600px,height=800px,left=100px,top=100px");'>testNaver</a></li>
 				</ul>
 
 

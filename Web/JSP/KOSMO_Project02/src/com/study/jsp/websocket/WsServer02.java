@@ -1,3 +1,4 @@
+package com.study.jsp.websocket;
 import java.io.IOException;
 
 import javax.websocket.OnClose;
@@ -50,7 +51,10 @@ public class WsServer02 {
 
 		try {
 			final Basic basic = session.getBasicRemote();
-			basic.sendText("to : " + message);
+
+			// 내가 보낸 메세지
+			basic.sendText(message);
+			////////////////////////////////
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -63,7 +67,8 @@ public class WsServer02 {
 			for (Session session : WsServer02.sessions) {
 				// 반복문 돌려서 자신 빼고 나머지 세션한테 던지네
 				if (!self.getId().equals(session.getId())) {
-					session.getBasicRemote().sendText("All : " + message);
+					// 남에게 보내는 메시지
+					session.getBasicRemote().sendText(message);
 				}
 			}
 		} catch (Exception e) {

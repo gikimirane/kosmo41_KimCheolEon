@@ -3,31 +3,61 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%	
+	String id = null;
+
+	if (session.getAttribute("ggEmail") == null){
+		out.println(
+				"<script> "+
+					"alert('로그인이 필요한 컨텐츠입니다.'); "+
+					"document.location.href='A01Main.jsp' "+
+				"</script>");
+		
+	} else {
+		id = (String) session.getAttribute("ggName");
+		/* httpSession */
+	}
+%>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		openSocket();
+	});
+	
+	function enter_press(e) {
+		
+		var enterkey = e.keyCode;
+		
+		if(enterkey==13){
+			send();
+		}
+	}
+</script>
+<style type="text/css">
+	*{
+		margin: 0px;
+	}
+</style>
 <meta charset="UTF-8">
 <title>WebSocket Client01</title>
 </head>
 <body>
-
-	<%
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		
-		if (id == null) {
-	%>
-	<jsp:forward page="Login.jsp"></jsp:forward>
-	<%
-		} else {
-			session.setAttribute("uid", id);
-			/* httpSession */
-		}
-	%>
-
+	<textarea id="messages"
+		class="textarea"
+		style="background-color: #9bbbd4;
+		width: 99%; height: 600px;
+		resize: none;
+		font-size: 16px;"
+		readonly="readonly">
+	</textarea>
 	<div>
-		사용자 아이디 : <%=id %>
+		<span>접속자 : [</span><span style="font-weight: bold;"><%=id %></span><span>]</span>
 	</div>
-	
+	<br>
 	<div>
-		<input type="text" id="messageinput">
+		<textarea id="messageinput" onkeypress="enter_press(event);" 
+			style="width: 99%; height: 100px"></textarea>
 	</div>
 
 	<div>
@@ -35,9 +65,6 @@
 		<button type="button" onclick="send();">Send</button>
 		<button type="button" onclick="closeSocket();">Close</button>
 	</div>
-
-	<div id="messages"></div>
-
 	<script type="text/javascript">
 		var webSocket;
 		var messages = document.getElementById("messages");
@@ -52,7 +79,7 @@
 			/* 도메인을 localhost가 아니라 ip 줄것. 아마존의 경우 도메인 통째로 
 			대상 서버 주소-*/
 			webSocket = new WebSocket(
-					"ws://localhost:8081/WebSocket01/websocketendpoint2");
+					"ws://localhost:8081/KOSMO_Project02/websocketendpoint2");
 
 			webSocket.onopen = function(event) {
 				if (event.data === undefined) {
@@ -79,6 +106,9 @@
 			var id = "<%= id%>";
 			var text = document.getElementById("messageinput").value; 
 			webSocket.send(id + ":" + text);
+			
+			/* document.getElementById("messageinput").value=""; */
+			$('#messageinput').val('');
 		}
 
 		function closeSocket() {
@@ -87,7 +117,10 @@
 
 		function writeResponse(text) {
 			/* 스크롤이 있어야하고, 100줄 유지 제한시 뒤엣줄 삭제, 밑에 줄 추가 */
-			messages.innerHTML += "<br>" + text;
+			messages.innerHTML += "\n" + text;
+			
+			var top = $('#messages').prop('scrollHeight'); 
+			$('#messages').scrollTop(top);
 		}
 	</script>
 

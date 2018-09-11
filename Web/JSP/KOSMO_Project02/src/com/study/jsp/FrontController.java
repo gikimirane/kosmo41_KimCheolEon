@@ -144,6 +144,7 @@ public class FrontController extends HttpServlet {
 		} else if (com.equals("/acclogout.do")) {
 			command = new BAccuntInfoDel();
 			command.execute(request, response);
+
 		} else if (com.equals("/download.do")) {
 			command = new BDownloadCommand();
 			command.execute(request, response);
@@ -151,45 +152,14 @@ public class FrontController extends HttpServlet {
 
 		////////////////////////////////////////////////////////////////////
 
-		if (com.equals("/JoinOK.do")) {
-			System.out.println("JoinOK");
-			service = new JoinOK();
-			service.execute(request, response);
-//			viewPage = 
-		}
-		if (com.equals("/LoginOK.do")) {
-			System.out.println("LoginOK");
-			service = new LoginOK();
-			service.execute(request, response);
-		}
-		if (com.equals("/ModifyOK.do")) {
-			System.out.println("Modify");
-			service = new ModifyOK();
-			service.execute(request, response);
-		}
-		if (com.equals("/LogOUT.do")) {
-			System.out.println("LogOUT");
-			LogOutOK(request, response);
-		}
-
 ////		여기가 로그인때는 필요없는데 null 교체되서 죽는 부분
 //		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 //		dispatcher.forward(request, response);
 
 	}
 
-	private void LogOutOK(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		HttpSession session = request.getSession();
-		session.invalidate();
-		response.sendRedirect("A03Login.jsp");
-	}
-
 	private void DispatcherPage(HttpServletRequest request, HttpServletResponse response, String viewPage)
 			throws ServletException, IOException {
-
-//		여기가 로그인때는 필요없는데 null 교체되서 죽는 부분
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}
