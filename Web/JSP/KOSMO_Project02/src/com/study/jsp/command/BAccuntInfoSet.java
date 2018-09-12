@@ -35,16 +35,6 @@ public class BAccuntInfoSet implements BCommand {
 		session.setAttribute("ggImageURL", ggImageURL);
 		session.setAttribute("ggEmail", ggEmail);
 		
-		session.getAttribute("ggID");
-		session.getAttribute("ggName");
-		session.getAttribute("ggImageURL");
-		session.getAttribute("ggEmail");	
-		
-		System.out.println("ggID :" + ggID);
-		System.out.println("ggName : " + ggName);
-		System.out.println("ggImageURL : " + ggImageURL);
-		System.out.println("ggEmail : " + ggEmail);
-		
 		try {
 			PrintWriter writer = response.getWriter();
 			writer.println("[{\"result\":\"ok\",\"desc\":\"none\"}]");

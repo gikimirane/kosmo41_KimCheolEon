@@ -228,7 +228,7 @@ footer {
 					<li><a href="#">About</a></li>
 					<li><a href="list.do">WebBoard</a></li>
 					<li><a href='#'
-						onclick='javascript:window.open("WA02Client.jsp","WA02Client", "width=600px,height=800px,left=100px,top=100px");'>testNaver</a></li>
+						onclick='javascript:window.open("WA02Client.jsp","WA02Client", "width=1000px,height=700px,left=100px,top=100px");'>testNaver</a></li>
 				</ul>
 
 

@@ -26,20 +26,18 @@ public class FrontController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("doGet");
+//		System.out.println("doGet");
 		actionDo(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("doPost");
+//		System.out.println("doPost");
 		actionDo(request, response);
 	}
 
 	private void actionDo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		System.out.println("actionDo called!");
 
 		request.setCharacterEncoding("UTF-8");
 
@@ -50,9 +48,9 @@ public class FrontController extends HttpServlet {
 		String conPath = request.getContextPath();
 		String com = uri.substring(conPath.length());
 
-		System.out.println("uri : " + uri);
-		System.out.println("conPath : " + conPath);
-		System.out.println("command : " + com);
+//		System.out.println("uri : " + uri);
+//		System.out.println("conPath : " + conPath);
+//		System.out.println("command : " + com);
 
 		Service service = null;
 
