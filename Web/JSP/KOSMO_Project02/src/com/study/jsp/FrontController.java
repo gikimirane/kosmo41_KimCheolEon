@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.study.jsp.command.*;
+import com.study.jsp.websocket.command.*;
 
 //@WebServlet("/FrontController")
 @WebServlet("*.do")
@@ -43,6 +44,7 @@ public class FrontController extends HttpServlet {
 
 		String viewPage = null;
 		BCommand command = null;
+		CCommand command2 = null;
 
 		String uri = request.getRequestURI();
 		String conPath = request.getContextPath();
@@ -57,6 +59,7 @@ public class FrontController extends HttpServlet {
 		HttpSession session = null;
 		session = request.getSession();
 		int curPage = 1;
+
 		if (session.getAttribute("cpage") != null) {
 			curPage = (int) session.getAttribute("cpage");
 		}
@@ -149,6 +152,14 @@ public class FrontController extends HttpServlet {
 		}
 
 		////////////////////////////////////////////////////////////////////
+
+		if (com.equals("/chatUsercall.do")) {
+			command2 = new CChatUsercall();
+			command2.execute(request, response);
+		} else if (com.equals("/roomListcall.do")) {
+			command2 = new CRoomListCall();
+			command2.execute(request, response);
+		}
 
 ////		여기가 로그인때는 필요없는데 null 교체되서 죽는 부분
 //		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
