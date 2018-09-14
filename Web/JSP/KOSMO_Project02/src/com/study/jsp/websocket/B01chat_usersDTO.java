@@ -6,8 +6,6 @@ public class B01chat_usersDTO {
 	private String BLOCK;
 	private String LOCATION;
 	private String ROOMADMIN;
-	private String HOLDWHISPER;
-	private String WHISPERNAME;
 	private String INVITE;
 	private String BANNLIST;
 	private String BANNWORD;
@@ -42,22 +40,6 @@ public class B01chat_usersDTO {
 
 	public void setROOMADMIN(String rOOMADMIN) {
 		ROOMADMIN = rOOMADMIN;
-	}
-
-	public String getHOLDWHISPER() {
-		return HOLDWHISPER;
-	}
-
-	public void setHOLDWHISPER(String hOLDWHISPER) {
-		HOLDWHISPER = hOLDWHISPER;
-	}
-
-	public String getWHISPERNAME() {
-		return WHISPERNAME;
-	}
-
-	public void setWHISPERNAME(String wHISPERNAME) {
-		WHISPERNAME = wHISPERNAME;
 	}
 
 	public String getINVITE() {

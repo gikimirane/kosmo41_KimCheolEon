@@ -1,6 +1,9 @@
 package com.study.jsp.websocket;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.websocket.OnClose;
@@ -10,8 +13,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.server.ServerEndpoint;
-
-import sun.security.jca.GetInstance;
+import javax.xml.stream.events.Comment;
 
 @ServerEndpoint("/websocketendpoint2")
 public class WsServer02 {
@@ -26,9 +28,18 @@ public class WsServer02 {
 	private static final java.util.Map<String, Session> clientMap = java.util.Collections
 			.synchronizedMap(new java.util.HashMap<String, Session>());
 
+	public static Set<Session> getSession() {
+		return sessions;
+	}
+
+	public static Map<String, Session> getClientMap() {
+		return clientMap;
+	}
+
 	///////////////////////////////////////////////////////////////////////////////////////////
 	boolean nameInterrupt = true;
 	String inUser = null;
+	String userState = "";
 
 	B02chat_usersDAO chuDAO = B02chat_usersDAO.getInstance();
 	A01CommandProcess process = A01CommandProcess.getInstance();
@@ -59,7 +70,7 @@ public class WsServer02 {
 
 		String toName = "";
 
-		//최초 접속시, 접속한 사람 이름 획득
+		// 최초 접속시, 접속한 사람 이름 획득
 		if (nameInterrupt) {
 			nameInterrupt = false;
 
@@ -114,11 +125,13 @@ public class WsServer02 {
 			if (test.hasMoreTokens()) {
 				tokenBody = test.nextToken("").trim();
 			}
-			
+
 			if (exMessage.substring(0, 1).equals("/")) {
-				System.out.println("command : " + command);
-				System.out.println("tokenBody : " + tokenBody);
-//				resultText = process.CommandProcess(command, inUser, tokenBody);
+				message = process.CommandProcess(command, inUser, tokenBody);
+
+				if (command.equals("/in")) {
+					userState = command;
+				}
 			}
 		}
 
@@ -143,14 +156,29 @@ public class WsServer02 {
 	//////////////////////////////////////////////////////////////////////////////////////////////
 
 	private void sendAllSessionToMessage(Session self, String message) {
+
 		try {
-			for (Session session : WsServer02.sessions) {
-				// 반복문 돌려서 자신 빼고 나머지 세션한테 던지네
-				if (!self.getId().equals(session.getId())) {
-					// 남에게 보내는 메시지
-					session.getBasicRemote().sendText("[전체] " + message);
+			if (userState.equals("/in")) {
+
+				ArrayList<B01chat_usersDTO> myInfo = chuDAO.checkUSERS("NAME", inUser);
+				ArrayList<B01chat_usersDTO> userList = chuDAO.listCHAT_USERS();
+
+				for (int i = 0; i < userList.size(); i++) {
+					if (myInfo.get(0).getLOCATION().equals(userList.get(i).getLOCATION())) {
+
+						clientMap.get(userList.get(i).getNAME()).getBasicRemote().sendText("[방채팅] " + message);
+					}
+				}
+			} else {
+				for (Session session : WsServer02.sessions) {
+					// 반복문 돌려서 자신 빼고 나머지 세션한테 던지네
+					if (!self.getId().equals(session.getId())) {
+						// 남에게 보내는 메시지
+						session.getBasicRemote().sendText("[전체] " + message);
+					}
 				}
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -166,6 +194,32 @@ public class WsServer02 {
 				clientMap.get(inUser).getBasicRemote().sendText("[Server] " + "대상이 존재하지 않음");
 			} catch (IOException e1) {
 			}
+		}
+	}
+
+	private void roomSessionToMessage(Session self, String message) {
+
+////	ArrayList<B01chat_usersDTO> userList = chuDAO.listCHAT_USERS();
+//	ArrayList<B01chat_usersDTO> myInfo = chuDAO.checkUSERS("NAME", inUser);
+//	
+//	System.out.println("myInfoLocation : "+myInfo.get(1).getLOCATION());
+////	for (int i = 0; i < userList.size(); i++) {
+////		if(myInfo.get(1).getLOCATION()
+////				.equals(userList.get(i).getLOCATION())) {
+////			
+////		}	
+////	}
+
+		try {
+			for (Session session : WsServer02.sessions) {
+				// 반복문 돌려서 자신 빼고 나머지 세션한테 던지네
+				if (!self.getId().equals(session.getId())) {
+					// 남에게 보내는 메시지
+					session.getBasicRemote().sendText("[전체] " + message);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

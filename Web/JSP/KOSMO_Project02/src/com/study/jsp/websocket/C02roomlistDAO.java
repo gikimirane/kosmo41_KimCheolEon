@@ -123,6 +123,11 @@ public class C02roomlistDAO {
 	public boolean insertRoom(C01roomlistDTO roomDO) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		
+		System.out.println(roomDO.getRNAME());
+		System.out.println(roomDO.getRMAX());
+		System.out.println(roomDO.getRHIDDEN());
+		System.out.println(roomDO.getRPASS());
 
 		String sql = "insert into ROOMLIST(RNUMBER, RNAME, RMAX, RHIDDEN, RPASS, RUSERCOUNT) values(ROOM_NUM.nextval, ?, ?, ?, ?, ?)";
 
@@ -137,10 +142,6 @@ public class C02roomlistDAO {
 			pstmt.setString(5, "1");
 
 			pstmt.executeUpdate();
-
-//			sql한번 셀렉트
-//			반환값 챙겨서
-//			하여튼 반환 스트링이든 정수든 ㅇㅇ
 
 		} catch (Exception e) {
 			e.printStackTrace();

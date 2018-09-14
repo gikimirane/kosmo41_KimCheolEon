@@ -159,6 +159,9 @@ public class FrontController extends HttpServlet {
 		} else if (com.equals("/roomListcall.do")) {
 			command2 = new CRoomListCall();
 			command2.execute(request, response);
+		} else if (com.equals("/roomCreate.do")) {
+			command2 = new CRoomCreateCall();
+			command2.execute(request, response);
 		}
 
 ////		여기가 로그인때는 필요없는데 null 교체되서 죽는 부분

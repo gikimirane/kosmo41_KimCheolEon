@@ -33,8 +33,8 @@ public class CRoomListCall implements CCommand {
 			String rname = list.get(index).getRNAME();
 			String rhidden = list.get(index).getRHIDDEN();
 
-			sResult += "\\t[No." + rnumber + "]\\t" + "[총원:" + rmax + "]\\t" + "[현재원:" + rusercount + "]\\t" + "[상태:"
-					+ rhidden + "]\\t[" + rname + "]|";
+			sResult += "[No." + rnumber + "]    " + "[총원:" + rmax + "]    " + "[현재원:" + rusercount + "]    " + "[상태:"
+					+ rhidden + "]    [" + rname + "]|";
 		}
 
 		try {

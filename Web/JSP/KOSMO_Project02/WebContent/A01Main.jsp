@@ -38,10 +38,10 @@ footer {
 
 	function onSignIn(googleUser) {
 		var profile = googleUser.getBasicProfile();
-		console.log('ID: ' + profile.getId());
+		/* console.log('ID: ' + profile.getId());
 		console.log('Name: ' + profile.getName());
 		console.log('Image URL: ' + profile.getImageUrl());
-		console.log('Email: ' + profile.getEmail());
+		console.log('Email: ' + profile.getEmail()); */
 
 		ggID = profile.getId();
 		ggName = profile.getName();
@@ -228,7 +228,7 @@ footer {
 					<li><a href="#">About</a></li>
 					<li><a href="list.do">WebBoard</a></li>
 					<li><a href='#'
-						onclick='javascript:window.open("WA02Client.jsp","WA02Client", "width=1000px,height=800px,left=100px,top=100px");'>testNaver</a></li>
+						onclick='javascript:window.open("WA02Client.jsp","WA02Client", "width=1000px,height=900px,left=100px,top=100px");'>testNaver</a></li>
 				</ul>
 
 
