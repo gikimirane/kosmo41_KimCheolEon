@@ -69,7 +69,7 @@ th, td {
 </head>
 <body>
 	<div class="container-fluid bg-primary">
-		<h3>Cheol-Eon Kim's Record</h3>
+		<h3>Open WebBoard & Chat</h3>
 	</div>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -79,21 +79,21 @@ th, td {
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Portfolio</a>
+				<!-- <a class="navbar-brand" href="#">Portfolio</a> -->
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li><a href="A01Main.jsp">Home</a></li>
-					<li><a href="#">About</a></li>
+					<!-- <li><a href="#">About</a></li> -->
 					<li class="active"><a href="list.do">WebBoard</a></li>
 					<li><a href='#'
-						onclick='javascript:window.open("http://www.naver.com","name99", "width=500px,height=650px,left=100px,top=100px");'>testNaver</a></li>
+						onclick='javascript:window.open("WA02Client.jsp","WA02Client", "width=1000px,height=900px,left=100px,top=100px");'>WebChat</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+					<!-- <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
 							Login</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-							Join</a></li>
+							Join</a></li> -->
 				</ul>
 			</div>
 		</div>
@@ -196,7 +196,7 @@ th, td {
 		<p>Footer Text</p>
 	</footer>
 	
-	<br> totalCount : ${page.totalCount }
+<%-- 	<br> totalCount : ${page.totalCount }
 	<br> listCount : ${page.listCount }
 	<br> totalPage : ${page.totalPage }
 	<br> curPage : ${page.curPage }
@@ -204,7 +204,7 @@ th, td {
 	<br> startPage : ${page.startPage }
 	<br> endPage : ${page.endPage }
 	<br> select : ${select }
-	<br> word : ${word }
+	<br> word : ${word } --%>
 
 </body>
 </html>

@@ -19,29 +19,37 @@ public class CRoomCreateCall implements CCommand {
 		System.out.println("CRoomCreateCall.....");
 
 		response.setContentType("text/html;charset=UTF-8");
-		
-		String sResult = "";		
-				
+
+		String sResult = "";
+
 		String rcName = request.getParameter("rcName");
 		String rcMax = request.getParameter("rcMax");
 		String rcHidden = request.getParameter("rcHidden");
 		String rcPass = request.getParameter("rcPass");
-		if(rcPass.equals("")) {
+		if (rcPass.equals("")) {
 			rcPass = null;
 		}
 		String inUser = request.getParameter("inUser");
-		
-		C01roomlistDTO roomDTO = new C01roomlistDTO();	
+
+		C01roomlistDTO roomDTO = new C01roomlistDTO();
 		C02roomlistDAO roomDAO = C02roomlistDAO.getInstance();
-		
+
 		roomDTO.setRNAME(rcName);
 		roomDTO.setRMAX(rcMax);
 		roomDTO.setRHIDDEN(rcHidden);
 		roomDTO.setRPASS(rcPass);
 
+		C01roomlistDTO roomSelect = roomDAO.selectRoomList("RNAME", rcName);
+
+		String roomNum = roomSelect.getRNUMBER();
+
+		B02chat_usersDAO chuDAO = B02chat_usersDAO.getInstance();
+
+		chuDAO.updateCHAT_USERS("NAME", inUser, "LOCATION", roomNum);
+
 		try {
 			roomDAO.insertRoom(roomDTO);
-			
+
 			PrintWriter writer = response.getWriter();
 			writer.println("[" + "{\"result\":\"ok\",\"desc\":\"none\"," + "\"data\":\"" + "생성 성공" + "\"}" + "]");
 			writer.close();
@@ -54,15 +62,6 @@ public class CRoomCreateCall implements CCommand {
 			} catch (Exception e2) {
 			}
 		}
-		
-		C01roomlistDTO roomSelect = roomDAO.selectRoomList("RNAME", rcName);
-		
-		String roomNum = roomSelect.getRNUMBER();
-		
-		
-		B02chat_usersDAO chuDAO = B02chat_usersDAO.getInstance();
-		
-		chuDAO.updateCHAT_USERS("NAME", inUser, "LOCATION", roomNum);
 
 	}
 }

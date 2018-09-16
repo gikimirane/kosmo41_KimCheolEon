@@ -154,13 +154,16 @@ public class FrontController extends HttpServlet {
 		////////////////////////////////////////////////////////////////////
 
 		if (com.equals("/chatUsercall.do")) {
-			command2 = new CChatUsercall();
+			command2 = new CChatUserCall();
 			command2.execute(request, response);
 		} else if (com.equals("/roomListcall.do")) {
 			command2 = new CRoomListCall();
 			command2.execute(request, response);
 		} else if (com.equals("/roomCreate.do")) {
 			command2 = new CRoomCreateCall();
+			command2.execute(request, response);
+		} else if (com.equals("/roomOut.do")) {
+			command2 = new CRoomOutCall();
 			command2.execute(request, response);
 		}
 

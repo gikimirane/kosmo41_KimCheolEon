@@ -73,7 +73,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="button" value="답변" onclick="">
+				<input type="button" value="답변" onclick="form_check();">
 				<a href="list.do?page=<%=session.getAttribute("cpage")%>">목록보기</a> &nbsp;&nbsp;
 			</td>
 		</tr>

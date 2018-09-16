@@ -55,8 +55,7 @@ public class A01CommandProcess {
 				break;
 
 			case "/in":
-				CmdRoomIn(inName, body);
-				result = "입장하였습니다.";
+				result = CmdRoomIn(inName, body);
 				break;
 
 			case "/exit":
@@ -96,27 +95,34 @@ public class A01CommandProcess {
 		return result;
 	}
 
-	public void CmdRoomIn(String name, String body) {
+	public String CmdRoomIn(String name, String body) {
+		
+		System.out.println("name : " + name);
+		System.out.println("body : " + body);
+		
 		ArrayList<B01chat_usersDTO> USER = chuDAO.checkUSERS("NAME", name);
 
 		// 명령어 날린사람 계급 확보 ADMIN / NOADMIN
 		String isAdmin = USER.get(0).getROOMADMIN();
 		// 명령어 날린사람의 LOCATION 확보
 		String isLocation = USER.get(0).getLOCATION();
+		
+		System.out.println("isAdmin ? : " + isAdmin);
+		System.out.println("isLocation ? : " + isLocation);
 
-		int PassCheck = 0;
-		// body 분리 및 토큰개수 확보
+//		int PassCheck = 0;
+//		// body 분리 및 토큰개수 확보
 		StringTokenizer inToken = new StringTokenizer(body, " ");
 		int tokenCount = inToken.countTokens();
-
+//
 		String tokenBody = "";
 		String tokenPass = "";
-
-		// 토큰의 갯수에 따른 토큰데이터 확보
+//
+//		// 토큰의 갯수에 따른 토큰데이터 확보
 		if (tokenCount == 1) {
 			tokenBody = inToken.nextToken();
 		}
-
+//
 		if (tokenCount == 2) {
 			tokenBody = inToken.nextToken();
 			tokenPass = inToken.nextToken();
@@ -133,8 +139,60 @@ public class A01CommandProcess {
 		String doHidden = selectRoom.getRHIDDEN();
 		String doPass = selectRoom.getRPASS();
 		
+		
+		System.out.println("doRnumber : " + doRnumber);
+		System.out.println("doMax : " + doMax);
+		System.out.println("doUserCount : " + doUserCount);
+		System.out.println("doHidden : " + doHidden);
+		System.out.println("doPass : " + doPass);
+		
+		
 		if (isAdmin.equals("ADMIN")) {
+			return "방장은 특별한 조치후에 다른방에 입장할 수 있습니다.";
+		}
+		
+//		if (!isNumeric(tokenBody)) {
+//			return "";
+//		}
+		
+		if (doMax == doUserCount) {
+			return "방에 인원이 꽉찼습니다.";
+		}
+		
+		System.out.println("IN 처리 시작");
+		
+		if (doHidden.equals("공개")) {
+			chuDAO.updateCHAT_USERS("NAME", name, "LOCATION", body);
 			
+			C01roomlistDTO selectCreateRoom = roomDAO.selectRoomList("RNUMBER", body);
+			int AddCount = Integer.parseInt(selectCreateRoom.getRUSERCOUNT()) + 1;
+			
+			roomDAO.updateRoom(Integer.toString(AddCount), selectCreateRoom.getRNUMBER());
+		}
+		
+		if (doHidden.equals("비공개")) {
+			if (tokenPass.equals(doPass)) {
+				chuDAO.updateCHAT_USERS("NAME", name, "LOCATION", tokenBody);
+
+				C01roomlistDTO selectCreateRoom = roomDAO.selectRoomList("RNUMBER", tokenBody);
+				int AddCount = Integer.parseInt(selectCreateRoom.getRUSERCOUNT()) + 1;
+				
+				roomDAO.updateRoom(Integer.toString(AddCount), selectCreateRoom.getRNUMBER());
+			}else {
+				return "비밀번호가 틀렸습니다.";
+			}
+		}
+		
+		return "방이 이동되었습니다. (번호 : " + tokenBody + ")";
+	}
+
+	public boolean isNumeric(String s) {
+		try {
+			// Double.parseDouble(s);
+			Integer.parseInt(s);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
 		}
 	}
 

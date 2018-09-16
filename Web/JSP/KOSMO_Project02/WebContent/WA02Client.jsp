@@ -127,6 +127,7 @@
 		<button type="button" class="btnFunc" onclick="$('[name=rommList] option').prop('selected', false)">방목록 선택해제</button>
 		<button type="button" class="btnFunc" onclick="callRoomList();">방 목록갱신</button>
 		<button type="button" class="btnFunc" onclick="roomIn();">방 입장</button>
+		<button type="button" class="btnFunc" onclick="roomOut();">방 퇴장</button>
 		<button type="button" class="btnFunc" onclick="$('[name=inusers] option').prop('selected', false)">접속자 선택해제</button>
 		<button type="button" class="btnFunc" onclick="callInUser();">접속자 목록갱신</button>
 	</div>
@@ -396,6 +397,27 @@
 			$("input:radio[name='mkroom_max']").prop('checked', false)
 			$('[name=mkroom_hidden] option').prop('checked', false)
 			$("#mkroom_pw").val("");
+		}
+		
+		
+		
+		function roomOut() {
+			callAction = "inUser=" + inUser;
+			
+			$.ajax({
+				url : 'roomOut.do',
+				type : 'POST',
+				data : callAction,
+				dataType : 'json',
+				success : function(json) {
+					var result = eval(json);
+					if (result[0].result == "ok") {
+						alert(result[0].data);
+					} else {
+						alert(result[0].desc);
+					}
+				}
+			})
 		}
 		
 	</script>

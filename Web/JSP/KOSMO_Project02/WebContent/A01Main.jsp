@@ -210,7 +210,7 @@ footer {
 </head>
 <body>
 	<div class="container-fluid bg-primary">
-		<h3>Cheol-Eon Kim's Record</h3>
+		<h3>Open WebBoard & Chat</h3>
 	</div>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -220,15 +220,15 @@ footer {
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Portfolio</a>
+				<!-- <a class="navbar-brand" href="#">Portfolio</a> -->
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="A01Main.jsp">Home</a></li>
-					<li><a href="#">About</a></li>
+					<!-- <li><a href="#">About</a></li> -->
 					<li><a href="list.do">WebBoard</a></li>
 					<li><a href='#'
-						onclick='javascript:window.open("WA02Client.jsp","WA02Client", "width=1000px,height=900px,left=100px,top=100px");'>testNaver</a></li>
+						onclick='javascript:window.open("WA02Client.jsp","WA02Client", "width=1000px,height=900px,left=100px,top=100px");'>WebChat</a></li>
 				</ul>
 
 

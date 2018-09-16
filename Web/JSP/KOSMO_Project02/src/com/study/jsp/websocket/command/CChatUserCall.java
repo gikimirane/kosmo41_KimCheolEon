@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.study.jsp.websocket.B01chat_usersDTO;
 import com.study.jsp.websocket.B02chat_usersDAO;
 
-public class CChatUsercall implements CCommand {
+public class CChatUserCall implements CCommand {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
