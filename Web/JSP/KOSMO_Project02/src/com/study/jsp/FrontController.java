@@ -54,8 +54,6 @@ public class FrontController extends HttpServlet {
 //		System.out.println("conPath : " + conPath);
 //		System.out.println("command : " + com);
 
-		Service service = null;
-
 		HttpSession session = null;
 		session = request.getSession();
 		int curPage = 1;
