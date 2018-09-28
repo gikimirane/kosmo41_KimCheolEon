@@ -13,7 +13,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id"
-	content="448134969775-vg3eimv8i57suimhr8e9ga5573699evd.apps.googleusercontent.com">
+	content="448134969775-7m2qvks1kit9ackgrgbeg0l7940eleh5.apps.googleusercontent.com">
 <style>
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {

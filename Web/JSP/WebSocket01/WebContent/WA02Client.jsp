@@ -52,7 +52,8 @@
 			/* 도메인을 localhost가 아니라 ip 줄것. 아마존의 경우 도메인 통째로 
 			대상 서버 주소-*/
 			webSocket = new WebSocket(
-					"ws://localhost:8081/WebSocket01/websocketendpoint2");
+					/* "ws://localhost:8081/WebSocket01/websocketendpoint2"); */
+					"ws://ec2-13-125-111-39.ap-northeast-2.compute.amazonaws.com:8081/chat/websocketendpoint2");
 
 			webSocket.onopen = function(event) {
 				if (event.data === undefined) {
