@@ -10,48 +10,48 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class GuestMessageController {
-   @RequestMapping(value = "/list.xml")
-   @ResponseBody
-   public GuestMessageXMLList listXml() {
-      return getMessagetXmlList();
-   }
-   
-   private GuestMessageXMLList getMessagetXmlList() {
-      List<GuestMessage> messages = Arrays.asList(
-            new GuestMessage(1, "홍길동", new Date()),
-            new GuestMessage(2, "전우치", new Date())
-            );
-      
-      return new GuestMessageXMLList(messages);
-            
-   }
-   
-//   @RequestMapping(value = "/list.json")
-//   @ResponseBody
-//   public GuestMessageJSONList listJson() {
-//      return getMessagetJsonList();
-//   }
-//   
-//   private GuestMessageJSONList getMessagetJsonList() {
-//      List<GuestMessage> messages = Arrays.asList(
-//            new GuestMessage(1, "메세지1", new Date()),
-//            new GuestMessage(2, "메세지2", new Date())
-//            );
-//      
-//      return new GuestMessageJSONList(messages);
-//            
-//   }
-   
-   @RequestMapping(value = "/list.json")
-   @ResponseBody
-   public List<GuestMessage> listJson() {
-      System.out.println("aaaaa");
-      List<GuestMessage> messages = Arrays.asList(
-            new GuestMessage(1, "메세지1", new Date()),
-            new GuestMessage(2, "메세지2", new Date())
-            );
-      
-      return messages;
-            
-   }
+	
+//	@RequestMapping(value = "/list.xml")
+//	@ResponseBody
+//	public GuestMessageXMLList listXml() {
+//		return getMessageXmlList();
+//	}
+//	
+//	private GuestMessageXMLList getMessageXmlList() {
+//		List<GuestMessage> messages = Arrays.asList(
+//				new GuestMessage(1, "홍길동", new Date()),
+//				new GuestMessage(2, "전우치", new Date())
+//				);
+//		
+//		return new GuestMessageXMLList(messages);
+//	}
+	
+	
+	
+//	@RequestMapping(value = "/list.json")
+//	@ResponseBody
+//	public GuestMessageJSONList listJson() {
+//		return getMessageJsonList();
+//	}
+	
+	@RequestMapping(value = "/list.json")
+	@ResponseBody
+	public List<GuestMessage> listJson() {
+		System.out.println("TESTaaaaaaaaaaa");
+		List<GuestMessage> messages = Arrays.asList(
+				new GuestMessage(1, "메시지1", new Date()),
+				new GuestMessage(2, "메시지2", new Date())
+				);
+		
+		return messages;
+	}
+	
+//	private GuestMessageJSONList getMessageJsonList() {
+//		List<GuestMessage> messages = Arrays.asList(
+//				new GuestMessage(1, "메시지1", new Date()),
+//				new GuestMessage(2, "메시지2", new Date())
+//				);
+//		
+//		return new GuestMessageJSONList(messages);
+//	}
 }
