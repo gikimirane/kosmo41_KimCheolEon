@@ -117,8 +117,6 @@
 			<scope>test</scope>
 		</dependency>
 		
-		
-		
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
@@ -134,7 +132,8 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.1.4.RELEASE</version>
-		</dependency>        
+		</dependency>
+		
 		        
 	</dependencies>
     <build>

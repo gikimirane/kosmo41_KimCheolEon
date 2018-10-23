@@ -11,7 +11,6 @@
 <script src="./naver_editor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
 	function form_check() {
-		oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 		document.modify_form.submit();
 	}
 
@@ -42,15 +41,6 @@
 				<td>
 					<%-- <textarea rows="10" name="bContent">${content_view.bContent }</textarea> --%>
 					<textarea name="bContent" id="ir1" rows="10" cols="100">${content_view.bContent }</textarea>
-					<script type="text/javascript">
-						var oEditors = [];
-						nhn.husky.EZCreator.createInIFrame({
-						    oAppRef: oEditors,
-						    elPlaceHolder: "ir1",
-						    sSkinURI: "./naver_editor/SmartEditor2Skin.html",
-						    fCreator: "createSEditor2"
-						});
-					</script>
 				</td>
 			</tr>
 			<tr>

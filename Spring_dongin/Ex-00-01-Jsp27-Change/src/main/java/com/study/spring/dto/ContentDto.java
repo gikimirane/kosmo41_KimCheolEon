@@ -2,23 +2,23 @@ package com.study.spring.dto;
 
 import java.sql.Timestamp;
 
-public class BDto {
-	private int bId;
-	private String bName;
-	private String bTitle;
-	private String bContent;
-	private Timestamp bDate;
-	private int bHit;
-	private int bGroup;
-	private int bStep;
-	private int bIndent;
-
-	public BDto() {
-
+public class ContentDto {
+	int bId;
+	String bName;
+	String bTitle;
+	String bContent;
+	Timestamp bDate;
+	int bHit;
+	int bGroup;
+	int bStep;
+	int bIndent;
+	
+	public ContentDto() {
+		
 	}
 
-	public BDto(int bId, String bName, String bTitle, String bContent, Timestamp bDate, int bHit, int bGroup, int bStep,
-			int bIndent) {
+	public ContentDto(int bId, String bName, String bTitle, String bContent, Timestamp bDate, int bHit, int bGroup,
+			int bStep, int bIndent) {
 		this.bId = bId;
 		this.bName = bName;
 		this.bTitle = bTitle;
@@ -101,5 +101,5 @@ public class BDto {
 	public void setbIndent(int bIndent) {
 		this.bIndent = bIndent;
 	}
-
+	
 }

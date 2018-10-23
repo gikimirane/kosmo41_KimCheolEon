@@ -23,7 +23,6 @@
 	
 	<context:component-scan base-package="com.study.spring" />
 	
-	
 	<!-- DI용 빈 설정 -->
 	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
@@ -32,12 +31,13 @@
 		<beans:property name="password" value="tiger" />
 	</beans:bean>
 	
-	<beans:bean name="template" class="org.springframework.jdbc.core.JdbcTemplate">
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="mapperLocations" value="classpath:com/study/spring/dao/mapper/*.xml"/>
 	</beans:bean>
 	
-	<beans:bean name="dao" class="com.study.spring.dao.BDao">
-		<beans:property name="template" ref="template"></beans:property>
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory"/>
 	</beans:bean>
 	
 	
