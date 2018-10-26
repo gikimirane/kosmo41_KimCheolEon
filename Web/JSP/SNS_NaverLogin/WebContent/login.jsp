@@ -92,7 +92,12 @@
 				naverLogin.logout();
 				location.reload();
 			});
+			
+			alert("eMail : " + eMail);
+	
 		}
+		
+		
 	</script>
 
 

@@ -53,6 +53,7 @@
                	$('#logout').css('display', 'block');
                 $('#upic').attr('src', res.properties.thumbnail_image );
                	$('#uname').html('[ ' + res.properties.nickname + ' ]');
+               	alert(res.kaccount_email);
              }
          })
 	}
