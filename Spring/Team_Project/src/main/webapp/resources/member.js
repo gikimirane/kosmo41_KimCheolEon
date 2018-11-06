@@ -1,3 +1,30 @@
+var idCheckState = 0;
+
+function idCheck(){
+	$.ajax({
+		url : 'idcheck',
+		type : 'POST',
+		data : document.reg_frm.id.value,
+		dataType : 'json',
+		success : function(json) {
+			var result = eval(json);
+			if (result[0].result == "ok") {
+				/* alert("setOK"); */
+			} else {
+				alert(result[0].desc);
+			}
+		}
+	});
+}
+
+function idCheckPass(){
+	if(idCheckState == 1){
+		infoConfirm();
+	}else{
+		alert("중복확인을 해주세요.");
+	}
+}
+
 function infoConfirm() {
 	if (document.reg_frm.id.value.length == 0) {
 		alert("아이디는 필수사항입니다.");

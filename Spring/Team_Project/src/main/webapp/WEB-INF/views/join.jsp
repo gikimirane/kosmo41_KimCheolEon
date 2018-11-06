@@ -24,21 +24,21 @@
 </script>
 <script>
 function firebaseJoin(){
-firebase.auth().createUserWithEmailAndPassword(document.reg_frm.eMail.value, null).catch((error) => {
-    console.log('code:' + error.code + 'message' + error.message);
-});
-firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-        if (user.emailVerified == false) {
-            user.sendEmailVerification().then(() => {
-                console.log('sent email');
-            }, (error) => {
-                console.log('code:' + error.code + 'message' + error.message);
-            });
-        }
-    } else {  }
-
-});
+	firebase.auth().createUserWithEmailAndPassword(document.reg_frm.eMail.value, null).catch((error) => {
+	    console.log('code:' + error.code + 'message' + error.message);
+	});
+	firebase.auth().onAuthStateChanged(function (user) {
+	    if (user) {
+	        if (user.emailVerified == false) {
+	            user.sendEmailVerification().then(() => {
+	                console.log('sent email');
+	            }, (error) => {
+	                console.log('code:' + error.code + 'message' + error.message);
+	            });
+	        }
+	    } else {  }
+	
+	});
 }
 </script>
 
@@ -156,6 +156,17 @@ firebase.auth().onAuthStateChanged(function (user) {
 		margin: 3px 10px;
 		font-size: 20px;
 	}
+	
+	
+	.idcheck-btn {
+		text-align: center;
+		border-color: #007bff;
+		transition: all 0.4s;
+	}
+	.idcheck-btn:hover {
+		background: #007bff;
+		opacity: 0.8;
+	}
 </style>
 
 <script src="http://code.jquery.com/jquery.js"></script>
@@ -168,16 +179,6 @@ firebase.auth().onAuthStateChanged(function (user) {
 </head>
 <body>
 
-<!-- 	<form action="joinOK" method="post" name="reg_frm">
-		아이디 : <input type="text" name="id" size="20"><br>
-		비밀번호 : <input type="password" name="pw" size="20"><br>
-		비밀번호 확인 : <input type="password" name="pw_check" size="20"><br>
-		이름 : <input type="text" name="name" size="20"><br>
-		메일 : <input type="text" name="eMail" size="20"><br>
-		<input type="button" value="회원가입" onclick="infoConfirm()">&nbsp;&nbsp;&nbsp;
-		<input type="reset" value="로그인" onclick="javascript:window.location='login'">
-	</form>
-	<input type="button" onClick="test()" value="tt"> -->
 	
 	<div class="signup-form">
     <form action="joinOK" method="post" name="reg_frm">
@@ -190,8 +191,9 @@ firebase.auth().onAuthStateChanged(function (user) {
 			<br/>
 		</div>
 		<div class="or-seperator"><b>or</b></div>
-        <div class="form-group">
+        <div class="form-group" align="right">
         	<input type="text" class="form-control input-lg" name="id" placeholder="아이디 (4글자 이상)" required="required" size="20">
+        	<input type="button" class="btn btn-primary idcheck-btn" name="id_check" value="중복확인" onclick="">
         </div>
         <div class="form-group">
             <input type="password" class="form-control input-lg" name="pw" placeholder="비밀번호" required="required" size="20">
@@ -210,7 +212,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         	<input type="email" class="form-control input-lg" name="eMail" placeholder="이메일 주소" required="required" size="20">
         </div>  
         <div class="form-group">
-            <input type="button" class="btn btn-success btn-lg btn-block signup-btn" value="회원가입" onclick="infoConfirm();">
+            <input type="button" class="btn btn-success btn-lg btn-block signup-btn" value="회원가입" onclick="idCheckPass();">
         </div>
     </form>
     <div class="text-center">Already have an account? <a href="login">Login here</a></div>
