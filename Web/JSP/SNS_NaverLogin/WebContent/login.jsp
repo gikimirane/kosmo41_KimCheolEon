@@ -91,12 +91,13 @@
 			$("#gnbLogin").click(function () {
 				naverLogin.logout();
 				location.reload();
+				
+				
 			});
 			
 			alert("eMail : " + eMail);
 	
 		}
-		
 		
 	</script>
 
