@@ -1,6 +1,6 @@
 package com.study.spring.signup.dto;
 
-public class signupDTO {
+public class signupDto {
 
 	private String ID;
 	private String PW;
@@ -9,8 +9,12 @@ public class signupDTO {
 	private String EMAIL;
 	private String CONFIRM;
 	private String ADMIN;
+	
+	public signupDto() {
+		
+	}
 
-	public signupDTO(String iD, String pW, String nAME, String pHONE, String eMAIL, String cONFIRM, String aDMIN) {
+	public signupDto(String iD, String pW, String nAME, String pHONE, String eMAIL, String cONFIRM, String aDMIN) {
 		ID = iD;
 		PW = pW;
 		NAME = nAME;

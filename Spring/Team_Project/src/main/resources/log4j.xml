@@ -10,10 +10,12 @@
 		</layout>
 	</appender>
 	
-	<!-- Application Loggers -->
+	<!-- 
 	<logger name="com.study.spring">
 		<level value="info" />
 	</logger>
+	 -->
+	
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">

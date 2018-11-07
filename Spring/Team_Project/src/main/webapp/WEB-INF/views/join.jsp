@@ -20,24 +20,31 @@
     storageBucket: "kosmo-teamproject-aee81.appspot.com",
     messagingSenderId: "383919202732"
   };
+  
   firebase.initializeApp(config);
 </script>
+
 <script>
 function firebaseJoin(){
-	firebase.auth().createUserWithEmailAndPassword(document.reg_frm.eMail.value, null).catch((error) => {
+	firebase.auth().createUserWithEmailAndPassword(
+			document.reg_frm.eMail.value,
+			SHA256(document.reg_frm.eMail.value).toUpperCase()
+			).catch((error) => {
 	    console.log('code:' + error.code + 'message' + error.message);
 	});
+	
 	firebase.auth().onAuthStateChanged(function (user) {
 	    if (user) {
 	        if (user.emailVerified == false) {
 	            user.sendEmailVerification().then(() => {
 	                console.log('sent email');
 	            }, (error) => {
-	                console.log('code:' + error.code + 'message' + error.message);
+	                console.log('code:[' + error.code + '], message' + error.message);
 	            });
 	        }
-	    } else {  }
-	
+	    } else {
+	    	
+	    }
 	});
 }
 </script>
@@ -193,7 +200,7 @@ function firebaseJoin(){
 		<div class="or-seperator"><b>or</b></div>
         <div class="form-group" align="right">
         	<input type="text" class="form-control input-lg" name="id" placeholder="아이디 (4글자 이상)" required="required" size="20">
-        	<input type="button" class="btn btn-primary idcheck-btn" name="id_check" value="중복확인" onclick="">
+        	<input type="button" class="btn btn-primary idcheck-btn" name="id_check" value="중복확인" onclick="idCheck();">
         </div>
         <div class="form-group">
             <input type="password" class="form-control input-lg" name="pw" placeholder="비밀번호" required="required" size="20">
@@ -212,7 +219,7 @@ function firebaseJoin(){
         	<input type="email" class="form-control input-lg" name="eMail" placeholder="이메일 주소" required="required" size="20">
         </div>  
         <div class="form-group">
-            <input type="button" class="btn btn-success btn-lg btn-block signup-btn" value="회원가입" onclick="idCheckPass();">
+            <input type="button" class="btn btn-success btn-lg btn-block signup-btn" value="회원가입" onclick="infoConfirm();">
         </div>
     </form>
     <div class="text-center">Already have an account? <a href="login">Login here</a></div>

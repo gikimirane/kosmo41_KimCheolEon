@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +22,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.study.spring.dao.IDao;
 import com.study.spring.dto.BPageInfo;
+import com.study.spring.dto.ContentDto;
 import com.study.spring.signup.dao.signupDao;
 
 @Controller
 public class HomeController {
+
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -205,39 +210,31 @@ public class HomeController {
 	}
 
 	@RequestMapping("joinOK")
-	public String joinOK(HttpServletRequest request, HttpServletResponse response, Model model)
-			throws ServletException, IOException {
+	public String joinOK(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		System.out.println("joinOK()");
 
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter writer = response.getWriter();
-
 		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
+//		String pw = request.getParameter("pw");
+
+		SHA256 sha256 = new SHA256();
+		String SHA256_pw = sha256.getSHA256(request.getParameter("pw")).toUpperCase();
+
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
 		String eMail = request.getParameter("eMail");
 
-		if (id.equals("qwer")) {
-			writer.println("<script language='javascript'>");
-			writer.println("alert('중복처리');");
-			writer.println("</script>");
-			writer.close();
-			return "join";
-		} else {
-			System.out.println("id : " + id);
-			System.out.println("pw : " + pw);
-			System.out.println("name : " + name);
-			System.out.println("phone : " + phone);
-			System.out.println("eMail : " + eMail);
+//		System.out.println("id : " + id);
+////		System.out.println("pw : " + pw);
+//		System.out.println("SHA256_pw : " + SHA256_pw);
+//		System.out.println("name : " + name);
+//		System.out.println("phone : " + phone);
+//		System.out.println("eMail : " + eMail);
 
-			signupDao signupdao = sqlSession.getMapper(signupDao.class);
-			signupdao.singup(id, pw, name, phone, eMail);
-			return "redirect:login";
-		}
+		signupDao signupdao = sqlSession.getMapper(signupDao.class);
+		signupdao.singup(id, SHA256_pw, name, phone, eMail);
+		return "redirect:login";
+//		}
 
 	}
-
 }

@@ -3,9 +3,14 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.spring.signup.dao.signupDao">
-	<insert id="singup">		
-		INSERT INTO TEAM_SIGNUP (ID, PW, NAME, PHONE, EMAIL) VALUES 
+	<insert id="singup">
+		INSERT INTO TEAM_SIGNUP (ID, PW, NAME, PHONE, EMAIL) VALUES
 		(#{param1}, #{param2}, #{param3}, #{param4}, #{param5})
-	</insert>	
-	
+	</insert>
+
+	<select id="idcheck"
+		resultType="com.study.spring.signup.dto.signupDto">
+		SELECT * FROM TEAM_SIGNUP WHERE ID = #{param1}
+	</select>
+
 </mapper>
