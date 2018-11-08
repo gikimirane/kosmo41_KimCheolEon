@@ -214,7 +214,6 @@ public class HomeController {
 
 		System.out.println("joinOK()");
 
-		String id = request.getParameter("id");
 //		String pw = request.getParameter("pw");
 
 		SHA256 sha256 = new SHA256();
@@ -232,7 +231,7 @@ public class HomeController {
 //		System.out.println("eMail : " + eMail);
 
 		signupDao signupdao = sqlSession.getMapper(signupDao.class);
-		signupdao.singup(id, SHA256_pw, name, phone, eMail);
+		signupdao.singup(eMail, SHA256_pw, name, phone);
 		return "redirect:login";
 //		}
 

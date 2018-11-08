@@ -1,34 +1,36 @@
-var idCheckState = 0;
-var idMinlength = 4;
+var emailCheckState = 0;
 
 function idCheck() {
-	$.ajax({
-		url : 'idCheck',
-		type : 'POST',
-		data : 'Ajax_idCheck=' + document.reg_frm.id.value + '&idMinlength='
-				+ idMinlength,
-		dataType : 'json',
-		success : function(json) {
-			var result = eval(json);
-			// result[0].result
-			// NULL - 미입력
-			// FAIL - 중복아이디
-			// OK - 사용가능한 아이디
+	if (emailCheckState == 0) {
+		$.ajax({
+			url : 'emailCheck',
+			type : 'POST',
+			data : 'Ajax_emailCheck=' + document.reg_frm.eMail.value,
+			dataType : 'json',
+			success : function(json) {
+				var result = eval(json);
+				// result[0].result
+				// NULL - 미입력
+				// FAIL - 중복아이디
+				// OK - 사용가능한 아이디
 
-			if (result[0].result == "OK") {
-				reg_frm.id.focus();
-				alert(result[0].desc);
-				// 트리거 변환 : 회원가입버튼 사용가능
-				idCheckState = 1;
-			} else {
-				alert(result[0].desc);
+				if (result[0].result == "OK") {
+					reg_frm.id.focus();
+					alert(result[0].desc);
+					// 트리거 변환 : 회원가입버튼 사용가능
+					emailCheckState = 1;
+				} else {
+					alert(result[0].desc);
+				}
 			}
-		}
-	});
+		});
+	} else {
+		alert("이미 확인된 아이디 입니다. 회원가입을 진행해주세요.");
+	}
 }
 
-function idCheckPass() {
-	if (idCheckState == 1) {
+function emailCheckPass() {
+	if (emailCheckState == 1) {
 		infoConfirm();
 	} else {
 		alert("중복확인을 해주세요.");
@@ -36,15 +38,10 @@ function idCheckPass() {
 }
 
 function infoConfirm() {
-	if (document.reg_frm.id.value.length == 0) {
-		alert("아이디는 필수사항입니다.");
-		reg_frm.id.focus();
-		return;
-	}
 
-	if (document.reg_frm.id.value.length < idMinlength) {
-		alert("아이디는 " + idMinlength + "글자 이상이어야 합니다.");
-		reg_frm.id.focus();
+	if (document.reg_frm.eMail.value.length == 0) {
+		alert("메일은 필수사항입니다.");
+		reg_frm.eMail.focus();
 		return;
 	}
 
@@ -90,12 +87,6 @@ function infoConfirm() {
 		return;
 	}
 
-	if (document.reg_frm.eMail.value.length == 0) {
-		alert("메일은 필수사항입니다.");
-		reg_frm.eMail.focus();
-		return;
-	}
-
 	// document.reg_frm.submit();
 
 	// http://roydest.tistory.com/entry/alert-confirm-prompt
@@ -107,7 +98,8 @@ function infoConfirm() {
 
 		firebaseJoin();
 
-		document.reg_frm.submit();
+		// 메일 보내기 전에 화면 전환하니까 죽어가지고 firebaseJoin() 안에 넣음
+		// document.reg_frm.submit();
 
 	} else
 		alert("취소되었습니다.");

@@ -10,7 +10,6 @@
 <script language="JavaScript" src="resources/member.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -21,39 +20,17 @@
     storageBucket: "kosmo-teamproject-aee81.appspot.com",
     messagingSenderId: "383919202732"
   };
+  
   firebase.initializeApp(config);
 </script>
 
 <script>
-
-var errorCode;
-var errorMessag;
-
-// https://firebase.google.com/docs/auth/web/start
-// https://firebase.google.com/docs/auth/web/manage-users
 function firebaseJoin(){
-	
 	firebase.auth().createUserWithEmailAndPassword(
 			document.reg_frm.eMail.value,
 			SHA256(document.reg_frm.eMail.value).toUpperCase()
-		).catch(function(error) {
-		  	errorCode = error.code;
-		  	errorMessage = error.message;
-			console.log('ErrorCode:' + errorCode);
-			console.log('ErrorMessage : ' + errorMessage);
-			var user = firebase.auth().currentUser;
-			alert(user.email);
-		}
-	);	 
-}
-
-/* function firebaseJoin(){
-	firebase.auth().createUserWithEmailAndPassword(
-			document.reg_frm.eMail.value,
-			SHA256(document.reg_frm.eMail.value).toUpperCase()
-			).catch(function (error) {
+			).catch((error) => {
 	    console.log('code:' + error.code + 'message' + error.message);
-	    return;
 	});
 	
 	firebase.auth().onAuthStateChanged(function (user) {
@@ -69,10 +46,10 @@ function firebaseJoin(){
 	            
 	        }
 	    } else {
-	    	//존재하지않는 회원
+	    	
 	    }
 	});
-} */
+}
 </script>
 
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
@@ -226,8 +203,8 @@ function firebaseJoin(){
 		</div>
 		<div class="or-seperator"><b>or</b></div>
         <div class="form-group" align="right">
-        	<input type="email" class="form-control input-lg" name="eMail" placeholder="이메일 주소" required="required" size="20" onchange="emailCheckState=0;">
-        	<input type="button" class="btn btn-primary idcheck-btn" name="eMail_check" value="중복확인" onclick="idCheck();">
+        	<input type="text" class="form-control input-lg" name="id" placeholder="아이디 (4글자 이상)" required="required" size="20" onchange="idCheckState=0;">
+        	<input type="button" class="btn btn-primary idcheck-btn" name="id_check" value="중복확인" onclick="idCheck();">
         </div>
         <div class="form-group">
             <input type="password" class="form-control input-lg" name="pw" placeholder="비밀번호" required="required" size="20">
@@ -241,9 +218,12 @@ function firebaseJoin(){
         <div class="form-group">
         	<input type="text" class="form-control input-lg" name="phone" placeholder="휴대전화 번호(번호만)" required="required" maxlength="11" 
         		onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+        </div>
+		<div class="form-group">
+        	<input type="email" class="form-control input-lg" name="eMail" placeholder="이메일 주소" required="required" size="20">
         </div>  
         <div class="form-group">
-            <input type="button" class="btn btn-success btn-lg btn-block signup-btn" value="회원가입" onclick="emailCheckPass();">
+            <input type="button" class="btn btn-success btn-lg btn-block signup-btn" value="회원가입" onclick="idCheckPass();">
         </div>
     </form>
     <div class="text-center">Already have an account? <a href="login">Login here</a></div>

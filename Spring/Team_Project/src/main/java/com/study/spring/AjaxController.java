@@ -27,40 +27,35 @@ public class AjaxController {
 
 	private HttpSession session = null;
 
-	@RequestMapping("/idCheck")
+	@RequestMapping("/emailCheck")
 	public void idCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		String Ajax_idCheck = request.getParameter("Ajax_idCheck");
-		int idMinlength = Integer.parseInt(request.getParameter("idMinlength"));
+		String Ajax_emailCheck = request.getParameter("Ajax_emailCheck");
 
 		PrintWriter writer = response.getWriter();
 
 		String searchID = null;
+		
+		System.out.println("Ajax_emailCheck : " + Ajax_emailCheck);
 
 		// text
-		if (Ajax_idCheck.equals("")) {
+		if (Ajax_emailCheck.equals("")) {
 			System.out.println("null");
-			writer.println("[{\"result\":\"NULL\",\"desc\":\"아이디를 입력해주세요.\"}]");
+			writer.println("[{\"result\":\"NULL\",\"desc\":\"Email을 입력해주세요.\"}]");
 			writer.close();
-		} else if (Ajax_idCheck.length() < idMinlength) {
-			// 아이디는 " + idMinlength + "글자 이상이어야 합니다.
-			writer.println("[{\"result\":\"NULL\",\"desc\":\"아이디는 " + idMinlength + "글자 이상이어야 합니다.\"}]");
-			writer.close();
-		}
-
-		else {
-			System.out.println("확인요청받은 ID : " + Ajax_idCheck);
+		} else {
+			System.out.println("확인요청받은 Email : " + Ajax_emailCheck);
 
 			signupDao signupdao = sqlSession.getMapper(signupDao.class);
 
 			try {
 
-				signupDto signupdto = signupdao.idcheck(Ajax_idCheck);
+				signupDto signupdto = signupdao.idcheck(Ajax_emailCheck);
 
-				searchID = signupdto.getID();
+//				searchID = signupdto.getID();
 
 				System.out.println("확인된 dto 값 : " + searchID);
 				writer.println("[{\"result\":\"FAIL\",\"desc\":\"중복된 아이디입니다.\"}]");

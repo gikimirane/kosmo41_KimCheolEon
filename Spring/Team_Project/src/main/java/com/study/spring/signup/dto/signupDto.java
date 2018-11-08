@@ -2,34 +2,22 @@ package com.study.spring.signup.dto;
 
 public class signupDto {
 
-	private String ID;
+	private String EMAIL;
 	private String PW;
 	private String NAME;
 	private String PHONE;
-	private String EMAIL;
-	private String CONFIRM;
 	private String ADMIN;
-	
+
 	public signupDto() {
-		
+
 	}
 
-	public signupDto(String iD, String pW, String nAME, String pHONE, String eMAIL, String cONFIRM, String aDMIN) {
-		ID = iD;
+	public signupDto(String eMAIL, String pW, String nAME, String pHONE, String aDMIN) {
+		EMAIL = eMAIL;
 		PW = pW;
 		NAME = nAME;
 		PHONE = pHONE;
-		EMAIL = eMAIL;
-		CONFIRM = cONFIRM;
 		ADMIN = aDMIN;
-	}
-
-	public String getID() {
-		return ID;
-	}
-
-	public void setID(String iD) {
-		ID = iD;
 	}
 
 	public String getPW() {
@@ -62,14 +50,6 @@ public class signupDto {
 
 	public void setEMAIL(String eMAIL) {
 		EMAIL = eMAIL;
-	}
-
-	public String getCONFIRM() {
-		return CONFIRM;
-	}
-
-	public void setCONFIRM(String cONFIRM) {
-		CONFIRM = cONFIRM;
 	}
 
 	public String getADMIN() {
