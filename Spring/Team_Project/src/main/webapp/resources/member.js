@@ -15,7 +15,7 @@ function idCheck() {
 				// OK - 사용가능한 아이디
 
 				if (result[0].result == "OK") {
-					reg_frm.id.focus();
+					reg_frm.eMail.focus();
 					alert(result[0].desc);
 					// 트리거 변환 : 회원가입버튼 사용가능
 					emailCheckState = 1;
@@ -25,7 +25,7 @@ function idCheck() {
 			}
 		});
 	} else {
-		alert("이미 확인된 아이디 입니다. 회원가입을 진행해주세요.");
+		alert("이미 확인된 Email 입니다. 회원가입을 진행해주세요.");
 	}
 }
 
@@ -91,7 +91,7 @@ function infoConfirm() {
 
 	// http://roydest.tistory.com/entry/alert-confirm-prompt
 	/* confirm(문자열, 초기값) */
-	var check = confirm("입력하신 이메일 주소로 인증메일이 발송됩니다. 계속 하시겠습니까?");
+	var check = confirm("입력하신 이메일 주소로 인증요청 메일이 발송됩니다. 계속 하시겠습니까?");
 	/* if(check == true) else false */
 	if (check) {
 		alert("이메일을 확인하여 인증을 완료해주세요.");

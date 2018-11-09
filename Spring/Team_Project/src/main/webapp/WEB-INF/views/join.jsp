@@ -32,19 +32,66 @@ var errorMessag;
 // https://firebase.google.com/docs/auth/web/start
 // https://firebase.google.com/docs/auth/web/manage-users
 function firebaseJoin(){
-	
 	firebase.auth().createUserWithEmailAndPassword(
 			document.reg_frm.eMail.value,
 			SHA256(document.reg_frm.eMail.value).toUpperCase()
 		).catch(function(error) {
 		  	errorCode = error.code;
 		  	errorMessage = error.message;
-			console.log('ErrorCode:' + errorCode);
-			console.log('ErrorMessage : ' + errorMessage);
-			var user = firebase.auth().currentUser;
-			alert(user.email);
+			//console.log('ErrorCode : ' + errorCode);
+			//console.log('ErrorMessage : ' + errorMessage);
+			
+			switch(errorCode){
+				case 'auth/email-already-in-use' :
+					alert("이미 연결된 계정입니다. / " + errorMessage);
+					break;
+				case 'auth/operation-not-allowed' :
+					alert("올바른 자격이 아닙니다 / " + errorMessage);
+					break;
+				case 'auth/invalid-email' :
+					alert("올바른 Email 형식이 아닙니다. / " + errorMessage);
+					break;
+				case 'auth/wrong-password' :
+					alert("올바른 패스워드가 아닙니다. / " + errorMessage);
+					break;
+				case 'email-already-in-use' :
+					alert("이미 등록된 Email 입니다. / " + errorMessage);
+					break;
+			}		
+			return;
 		}
-	);	 
+	);
+	
+	var user = firebase.auth().currentUser;
+	
+	user.updateProfile({
+		  displayName: "김철언",
+		  email : "kchy12345@naver.com",
+		  phoneNumber: "+11234567890"
+		}).then(function() {
+		  // Update successful.
+		}).catch(function(error) {
+		  // An error happened.
+		});
+	
+	
+	if (user != null) {
+		  var name = user.displayName;
+		  var email = user.email;
+		  var photoUrl = user.photoURL;
+		  var emailVerified = user.emailVerified;
+		  var uid = user.uid;
+		  var phoneNumber = user.phoneNumber;
+		  
+		  console.log("name : " + name);
+		  console.log("email : " + email);
+		  console.log("photoUrl : " + photoUrl);
+		  console.log("emailVerified : " + emailVerified);
+		  console.log("uid : " + uid);
+		  console.log("phoneNumber : " + phoneNumber);
+	}
+	
+		
 }
 
 /* function firebaseJoin(){
@@ -246,7 +293,7 @@ function firebaseJoin(){
             <input type="button" class="btn btn-success btn-lg btn-block signup-btn" value="회원가입" onclick="emailCheckPass();">
         </div>
     </form>
-    <div class="text-center">Already have an account? <a href="login">Login here</a></div>
+    <div class="text-center" style="font-size: 20px">Already have an account? <a href="login">Login here</a></div>
 </div>
 
 </body>
