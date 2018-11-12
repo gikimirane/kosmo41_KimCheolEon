@@ -6,18 +6,29 @@ public class signupDto {
 	private String PW;
 	private String NAME;
 	private String PHONE;
+	private String VERIFY;
 	private String ADMIN;
 
 	public signupDto() {
 
 	}
 
-	public signupDto(String eMAIL, String pW, String nAME, String pHONE, String aDMIN) {
+	public signupDto(String eMAIL, String pW, String nAME, String pHONE, String vERIFY, String aDMIN) {
+		super();
 		EMAIL = eMAIL;
 		PW = pW;
 		NAME = nAME;
 		PHONE = pHONE;
+		VERIFY = vERIFY;
 		ADMIN = aDMIN;
+	}
+
+	public String getEMAIL() {
+		return EMAIL;
+	}
+
+	public void setEMAIL(String eMAIL) {
+		EMAIL = eMAIL;
 	}
 
 	public String getPW() {
@@ -44,12 +55,12 @@ public class signupDto {
 		PHONE = pHONE;
 	}
 
-	public String getEMAIL() {
-		return EMAIL;
+	public String getVERIFY() {
+		return VERIFY;
 	}
 
-	public void setEMAIL(String eMAIL) {
-		EMAIL = eMAIL;
+	public void setVERIFY(String vERIFY) {
+		VERIFY = vERIFY;
 	}
 
 	public String getADMIN() {

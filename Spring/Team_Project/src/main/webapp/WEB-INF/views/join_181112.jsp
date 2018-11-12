@@ -32,11 +32,7 @@ function firebaseJoin(){
 	firebase.auth().createUserWithEmailAndPassword(
 			document.reg_frm.eMail.value,
 			SHA256(document.reg_frm.pw.value).toUpperCase()
-		).then(function(){
-			console.log("firebase createUser complete");
-			sendEmail();
-			
-		}).catch(function(error) {
+		).catch(function(error) {
 		  	errorCode = error.code;
 		  	errorMessage = error.message;
 			//console.log('ErrorCode : ' + errorCode);
@@ -44,33 +40,25 @@ function firebaseJoin(){
 			
 			//유효성 검사가 이미 Java Server 에서 끝나는데, 혹시몰라서 남겨놓음
 			switch(errorCode){
+				case 'auth/email-already-in-use' :
+					alert("이미 연결된 계정입니다. / " + errorMessage);
+					break;
 				case 'auth/operation-not-allowed' :
-					alert("올바른 자격이 아닙니다\n" + errorMessage);
+					alert("올바른 자격이 아닙니다 / " + errorMessage);
 					break;
 				case 'auth/invalid-email' :
-					alert("올바른 Email 형식이 아닙니다.\n" + errorMessage);
+					alert("올바른 Email 형식이 아닙니다. / " + errorMessage);
 					break;
 				case 'auth/wrong-password' :
-					alert("올바른 패스워드가 아닙니다.\n" + errorMessage);
+					alert("올바른 패스워드가 아닙니다. / " + errorMessage);
 					break;
-				case 'auth/email-already-in-use' :
-					alert("이미 등록된 Email 입니다.\n" + errorMessage);
-					
-					var re_verified = confirm("이메일 인증을 재 시도 할까요?")
-					if(re_verified){
-						reverified();
-					} else {
-					}
-					
+				case 'email-already-in-use' :
+					alert("이미 등록된 Email 입니다. / " + errorMessage);
 					break;
-				default :
-					alert("에러가 발생하였습니다.\n관리자에게 연락해주세요.");
 			}
 			return;		
 	});
-}
-
-function sendEmail(){
+	
 	user = firebase.auth().currentUser;
 
 	firebase.auth().onAuthStateChanged(function (user) {
@@ -79,10 +67,7 @@ function sendEmail(){
 	        	user.sendEmailVerification().then(function() {
 	        		  // Email sent.
 	        		  console.log("Email sent...");
-	        		  alert("인증 메일 발송 완료");
-	        		  
 	        		  document.reg_frm.submit();
-	        		  
 	        		}).catch(function(error) {
 	        		  // An error happened.
 	        			console.log('code:' + error.code + '\n[message]\n' + error.message);
@@ -95,18 +80,51 @@ function sendEmail(){
 	});
 }
 
+function idCheck() {
+	if (emailCheckState == 0) {
+		$.ajax({
+			url : 'emailCheck',
+			type : 'POST',
+			data : 'Ajax_emailCheck=' + document.reg_frm.eMail.value,
+			dataType : 'json',
+			success : function(json) {
+				var result = eval(json);
+				// result[0].result
+				// NULL - 미입력
+				// FAIL - 중복아이디
+				// OK - 사용가능한 아이디
+
+				if (result[0].result == "OK") {
+					alert(result[0].desc);
+					// 트리거 변환 : 회원가입버튼 사용가능
+					emailCheckState = 1;
+				} else if (result[0].result == "NOPASS") {
+					alert(result[0].desc);
+					var re_verified = confirm("재인증을 위해 Email을 재발송할까요?");
+					if (re_verified) {		
+						repw = result[0].pw;		
+						reverified();
+					} else {
+					}
+				} else {
+					alert(result[0].desc);
+				}
+			}
+		});
+	} else {
+		alert("이미 확인된 Email 입니다. 회원가입을 진행해주세요.");
+	}
+}
 </script>
 
 <script type="text/javascript">
 function reverified(){
-	firebase.auth().signInWithEmailAndPassword(document.reg_frm.eMail.value, SHA256(document.reg_frm.pw.value).toUpperCase());
+	firebase.auth().signInWithEmailAndPassword(document.reg_frm.eMail.value, repw);
 	user = firebase.auth().currentUser;
 	
 	user.sendEmailVerification().then(function() {
 		  // Email sent.
 			alert("발송 하였습니다.");
-		  
-			window.location.href = "login";
 		}).catch(function(error) {
 		  // An error happened.
 		});			
@@ -258,6 +276,7 @@ function reverified(){
 </head>
 <body>
 
+	
 	<div class="signup-form">
     <form action="joinOK" method="post" name="reg_frm">
 		<h2>회원 가입</h2>
@@ -270,7 +289,8 @@ function reverified(){
 		</div>
 		<div class="or-seperator"><b>or</b></div>
         <div class="form-group" align="right">
-        	<input type="email" class="form-control input-lg" name="eMail" placeholder="이메일 주소" required="required" size="20">
+        	<input type="email" class="form-control input-lg" name="eMail" placeholder="이메일 주소" required="required" size="20" onchange="emailCheckState=0;">
+        	<input type="button" class="btn btn-primary idcheck-btn" name="eMail_check" value="중복확인" onclick="idCheck();">
         </div>
         <div class="form-group">
             <input type="password" class="form-control input-lg" name="pw" placeholder="비밀번호" required="required" size="20">
@@ -286,7 +306,7 @@ function reverified(){
         		onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
         </div>  
         <div class="form-group">
-            <input type="button" class="btn btn-success btn-lg btn-block signup-btn" value="회원가입" onclick="infoConfirm();">
+            <input type="button" class="btn btn-success btn-lg btn-block signup-btn" value="회원가입" onclick="emailCheckPass();">
         </div>
     </form>
     <div class="text-center" style="font-size: 20px">Already have an account? <a href="login">Login here</a></div>

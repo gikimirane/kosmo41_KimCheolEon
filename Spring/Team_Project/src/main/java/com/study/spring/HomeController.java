@@ -223,15 +223,22 @@ public class HomeController {
 		String phone = request.getParameter("phone");
 		String eMail = request.getParameter("eMail");
 
-//		System.out.println("id : " + id);
-////		System.out.println("pw : " + pw);
-//		System.out.println("SHA256_pw : " + SHA256_pw);
-//		System.out.println("name : " + name);
-//		System.out.println("phone : " + phone);
-//		System.out.println("eMail : " + eMail);
+//		System.out.println("pw : " + pw);
+		System.out.println("SHA256_pw : " + SHA256_pw);
+		System.out.println("name : " + name);
+		System.out.println("phone : " + phone);
+		System.out.println("eMail : " + eMail);
 
 		signupDao signupdao = sqlSession.getMapper(signupDao.class);
-		signupdao.singup(eMail, SHA256_pw, name, phone);
+		
+//		try {
+//			signupdao.signup(eMail, SHA256_pw, name, phone);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			signupdao.updateSign(eMail, eMail, SHA256_pw, name, phone);
+//		}
+		
+		signupdao.signup(eMail, SHA256_pw, name, phone);
 		return "redirect:login";
 //		}
 
