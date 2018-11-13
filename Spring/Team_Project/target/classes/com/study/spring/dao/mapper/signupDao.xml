@@ -22,5 +22,12 @@
 		    PHONE = #{param5}
 		WHERE EMAIL = #{param1}
 	</update>
+	
+	<update id="updateVerified">
+		UPDATE TEAM_SIGNUP
+		SET
+			VERIFY = #{param1}
+		WHERE EMAIL = #{param2}
+	</update>
 
 </mapper>

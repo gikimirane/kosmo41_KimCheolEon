@@ -24,6 +24,40 @@
   firebase.initializeApp(config);
 </script>
 
+<script src="http://code.jquery.com/jquery.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+<script src="https://apis.google.com/js/api:client.js"></script>
+<script>
+var googleUser = {};
+var startApp = function() {
+  gapi.load('auth2', function(){
+    // Retrieve the singleton for the GoogleAuth library and set up the client.
+    auth2 = gapi.auth2.init({
+      client_id: '659512930101-so4q2ljivbse86q2pmmm0ln7b27lk51p.apps.googleusercontent.com',
+      cookiepolicy: 'single_host_origin',
+      // Request scopes in addition to 'profile' and 'email'
+      //scope: 'additional_scope'
+    });
+    attachSignin(document.getElementById('googleSignIn'));
+  });
+};
+
+function attachSignin(element) {
+  console.log(element.id);
+  auth2.attachClickHandler(element, {},
+      function(googleUser) {
+            console.log(googleUser.getBasicProfile().getId());
+            console.log(googleUser.getBasicProfile().getName());
+            console.log(googleUser.getBasicProfile().getImageUrl());
+            console.log(googleUser.getBasicProfile().getEmail());
+            
+            document.getElementByID("")
+      }, function(error) {
+        alert(JSON.stringify(error, undefined, 2));
+      });
+}
+</script>
+
 <script>
 
 // https://firebase.google.com/docs/auth/web/start
@@ -34,8 +68,11 @@ function firebaseJoin(){
 			SHA256(document.reg_frm.pw.value).toUpperCase()
 		).then(function(){
 			console.log("firebase createUser complete");
-			sendEmail();
 			
+			if(joinType == 0){
+				sendEmail();	
+			}
+						
 		}).catch(function(error) {
 		  	errorCode = error.code;
 		  	errorMessage = error.message;
@@ -72,6 +109,14 @@ function firebaseJoin(){
 
 function sendEmail(){
 	user = firebase.auth().currentUser;
+	
+	user.updateProfile({
+		  displayName: document.reg_frm.name.value,
+		}).then(function() {
+		  // Update successful.
+		}).catch(function(error) {
+		  // An error happened.
+		});
 
 	firebase.auth().onAuthStateChanged(function (user) {
 	    if (user) {
@@ -117,6 +162,34 @@ function reverified(){
 		  // An error happened.
 		});
 }
+
+</script>
+
+<script type="text/javascript">
+function loginFacebook(){
+	var provider = new firebase.auth.FacebookAuthProvider();
+	
+	// https://developers.facebook.com/docs/facebook-login/permissions
+	provider.addScope('email');
+	
+	firebase.auth().signInWithPopup(provider).then(function(result) {
+		  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+		  var token = result.credential.accessToken;
+		  // The signed-in user info.
+		  var user = result.user;
+		  // ...
+		}).catch(function(error) {
+		  // Handle Errors here.
+		  var errorCode = error.code;
+		  var errorMessage = error.message;
+		  // The email of the user's account used.
+		  var email = error.email;
+		  // The firebase.auth.AuthCredential type that was used.
+		  var credential = error.credential;
+		  // ...
+		});
+}
+
 
 </script>
 
@@ -236,18 +309,8 @@ function reverified(){
 	}
 	
 	
-	.idcheck-btn {
-		text-align: center;
-		border-color: #007bff;
-		transition: all 0.4s;
-	}
-	.idcheck-btn:hover {
-		background: #007bff;
-		opacity: 0.8;
-	}
 </style>
 
-<script src="http://code.jquery.com/jquery.js"></script>
 <script>
 	/* $( document ).ready(function() {
 	    alert( "ready!" );
@@ -263,9 +326,18 @@ function reverified(){
 		<h2>회원 가입</h2>
 		<p class="hint-text">Sign up with your social media account or email address</p>
 		<div class="social-btn text-center">
+			<!-- <a href="javascript:void(0);" class="btn btn-primary btn-lg" onclick=""><i class="fa fa-facebook"></i>Facebook</a>
 			<a href="#" class="btn btn-primary btn-lg"><i class="fa fa-facebook"></i> Facebook</a>
-			<!-- <a href="#" class="btn btn-info btn-lg"><i class="fa fa-twitter"></i> Twitter</a> -->
+			<a href="#" class="btn btn-info btn-lg"><i class="fa fa-twitter"></i> Twitter</a>
 			<a href="#" class="btn btn-danger btn-lg"><i class="fa fa-google"></i>Google</a>
+			<a href="javascript:void(0);" class="btn btn-danger btn-lg" onclick="loginGoogle();"><i class="fa fa-google"></i>Google</a> -->
+      		<a href="javascript:void(0);" id="googleSignIn"><img src="resources/logo/google.png" width=64px height=64px"></a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="javascript:void(0);" onclick=""><img src="resources/logo/facebook.png" width=64px height=64px"></a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="javascript:void(0);" onclick=""><img src="resources/logo/naver.png" width=64px height=64px"></a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="javascript:void(0);" onclick=""><img src="resources/logo/kakao.png" width=64px height=64px"></a>
 			<br/>
 		</div>
 		<div class="or-seperator"><b>or</b></div>
@@ -291,6 +363,7 @@ function reverified(){
     </form>
     <div class="text-center" style="font-size: 20px">Already have an account? <a href="login">Login here</a></div>
 </div>
-
+<div id="name"></div>
+<script>startApp();</script>
 </body>
 </html>

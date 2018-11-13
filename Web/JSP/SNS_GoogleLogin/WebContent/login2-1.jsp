@@ -7,11 +7,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="http://code.jquery.com/jquery.js"></script>
 
-	<meta name="google-signin-client_id" content="448134969775-n2cpnokuosg0kjcvbk2m90cota6o5beq.apps.googleusercontent.com">
+	<meta name="google-signin-client_id" content="659512930101-so4q2ljivbse86q2pmmm0ln7b27lk51p.apps.googleusercontent.com">
 
 	<script>
     function onSignIn(googleUser) {
     	var profile = googleUser.getBasicProfile();
+    	
+    	console.log("getName : " + profile.getName());
 		$('#my-signin2').css('display', 'none');
     	$('#logout').css('display', 'block');
     	$('#upic').attr('src', profile.getImageUrl());

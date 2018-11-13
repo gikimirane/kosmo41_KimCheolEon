@@ -208,6 +208,10 @@ public class HomeController {
 
 		return pinfo;
 	}
+	@RequestMapping("privateInfo")
+	public String gain() {
+		return "/privateInfo";
+	}
 
 	@RequestMapping("joinOK")
 	public String joinOK(HttpServletRequest request, HttpServletResponse response, Model model) {

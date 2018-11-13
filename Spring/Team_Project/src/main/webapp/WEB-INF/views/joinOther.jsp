@@ -10,6 +10,7 @@
 <script language="JavaScript" src="resources/member.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
 <script>
   // Initialize Firebase
   var config = {
@@ -20,36 +21,119 @@
     storageBucket: "kosmo-teamproject-aee81.appspot.com",
     messagingSenderId: "383919202732"
   };
-  
   firebase.initializeApp(config);
 </script>
 
 <script>
+	var provider = new firebase.auth.FacebookAuthProvider();
+	
+	// https://developers.facebook.com/docs/facebook-login/permissions
+	provider.addScope('email');
+
+</script>
+
+<script>
+
+// https://firebase.google.com/docs/auth/web/start
+// https://firebase.google.com/docs/auth/web/manage-users
 function firebaseJoin(){
 	firebase.auth().createUserWithEmailAndPassword(
 			document.reg_frm.eMail.value,
-			SHA256(document.reg_frm.eMail.value).toUpperCase()
-			).catch((error) => {
-	    console.log('code:' + error.code + 'message' + error.message);
+			SHA256(document.reg_frm.pw.value).toUpperCase()
+		).then(function(){
+			console.log("firebase createUser complete");
+			sendEmail();
+			
+		}).catch(function(error) {
+		  	errorCode = error.code;
+		  	errorMessage = error.message;
+			//console.log('ErrorCode : ' + errorCode);
+			//console.log('ErrorMessage : ' + errorMessage);
+			
+			//유효성 검사가 이미 Java Server 에서 끝나는데, 혹시몰라서 남겨놓음
+			switch(errorCode){
+				case 'auth/operation-not-allowed' :
+					alert("올바른 자격이 아닙니다\n" + errorMessage);
+					break;
+				case 'auth/invalid-email' :
+					alert("올바른 Email 형식이 아닙니다.\n" + errorMessage);
+					break;
+				case 'auth/wrong-password' :
+					alert("올바른 패스워드가 아닙니다.\n" + errorMessage);
+					break;
+				case 'auth/email-already-in-use' :
+					alert("이미 등록된 Email 입니다.\n" + errorMessage);
+					
+					var re_verified = confirm("이메일 인증을 재 시도 할까요?")
+					if(re_verified){
+						reverified();
+					} else {
+					}
+					
+					break;
+				default :
+					alert("에러가 발생하였습니다.\n관리자에게 연락해주세요.");
+			}
+			return;		
 	});
+}
+
+function sendEmail(){
+	user = firebase.auth().currentUser;
 	
+	user.updateProfile({
+		  displayName: document.reg_frm.name.value,
+		}).then(function() {
+		  // Update successful.
+		}).catch(function(error) {
+		  // An error happened.
+		});
+
 	firebase.auth().onAuthStateChanged(function (user) {
 	    if (user) {
 	        if (user.emailVerified == false) {
-	            user.sendEmailVerification().then(() => {
-	                console.log('sent email');
-	                document.reg_frm.submit();
-	            }, (error) => {
-	                console.log('code:[' + error.code + '], message' + error.message);
-	                return;
-	            });
-	            
+	        	user.sendEmailVerification().then(function() {
+	        		  // Email sent.
+	        		  console.log("Email sent...");
+	        		  alert("인증 메일 발송 완료");
+	        		  
+	        		  document.reg_frm.submit();
+	        		  
+	        		}).catch(function(error) {
+	        		  // An error happened.
+	        			console.log('code:' + error.code + '\n[message]\n' + error.message);
+	        			alert('code:' + error.code + '\n[message]\n' + error.message);
+	        		});
 	        }
 	    } else {
 	    	
 	    }
 	});
 }
+
+</script>
+
+<script type="text/javascript">
+function reverified(){
+	firebase.auth().signInWithEmailAndPassword(document.reg_frm.eMail.value, SHA256(document.reg_frm.pw.value).toUpperCase());
+	user = firebase.auth().currentUser;
+	
+	user.sendEmailVerification().then(function() {
+		  // Email sent.
+			alert("발송 하였습니다.");
+		  
+			window.location.href = "login";
+		}).catch(function(error) {
+		  // An error happened.
+		});			
+	
+	firebase.auth().signOut().then(function() {
+		  // Sign-out successful.
+		}).catch(function(error) {
+		  // An error happened.
+		});
+}
+
 </script>
 
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
@@ -190,7 +274,6 @@ function firebaseJoin(){
 </head>
 <body>
 
-	
 	<div class="signup-form">
     <form action="joinOK" method="post" name="reg_frm">
 		<h2>회원 가입</h2>
@@ -203,8 +286,7 @@ function firebaseJoin(){
 		</div>
 		<div class="or-seperator"><b>or</b></div>
         <div class="form-group" align="right">
-        	<input type="text" class="form-control input-lg" name="id" placeholder="아이디 (4글자 이상)" required="required" size="20" onchange="idCheckState=0;">
-        	<input type="button" class="btn btn-primary idcheck-btn" name="id_check" value="중복확인" onclick="idCheck();">
+        	<input type="email" class="form-control input-lg" name="eMail" placeholder="이메일 주소" required="required" size="20">
         </div>
         <div class="form-group">
             <input type="password" class="form-control input-lg" name="pw" placeholder="비밀번호" required="required" size="20">
@@ -218,15 +300,12 @@ function firebaseJoin(){
         <div class="form-group">
         	<input type="text" class="form-control input-lg" name="phone" placeholder="휴대전화 번호(번호만)" required="required" maxlength="11" 
         		onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
-        </div>
-		<div class="form-group">
-        	<input type="email" class="form-control input-lg" name="eMail" placeholder="이메일 주소" required="required" size="20">
         </div>  
         <div class="form-group">
-            <input type="button" class="btn btn-success btn-lg btn-block signup-btn" value="회원가입" onclick="idCheckPass();">
+            <input type="button" class="btn btn-success btn-lg btn-block signup-btn" value="회원가입" onclick="infoConfirm();">
         </div>
     </form>
-    <div class="text-center">Already have an account? <a href="login">Login here</a></div>
+    <div class="text-center" style="font-size: 20px">Already have an account? <a href="login">Login here</a></div>
 </div>
 
 </body>

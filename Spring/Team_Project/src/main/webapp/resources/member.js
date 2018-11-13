@@ -2,6 +2,8 @@ var errorCode;
 var errorMessag;
 var user;
 
+var joinType = 0;
+
 function infoConfirm() {
 
 	if (document.reg_frm.eMail.value.length == 0) {

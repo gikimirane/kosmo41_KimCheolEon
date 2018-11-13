@@ -30,7 +30,7 @@ public class AjaxController {
 	private HttpSession session = null;
 
 	@RequestMapping("/updateVerify")
-	public void idCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void updateVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
@@ -38,43 +38,30 @@ public class AjaxController {
 		PrintWriter writer = response.getWriter();
 
 		String Ajax_updateEmail = request.getParameter("Ajax_updateEmail");
+		String userName = request.getParameter("userName");
 
-		// Email 유효성 검사
-		System.out.println("파라미터 email : " + Ajax_updateEmail);
-
-		// 탐색 할 Email 변수
-		String searchEmail = null;
-		String searchEmailVerify = null;
-
-		// Email 란에 빈 값일 때
-		if (Ajax_updateEmail.equals("")) {
-			System.out.println("null");
-			writer.println("[{\"result\":\"NULL\",\"desc\":\"Email을 입력해주세요.\"}]");
-			writer.close();
-
-			return;
-		}
+		System.out.println("Ajax_updateEmail : " + Ajax_updateEmail);
+		System.out.println("userName : " + userName);
+		
+		HttpSession session = null;
+		session = request.getSession();
+		session.setAttribute("userName", userName);
+		
+		// 생각해보니 세션 만들 필요가 없었음. firebase 계정 돌리면 되니까.
+		System.out.println("세션테스트 : " + session.getAttribute("userName"));
+		
 
 		signupDao signupdao = sqlSession.getMapper(signupDao.class);
 		try {
 
-			signupDto signupdto = signupdao.idcheck(Ajax_updateEmail);
+			signupdao.updateVerified("PASS", Ajax_updateEmail);
 
-			searchEmail = signupdto.getEMAIL();
-			searchEmailVerify = signupdto.getVERIFY();
-
-			System.out.println("확인된 dto 값 : " + searchEmail);
-			System.out.println("Email 인증상태 : " + searchEmailVerify);
-
-			if (searchEmailVerify.equals("NOPASS")) {
-				writer.println("[{\"result\":\"NOPASS\",\"desc\":\"등록되었으나 Email 미인증 상태 입니다...\",\"pw\":\"" + signupdto.getPW() + "\"}]");
-			} else {
-				writer.println("[{\"result\":\"FAIL\",\"desc\":\"중복된 Email 주소 입니다...\"}]");
-			}
+			writer.println("[{\"result\":\"OK\",\"desc\":\"[" + userName + "] 님의 접속을 환영합니다!\"}]");
 
 		} catch (NullPointerException e) {
-			System.out.println("[값 존재하지 않음/NullPointerException] : " + e);
-			writer.println("[{\"result\":\"OK\",\"desc\":\"사용 가능한 Email 입니다.\"}]");
+			
+			writer.println("[{\"result\":\"FAIL\",\"desc\":\"갱신 에러!!\"}]");
+			
 		} finally {
 			writer.close();
 		}

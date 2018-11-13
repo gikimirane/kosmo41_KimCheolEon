@@ -44,25 +44,17 @@ function loginAccess(){
 			document.login_frm.email.value,
 			SHA256(document.login_frm.pw.value).toUpperCase()
 			).then(function(){
-				
-				alert('계정정보 로그인 성공');
+				alert('계정정보 호출 성공');
 				
 				user = firebase.auth().currentUser;
 				
 				if(user.emailVerified == false){
 					alert("이메일 미인증 상태입니다.");
+					
 				} else {
 					alert("이메일 인증이 완료된 상태입니다.");
-					
-					if(user){
-						console.log(user.displayName);
-						console.log(user.email);
-						console.log(user.emailVerified);
-						console.log(user.photoURL);
-						console.log(user.isAnonymous);
-						console.log(user.uid);
-						console.log(user.providerData);
-					}
+					updateVerifySessionName();
+					window.location.href = "list";
 				}
 			}).catch(function(error) {
 			  	// Handle Errors here.
@@ -80,18 +72,14 @@ function enterkey() {
     }
 }
 
-function updateVerify(){
+function updateVerifySessionName(){
 	$.ajax({
 		url : 'updateVerify',
 		type : 'POST',
-		data : 'Ajax_updateEmail=' + document.login_frm.email.value,
+		data : 'Ajax_updateEmail=' + document.login_frm.email.value + "&userName=" + user.displayName,
 		dataType : 'json',
 		success : function(json) {
 			var result = eval(json);
-			// result[0].result
-			// NULL - 미입력
-			// FAIL - 중복아이디
-			// OK - 사용가능한 아이디
 
 			if (result[0].result == "OK") {
 				alert(result[0].desc);
