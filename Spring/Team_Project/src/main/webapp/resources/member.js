@@ -64,12 +64,17 @@ function infoConfirm() {
 
 	// http://roydest.tistory.com/entry/alert-confirm-prompt
 	/* confirm(문자열, 초기값) */
-	var check = confirm("입력하신 이메일 주소로 인증요청 메일이 발송됩니다.\n계속 하시겠습니까?");
-	/* if(check == true) else false */
-	if (check) {
+	if(joinType == 0){
+		var check = confirm("입력하신 이메일 주소로 인증요청 메일이 발송됩니다.\n계속 하시겠습니까?");
+		/* if(check == true) else false */
+		if (check) {
+			firebaseJoin();
+		} else
+			alert("취소되었습니다.");
+	} else {
 		firebaseJoin();
-	} else
-		alert("취소되었습니다.");
+	}
+	
 }
 
 // 참고사이트 : http://fruitdev.tistory.com/191

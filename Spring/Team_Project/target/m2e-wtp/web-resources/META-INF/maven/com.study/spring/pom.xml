@@ -129,6 +129,14 @@
 			<version>4.1.4.RELEASE</version>
 		</dependency>
 
+		<!-- 6.5.0 Error -->
+		<!-- https://mvnrepository.com/artifact/com.google.firebase/firebase-admin -->
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>6.4.0</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

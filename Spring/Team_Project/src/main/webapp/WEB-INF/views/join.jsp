@@ -9,6 +9,8 @@
 
 <script language="JavaScript" src="resources/member.js"></script>
 
+
+<!-- FireBase 초기화 Script -->
 <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
 <script>
@@ -25,7 +27,6 @@
 </script>
 
 <script src="http://code.jquery.com/jquery.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 <script src="https://apis.google.com/js/api:client.js"></script>
 <script>
 var googleUser = {};
@@ -43,19 +44,83 @@ var startApp = function() {
 };
 
 function attachSignin(element) {
-  console.log(element.id);
+  console.log("Object : " + element.id);
   auth2.attachClickHandler(element, {},
       function(googleUser) {
-            console.log(googleUser.getBasicProfile().getId());
-            console.log(googleUser.getBasicProfile().getName());
-            console.log(googleUser.getBasicProfile().getImageUrl());
-            console.log(googleUser.getBasicProfile().getEmail());
+	  		
+	  		alert("메일인증이 생략되었습니다. 회원가입을 진행해주세요.");
+	  		joinType = 1;
+	  		signOut();
             
-            document.getElementByID("")
       }, function(error) {
         alert(JSON.stringify(error, undefined, 2));
       });
 }
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+    	alert("구글 로그아웃");
+    });
+}
+</script>
+
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '289612378561007',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v3.1'
+    });
+
+    FB.getLoginStatus(function(response) {
+    	console.log(response);
+      statusChangeCallback(response);
+    });
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  function statusChangeCallback(response) {
+    if (response.status === 'connected') {
+      getINFO();
+    } 
+  }
+	  
+  function fbLogin () {
+    FB.login(function(response){
+      statusChangeCallback(response);
+    }, {scope: 'public_profile, email'});
+  }
+
+  function fbLogout () {
+    FB.logout(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  function getINFO() {
+    FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
+      console.log(response);
+      
+      if(response != null){
+    	alert("확인되었습니다. 이메일 인증을 생략합니다. \n회원가입을 진행해주세요.");
+    	joinType = 1;
+    	fbLogout();
+      }     
+      
+    });
+  }
+
 </script>
 
 <script>
@@ -70,7 +135,11 @@ function firebaseJoin(){
 			console.log("firebase createUser complete");
 			
 			if(joinType == 0){
-				sendEmail();	
+				sendEmail();
+			} else{
+				joinType = 0;
+				
+				emailNotSendsignUp();				
 			}
 						
 		}).catch(function(error) {
@@ -124,7 +193,7 @@ function sendEmail(){
 	        	user.sendEmailVerification().then(function() {
 	        		  // Email sent.
 	        		  console.log("Email sent...");
-	        		  alert("인증 메일 발송 완료");
+	        		  alert("인증 메일 발송 완료");	        		  
 	        		  
 	        		  document.reg_frm.submit();
 	        		  
@@ -166,32 +235,35 @@ function reverified(){
 </script>
 
 <script type="text/javascript">
-function loginFacebook(){
-	var provider = new firebase.auth.FacebookAuthProvider();
+function emailNotSendsignUp(){
+	firebase.auth().signInWithEmailAndPassword(document.reg_frm.eMail.value, SHA256(document.reg_frm.pw.value).toUpperCase());
+	  
+	firebase.auth().onAuthStateChanged(function(user) {
+		  if (user) {
+		    // User is signed in.
+		    //var displayName = user.displayName;
+		    //var email = user.email;
+		    //var emailVerified = user.emailVerified;
+		    //var photoURL = user.photoURL;
+		    //var isAnonymous = user.isAnonymous;
+		    var uid = user.uid;
+		    //var providerData = user.providerData;
+		    // ...
+		  } else {
+		    // User is signed out.
+		    // ...
+		    alert("Error or Signed Out...");
+		  }
+	});
 	
-	// https://developers.facebook.com/docs/facebook-login/permissions
-	provider.addScope('email');
 	
-	firebase.auth().signInWithPopup(provider).then(function(result) {
-		  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-		  var token = result.credential.accessToken;
-		  // The signed-in user info.
-		  var user = result.user;
-		  // ...
-		}).catch(function(error) {
-		  // Handle Errors here.
-		  var errorCode = error.code;
-		  var errorMessage = error.message;
-		  // The email of the user's account used.
-		  var email = error.email;
-		  // The firebase.auth.AuthCredential type that was used.
-		  var credential = error.credential;
-		  // ...
-		});
+	
+	document.reg_frm.submit();
 }
 
 
 </script>
+
 
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -332,8 +404,10 @@ function loginFacebook(){
 			<a href="#" class="btn btn-danger btn-lg"><i class="fa fa-google"></i>Google</a>
 			<a href="javascript:void(0);" class="btn btn-danger btn-lg" onclick="loginGoogle();"><i class="fa fa-google"></i>Google</a> -->
       		<a href="javascript:void(0);" id="googleSignIn"><img src="resources/logo/google.png" width=64px height=64px"></a>
+      		<!-- signOut(); -->
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="javascript:void(0);" onclick=""><img src="resources/logo/facebook.png" width=64px height=64px"></a>
+			<a href="javascript:void(0);" onclick="fbLogin();"><img src="resources/logo/facebook.png" width=64px height=64px"></a>
+			<!-- fbLogout(); -->
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="javascript:void(0);" onclick=""><img src="resources/logo/naver.png" width=64px height=64px"></a>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
