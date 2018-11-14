@@ -72,6 +72,7 @@ function infoConfirm() {
 		} else
 			alert("취소되었습니다.");
 	} else {
+		alert("로그인 화면으로 이동합니다.");
 		firebaseJoin();
 	}
 	

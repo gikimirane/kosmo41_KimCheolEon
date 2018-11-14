@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
+import com.google.firebase.auth.UserRecord.UpdateRequest;
 import com.study.spring.signup.dao.signupDao;
 import com.study.spring.signup.dto.signupDto;
 
@@ -33,6 +38,9 @@ public class AjaxController {
 	private SqlSession sqlSession;
 
 	private HttpSession session = null;
+	
+	@Autowired private ServletContext servletContext;
+	
 
 	@RequestMapping("/updateVerify")
 	public void updateVerify(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -73,15 +81,38 @@ public class AjaxController {
 	}
 
 	@RequestMapping("/firebaseAdmin")
-	public void firebaseAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-		FileInputStream serviceAccount = new FileInputStream("path/to/serviceAccountKey.json");
+	public void firebaseAdmin(HttpServletRequest req, HttpServletResponse res)
+			throws IOException, FirebaseAuthException {
+		
+		System.out.println("firebaseAdmin()");
+		
+//		https://firebase.google.com/docs/admin/setup
+//		https://firebase.google.com/docs/auth/admin/manage-users#update_a_user
+		
+//		System.out.println(servletContext.getRealPath("resources/google-services.json"));
+//		FileInputStream serviceAccount = new FileInputStream("path/to/serviceAccountKey.json");
+		FileInputStream serviceAccount = new FileInputStream(servletContext.getRealPath("resources/kosmo-teamproject-key.json"));
 
 		FirebaseOptions options = new FirebaseOptions.Builder()
 				.setCredentials(GoogleCredentials.fromStream(serviceAccount))
 				.setDatabaseUrl("https://kosmo-teamproject-aee81.firebaseio.com").build();
 
 		FirebaseApp.initializeApp(options);
+
+		// ----------------------------------------------------------------------------------------
+
+		String uid = req.getParameter("uid");
+		String displayName = req.getParameter("displayName");
+		
+		System.out.println("uid : " + uid);
+		System.out.println("displayName : " + displayName);
+
+		UpdateRequest request = new UpdateRequest(uid)
+				.setEmailVerified(true)
+				.setDisplayName(displayName);
+
+		UserRecord userRecord = FirebaseAuth.getInstance().updateUser(request);
+		System.out.println("Successfully updated user: " + userRecord.getUid());
 
 	}
 }

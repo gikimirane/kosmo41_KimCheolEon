@@ -47,8 +47,9 @@
         Kakao.API.request({
             url: '/v2/user/me',
             success: function(res) {
-                //console.log(res);
-                console.log(res.id);
+                console.log(res);
+                //console.log(res.id);
+                console.log(res.email);
                 $('#login').css('display', 'none');
                	$('#logout').css('display', 'block');
                 $('#upic').attr('src', res.properties.thumbnail_image );

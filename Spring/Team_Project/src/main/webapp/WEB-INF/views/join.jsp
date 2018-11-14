@@ -8,6 +8,8 @@
 <title>Join</title>
 
 <script language="JavaScript" src="resources/member.js"></script>
+<script src="resources/naveridlogin_js_sdk_2.0.0.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 
 <!-- FireBase 초기화 Script -->
@@ -53,14 +55,15 @@ function attachSignin(element) {
 	  		signOut();
             
       }, function(error) {
-        alert(JSON.stringify(error, undefined, 2));
+        //alert(JSON.stringify(error, undefined, 2));
+        console.log(JSON.stringify(error, undefined, 2));
       });
 }
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
-    	alert("구글 로그아웃");
+    	console.log("구글 로그아웃");
     });
 }
 </script>
@@ -100,6 +103,7 @@ function signOut() {
     FB.login(function(response){
       statusChangeCallback(response);
     }, {scope: 'public_profile, email'});
+    console.log("fbLoginJson : " + JSON.stringify(response));
   }
 
   function fbLogout () {
@@ -235,32 +239,35 @@ function reverified(){
 </script>
 
 <script type="text/javascript">
+//https://firebase.google.com/docs/auth/web/start
 function emailNotSendsignUp(){
 	firebase.auth().signInWithEmailAndPassword(document.reg_frm.eMail.value, SHA256(document.reg_frm.pw.value).toUpperCase());
-	  
+	
+	
 	firebase.auth().onAuthStateChanged(function(user) {
 		  if (user) {
-		    // User is signed in.
-		    //var displayName = user.displayName;
-		    //var email = user.email;
-		    //var emailVerified = user.emailVerified;
-		    //var photoURL = user.photoURL;
-		    //var isAnonymous = user.isAnonymous;
 		    var uid = user.uid;
-		    //var providerData = user.providerData;
 		    // ...
+		    
+		    $.ajax({
+				url : 'firebaseAdmin',
+				type : 'POST',
+				data : 'uid=' + uid + "&displayName=" + document.reg_frm.name.value,
+				dataType : 'json',
+				success : function(json) {
+					var result = eval(json);
+					console.log(result[0].result+"\n"+result[0].desc);
+				}
+			});
 		  } else {
 		    // User is signed out.
 		    // ...
 		    alert("Error or Signed Out...");
 		  }
-	});
-	
-	
+	});	
 	
 	document.reg_frm.submit();
 }
-
 
 </script>
 
@@ -387,6 +394,11 @@ function emailNotSendsignUp(){
 	/* $( document ).ready(function() {
 	    alert( "ready!" );
 	}); */
+	
+	//페이지가 로딩된 후 실행해야 되는 코드를 추가한다.
+	/* window.onload=function(){
+	    
+	} */
 </script>
 
 
@@ -398,22 +410,74 @@ function emailNotSendsignUp(){
 		<h2>회원 가입</h2>
 		<p class="hint-text">Sign up with your social media account or email address</p>
 		<div class="social-btn text-center">
-			<!-- <a href="javascript:void(0);" class="btn btn-primary btn-lg" onclick=""><i class="fa fa-facebook"></i>Facebook</a>
-			<a href="#" class="btn btn-primary btn-lg"><i class="fa fa-facebook"></i> Facebook</a>
-			<a href="#" class="btn btn-info btn-lg"><i class="fa fa-twitter"></i> Twitter</a>
-			<a href="#" class="btn btn-danger btn-lg"><i class="fa fa-google"></i>Google</a>
-			<a href="javascript:void(0);" class="btn btn-danger btn-lg" onclick="loginGoogle();"><i class="fa fa-google"></i>Google</a> -->
       		<a href="javascript:void(0);" id="googleSignIn"><img src="resources/logo/google.png" width=64px height=64px"></a>
       		<!-- signOut(); -->
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="javascript:void(0);" onclick="fbLogin();"><img src="resources/logo/facebook.png" width=64px height=64px"></a>
 			<!-- fbLogout(); -->
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="javascript:void(0);" onclick=""><img src="resources/logo/naver.png" width=64px height=64px"></a>
+			<a href="javascript:void(0);" id="naverIdLogin"></a>
+			<script type="text/javascript">
+				var naverLogin = new naver.LoginWithNaverId(
+					{
+						clientId: "N6E4tO46bXuqCKpVOWzX",
+						callbackUrl: "http://localhost:8081/spring/join",
+						isPopup: false, /* 팝업을 통한 연동처리 여부 */
+						loginButton: {color: "green", type: 1, height: 60} /* 로그인 버튼의 타입을 지정 */
+					}
+				);
+				
+				/* 설정정보를 초기화하고 연동을 준비 */
+				naverLogin.init();
+				
+				window.addEventListener('load', function () {
+					naverLogin.getLoginStatus(function (status) {
+						if (status) {
+							/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고
+							   사용자 정보를 출력합니다. */
+							   alert("로그인 true");
+							setLoginStatus();
+						}
+						naverLogin.logout();
+					});
+				});
+				
+				function setLoginStatus() {
+					console.log(naverLogin.user);
+					var uid = naverLogin.user.getId();
+					var profileImage = naverLogin.user.getProfileImage();
+					var uName = naverLogin.user.getName();
+					var nickName = naverLogin.user.getNickName();
+					var eMail = naverLogin.user.getEmail();
+					
+					alert("eMail : " + eMail);
+					
+			
+				}
+			</script>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="javascript:void(0);" onclick=""><img src="resources/logo/kakao.png" width=64px height=64px"></a>
-			<br/>
+			<a href="javascript:loginWithKakao()"><img src="resources/logo/kakao.png" width=64px height=64px"></a>
+			<a href="http://developers.kakao.com/logout"></a>
+		    <script type='text/javascript'>
+			  //<![CDATA[
+			    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+			    Kakao.init('7250fe59c67796c065d918c7499d5b5f');
+			    function loginWithKakao() {
+			      // 로그인 창을 띄웁니다.
+			      Kakao.Auth.login({
+			        success: function(authObj) {
+			          alert(JSON.stringify(authObj));
+			        },
+			        fail: function(err) {
+			          alert(JSON.stringify(err));
+			        }
+			      });
+			    };
+			  //]]>
+			</script>
 		</div>
+		<br/>
+
 		<div class="or-seperator"><b>or</b></div>
         <div class="form-group" align="right">
         	<input type="email" class="form-control input-lg" name="eMail" placeholder="이메일 주소" required="required" size="20">
