@@ -13,7 +13,6 @@ firebase.initializeApp(config);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 var googleUser = {};
 var startApp = function() {
   gapi.load('auth2', function(){
@@ -33,8 +32,28 @@ function attachSignin(element) {
   auth2.attachClickHandler(element, {},
       function(googleUser) {
 	  		
-	  		alert("메일인증이 생략되었습니다. 회원가입을 진행해주세요.");
+	  		var profile = googleUser.getBasicProfile();
+	  		
+//	  		console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+//	        console.log('Full Name: ' + profile.getName());
+//	        console.log('Given Name: ' + profile.getGivenName());
+//	        console.log('Family Name: ' + profile.getFamilyName());
+//	        console.log("Image URL: " + profile.getImageUrl());
+//	        console.log("Email: " + profile.getEmail());
+	  
+	  		alert("구글 계정 호출");
 	  		joinType = 1;
+	  		
+	  		document.reg_frm.eMail.setAttribute("disabled", true);
+			document.reg_frm.name.setAttribute("disabled", true);
+			
+			document.reg_frm.eMail.value = "";
+			document.reg_frm.name.value = "";
+			document.reg_frm.eMail.value = profile.getEmail();
+			document.reg_frm.name.value = profile.getName();
+	  		
+	  		
+	  		
 	  		signOut();
             
       }, function(error) {
@@ -52,61 +71,20 @@ function signOut() {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '289612378561007',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v3.1'
-    });
+function kakaoSignIn(authObj) {
+    //console.log(authObj);
+	Kakao.API.request({
+        url: '/v2/user/me',
+        success: function(res) {
+            console.log(res);
 
-    FB.getLoginStatus(function(response) {
-    	console.log(response);
-      statusChangeCallback(response);
-    });
-  };
+//            console.log(res.id.properties.nickname);
+//           	alert(res.id.properties.kakao_account.email);
+         }
+     });
+}
 
-  // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
 
-  function statusChangeCallback(response) {
-    if (response.status === 'connected') {
-      getINFO();
-    } 
-  }
-	  
-  function fbLogin () {
-    FB.login(function(response){
-      statusChangeCallback(response);
-    }, {scope: 'public_profile, email'});
-    console.log("fbLoginJson : " + JSON.stringify(response));
-  }
-
-  function fbLogout () {
-    FB.logout(function(response) {
-      statusChangeCallback(response);
-    });
-  }
-
-  function getINFO() {
-    FB.api('/me?fields=id,name,picture.width(100).height(100).as(picture_small)', function(response) {
-      console.log(response);
-      
-      if(response != null){
-    	alert("확인되었습니다. 이메일 인증을 생략합니다. \n회원가입을 진행해주세요.");
-    	joinType = 1;
-    	fbLogout();
-      }     
-      
-    });
-  }
-  
 /////////////////////////////////////////////////////////////////////////////////////////////////
   
 //https://firebase.google.com/docs/auth/web/start
@@ -144,14 +122,7 @@ function firebaseJoin(){
 					alert("올바른 패스워드가 아닙니다.\n" + errorMessage);
 					break;
 				case 'auth/email-already-in-use' :
-					alert("이미 등록된 Email 입니다.\n" + errorMessage);
-					
-					var re_verified = confirm("이메일 인증을 재 시도 할까요?")
-					if(re_verified){
-						reverified();
-					} else {
-					}
-					
+					alert("이미 등록된 Email 입니다.\n" + errorMessage);					
 					break;
 				default :
 					alert("에러가 발생하였습니다.\n관리자에게 연락해주세요.");

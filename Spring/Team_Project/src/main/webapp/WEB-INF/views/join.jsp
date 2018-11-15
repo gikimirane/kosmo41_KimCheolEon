@@ -5,25 +5,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
 <title>Join</title>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
 <!-- FireBase 초기화 Script -->
 <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
 
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="https://apis.google.com/js/api:client.js"></script>
+
 <script language="JavaScript" src="resources/member.js"></script>
 <script language="JavaScript" src="resources/sns.js"></script>
 <script src="resources/naveridlogin_js_sdk_2.0.0.js"></script>
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 
-
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 <style type="text/css">
 	body {
 		background: #dfe7e9;
@@ -132,9 +140,7 @@
 		float: left;
 		margin: 3px 10px;
 		font-size: 20px;
-	}
-	
-	
+	}	
 </style>
 
 <script>
@@ -156,9 +162,12 @@
 		<h2>회원 가입</h2>
 		<p class="hint-text">Sign up with your social media account or email address</p>
 		<div class="social-btn text-center">
+		
       		<a href="javascript:void(0);" id="googleSignIn"><img src="resources/logo/google.png" width=64px height=64px"></a>
       		<!-- signOut(); -->
+      		
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			
 			<a href="javascript:void(0);" id="naverIdLogin"></a>
 			<script type="text/javascript">
 				var naverLogin = new naver.LoginWithNaverId(
@@ -166,7 +175,7 @@
 						clientId: "N6E4tO46bXuqCKpVOWzX",
 						callbackUrl: "http://localhost:8081/spring/join",
 						isPopup: false, /* 팝업을 통한 연동처리 여부 */
-						loginButton: {color: "green", type: 1, height: 60} /* 로그인 버튼의 타입을 지정 */
+						loginButton: {color: "green", type: 1, height: 64} /* 로그인 버튼의 타입을 지정 */
 					}
 				);
 				
@@ -178,44 +187,81 @@
 						if (status) {
 							/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고
 							   사용자 정보를 출력합니다. */
-							   alert("로그인 true");
+							alert("네이버 계정 호출");
+							joinType = 1;
 							setLoginStatus();
+							window.location.href="join#";
 						}
-						naverLogin.logout();
+						
 					});
 				});
 				
 				function setLoginStatus() {
 					console.log(naverLogin.user);
-					var uid = naverLogin.user.getId();
-					var profileImage = naverLogin.user.getProfileImage();
+
 					var uName = naverLogin.user.getName();
-					var nickName = naverLogin.user.getNickName();
 					var eMail = naverLogin.user.getEmail();
 					
-					alert("eMail : " + eMail);
+					//document.getElementById("input_field_id").setAttribute("readonly", true);
+					document.reg_frm.eMail.setAttribute("readonly", true);
+					document.reg_frm.name.setAttribute("readonly", true);
 					
-			
+					document.reg_frm.eMail.value = "";
+					document.reg_frm.name.value = "";
+					document.reg_frm.eMail.value = eMail;
+					document.reg_frm.name.value = uName;
+					
+					naverLogin.logout();
 				}
 			</script>
+			
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			
 			<a href="javascript:loginWithKakao()"><img src="resources/logo/kakao.png" width=64px height=64px"></a>
-			<a href="http://developers.kakao.com/logout"></a>
 		    <script type='text/javascript'>
 			  //<![CDATA[
 			    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-			    Kakao.init('7250fe59c67796c065d918c7499d5b5f');
+			    Kakao.init('ad4ffd5e2def33fb1f338cfb7263bc30');
 			    function loginWithKakao() {
 			      // 로그인 창을 띄웁니다.
+			      alert("이메일 정보를 받아오기 위해, 정보제공동의를 해주세요.");
 			      Kakao.Auth.login({
 			        success: function(authObj) {
-			          alert(JSON.stringify(authObj));
+			        	Kakao.API.request({
+			                url: '/v2/user/me',
+			                success: function(res) {
+			                    //console.log(JSON.stringify(res));
+			                    //console.log(JSON.stringify(res.properties.nickname));
+			                   	//console.log(JSON.stringify(res.kakao_account.email));
+			                   	
+			                   	alert("카카오 계정 호출");
+			                   	
+			                   	var kakaoName = res.properties.nickname;
+			                   	var kakaoEmail = res.kakao_account.email;
+			                   	
+			                   	if(kakaoEmail == undefined){
+			                   		alert("Email 정보 없음");
+			                   		kakaoEmail = "카카오톡의 연결된 서비스관리에서 삭제후 재시도";
+			                   	}
+			                   	
+			                   	document.reg_frm.eMail.setAttribute("readonly", true);
+			        			document.reg_frm.name.setAttribute("readonly", true);
+			        			
+			        			document.reg_frm.eMail.value = "";
+			        			document.reg_frm.name.value = "";
+			        			document.reg_frm.eMail.value = kakaoEmail;
+			        			document.reg_frm.name.value = kakaoName;
+			                 }
+			             });
 			        },
 			        fail: function(err) {
-			          alert(JSON.stringify(err));
+			          alert("Kakao Error!!");
 			        }
+ 
 			      });
 			    };
+			    
+			    
 			  //]]>
 			</script>
 		</div>

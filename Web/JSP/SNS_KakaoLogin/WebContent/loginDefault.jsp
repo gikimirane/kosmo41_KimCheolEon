@@ -8,9 +8,11 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
     <title>Login Demo - Kakao JavaScript SDK</title>
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     </head>
     <body>
+    <i class="fab fa-500px"></i>
     <a id="kakao-login-btn"></a>
     <a href="http://developers.kakao.com/logout"></a>
     <script type='text/javascript'>

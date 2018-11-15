@@ -25,13 +25,14 @@
 			<nav>
 				<ul class="nav nav-pills pull-right">
 					<li role="presentation" class="active"><a href="#">Home</a></li>
-					<li role="presentation"><a class="gnbLogin" href="#">Login</a></li>
+					<li role="presentation"><a id="gnbLogin" href="#">Login</a></li>
 				</ul>
 			</nav>
+			<h3 class="text-muted">Login With NaverID Javascript SDK</h3>
 		</div>
 
 			<div id="naverIdLogin">
-			<a id="naverIdLogin_loginButton" href="#" role="button" a class="gnbLogin"><img src="https://static.nid.naver.com/oauth/big_g.PNG" width=320></a>
+			<a id="naverIdLogin_loginButton" href="#" role="button"><img src="https://static.nid.naver.com/oauth/big_g.PNG" width=320></a>
 			</div>
 
 	</div>
@@ -52,14 +53,14 @@
 				clientId: "7GGPebPKABVtWKTBFn_A",
 				callbackUrl: "http://localhost:8081/SNS_NaverLogin/login.jsp",
 				isPopup: false,
-				loginButton: {color: "green", type: 1, height: 60}
+				loginButton: {color: "green", type: 3, height: 60}
 			}
 		);
 		/* (4) 네아로 로그인 정보를 초기화하기 위하여 init을 호출 */
 		naverLogin.init();
 		
 		/* (4-1) 임의의 링크를 설정해줄 필요가 있는 경우 */
-		$(".gnbLogin").attr("href", naverLogin.generateAuthorizeUrl());
+		$("#gnbLogin").attr("href", naverLogin.generateAuthorizeUrl());
 
 		/* (5) 현재 로그인 상태를 확인 */
 		window.addEventListener('load', function () {
@@ -84,9 +85,10 @@
 			$("#naverIdLogin_loginButton").html(
 					'<br><br><img src="' + profileImage + 
 					'" height=50 /> <p>' + uid + "-" + uName + '님 반갑습니다.</p>');
-			$(".gnbLogin").attr("href", "#");
+			$("#gnbLogin").html("Logout");
+			$("#gnbLogin").attr("href", "#");
 			/* (7) 로그아웃 버튼을 설정하고 동작을 정의합니다. */
-			$(".gnbLogin").click(function () {
+			$("#gnbLogin").click(function () {
 				naverLogin.logout();
 				location.reload();
 				
