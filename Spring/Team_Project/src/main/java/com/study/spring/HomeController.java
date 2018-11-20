@@ -1,12 +1,10 @@
 package com.study.spring;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Locale;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,10 +18,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.study.spring.dao.IDao;
 import com.study.spring.dto.BPageInfo;
+import com.study.spring.dto.CPageInfo;
 import com.study.spring.dto.ContentDto;
+import com.study.spring.dto.JoinDto;
 import com.study.spring.signup.dao.signupDao;
+import com.study.spring.signup.dto.signupDto;
 
 @Controller
 public class HomeController {
@@ -40,6 +43,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -50,42 +54,175 @@ public class HomeController {
 
 		return "home";
 	}
-	
-	@RequestMapping("/index")
-	public String index() {
-		return "/index";
-	}
 
+	// 로그인
 	@RequestMapping("/login")
 	public String login() {
 		return "/login";
 	}
 
+	// 회원가입
 	@RequestMapping("/join")
 	public String join() {
 		return "/join";
 	}
 
-	@RequestMapping("/list")
-	public String list(HttpServletRequest request, Model model) {
-		System.out.println("list()");
+	// 모임게시판 페이징처리
+	@RequestMapping("/recordcheck")
+	public String recordcheck(HttpServletRequest request, Model model) {
 
-		session = request.getSession();
+		return "/recordcheck";
+	}
+
+	// 모임게시판
+
+	// 모임게시판 페이징처리
+	@RequestMapping("/joinlist")
+	public String joinlist(HttpServletRequest request, Model model) {
+		int listCount = 9;
 		int nPage = 1;
-
 		try {
-			if (request.getParameter("page") != null) {
-				String sPage = request.getParameter("page");
-				nPage = Integer.parseInt(sPage);
-			} else {
-				if (session.getAttribute("cpage") != null) {
-//					nPage = Integer.parseInt((String) session.getAttribute("cpage"));
-					nPage = (Integer) session.getAttribute("cpage");
-				}
-			}
+			String sPage = request.getParameter("page");
+			nPage = Integer.parseInt(sPage);
 		} catch (Exception e) {
 		}
+		IDao dao = sqlSession.getMapper(IDao.class);
 
+		int nTotalPage = dao.JoinCount();
+		CPageInfo pinfo = JoinPage(nPage, nTotalPage);
+
+		model.addAttribute("page", pinfo);
+
+		nPage = pinfo.getCurPage();
+
+		int nStart = (nPage - 1) * listCount + 1;
+		int nEnd = (nPage - 1) * listCount + listCount;
+
+		model.addAttribute("clublist", dao.JoinDao(nStart, nEnd));
+
+		return "/joinlist";
+	}
+
+	// 모임게시판 상세페이지
+	@RequestMapping("/join_view")
+	public String join_view(HttpServletRequest request, Model model) {
+		IDao dao = sqlSession.getMapper(IDao.class);
+
+		model.addAttribute("joinapplycount", dao.joinapplycount(request.getParameter("numId")));
+		model.addAttribute("join_view", dao.join_view(request.getParameter("numId")));
+
+		String name = "123";
+		JoinDto joindto = dao.join_view(request.getParameter("numId"));
+		try {
+			HttpSession session = request.getSession();
+			session.setAttribute("makerName", joindto.getName());
+		} catch (Exception e) {
+
+		}
+
+		return "/join_view";
+	}
+
+	// 모임게시물 만들기 페이지 이동
+	@RequestMapping("/jmake_view")
+	public String jmake_view(HttpServletRequest request, Model model) {
+		return "/jmake_view";
+	}
+
+	// 모임게시물 만들기 시행 (SQL시행)
+	@RequestMapping("/jmake")
+	public String jmake(HttpServletRequest request, Model model) {
+		IDao dao = sqlSession.getMapper(IDao.class);
+
+		String path = request.getRealPath("resources/image");
+
+		int size = 1024 * 1024 * 10; // 10MB
+		String file = "";
+		String oriFile = "";
+
+		try {
+			MultipartRequest multi = new MultipartRequest(request, path, size, "UTF-8", new DefaultFileRenamePolicy());
+
+			Enumeration files = multi.getFileNames();
+			String str = (String) files.nextElement();
+
+			file = multi.getFilesystemName(str);
+			oriFile = multi.getOriginalFileName(str);
+
+			// 모집시작 날짜 + 시간
+			String WANTEDSTART = (multi.getParameter("JoinStart_date") + " " + multi.getParameter("JoinStart_time"));
+			// 모집종료 날짜 + 시간
+			String WANTEDEND = (multi.getParameter("JoinEnd_date") + " " + multi.getParameter("JoinEnd_time"));
+			// 접수시작 날짜 + 시간
+			String EVENTSTART = (multi.getParameter("Start_date") + " " + multi.getParameter("Start_time"));
+			// 접수종료 날짜 + 시간
+			String EVENTEND = (multi.getParameter("End_date") + " " + multi.getParameter("End_time"));
+			String name = "홍길동";
+			dao.jmakeDao(name, multi.getParameter("title"), multi.getParameter("content"),
+					multi.getParameter("address"), file, WANTEDSTART, WANTEDEND, EVENTSTART, EVENTEND,
+					multi.getParameter("fixed"));
+			dao.jmake_join(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:joinlist";
+	}
+
+	// 일반게시판
+
+	// 글쓰기
+	@RequestMapping("/write")
+	public String write(HttpServletRequest request, Model model) {
+		IDao dao = sqlSession.getMapper(IDao.class);
+
+		String path = request.getRealPath("resources/image");
+
+		int size = 1024 * 1024 * 10; // 10MB
+		String file = "";
+		String oriFile = "";
+
+		try {
+			MultipartRequest multi = new MultipartRequest(request, path, size, "UTF-8", new DefaultFileRenamePolicy());
+
+			Enumeration files = multi.getFileNames();
+			String str = (String) files.nextElement();
+
+			file = multi.getFilesystemName(str);
+			oriFile = multi.getOriginalFileName(str);
+			dao.writeDao(multi.getParameter("bName"), multi.getParameter("bTitle"), multi.getParameter("bContent"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:list";
+	}
+
+	// 글상세 페이지
+	@RequestMapping("/content_view")
+	public String content_view(HttpServletRequest request, Model model) {
+		IDao dao = sqlSession.getMapper(IDao.class);
+		model.addAttribute("content_view", dao.content_view(request.getParameter("bId")));
+
+		ContentDto contetdto = dao.content_view(request.getParameter("bId"));
+		try {
+			HttpSession session = request.getSession();
+			session.setAttribute("content_view_makerName", contetdto.getbName());
+		} catch (Exception e) {
+
+		}
+
+		return "/content_view";
+	}
+
+	// 글목록 페이징처리
+	@RequestMapping("/list")
+	public String list(HttpServletRequest request, Model model) {
+		int nPage = 1;
+		try {
+			String sPage = request.getParameter("page");
+			nPage = Integer.parseInt(sPage);
+		} catch (Exception e) {
+		}
 		IDao dao = sqlSession.getMapper(IDao.class);
 
 		int nTotalPage = dao.articleCount();
@@ -93,10 +230,7 @@ public class HomeController {
 
 		model.addAttribute("page", pinfo);
 
-		// 현재 페이지를 임의로 최대보다 크게, 최소보다 작게 넣을 수 있으므로
-		// 체크된 값을 사용한다
 		nPage = pinfo.getCurPage();
-		session.setAttribute("cpage", nPage);
 
 		int nStart = (nPage - 1) * listCount + 1;
 		int nEnd = (nPage - 1) * listCount + listCount;
@@ -106,37 +240,14 @@ public class HomeController {
 		return "/list";
 	}
 
+	// 글 작성페이지로 이동
 	@RequestMapping("/write_view")
 	public String writeForm() {
 
 		return "/write_view";
 	}
 
-	@RequestMapping("/write")
-	public String write(HttpServletRequest request, Model model) {
-		System.out.println("write()");
-
-		String bName = request.getParameter("bName");
-		String bTitle = request.getParameter("bTitle");
-		String bContent = request.getParameter("bContent");
-
-		IDao dao = sqlSession.getMapper(IDao.class);
-		dao.writeDao(bName, bTitle, bContent);
-
-		session = request.getSession();
-		session.setAttribute("cpage", 1);
-
-		return "redirect:list";
-	}
-
-	@RequestMapping("/content_view")
-	public String content_view(HttpServletRequest request, Model model) {
-		IDao dao = sqlSession.getMapper(IDao.class);
-		model.addAttribute("content_view", dao.content_view(request.getParameter("bId")));
-
-		return "/content_view";
-	}
-
+	// 글 삭제하기
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request, Model model) {
 		IDao dao = sqlSession.getMapper(IDao.class);
@@ -145,6 +256,7 @@ public class HomeController {
 		return "redirect:list";
 	}
 
+	// 글 수정하기 페이지
 	@RequestMapping("/modify_view")
 	public String modify_view(HttpServletRequest request, Model model) {
 		IDao dao = sqlSession.getMapper(IDao.class);
@@ -153,6 +265,7 @@ public class HomeController {
 		return "/modify_view";
 	}
 
+	// 글 수정하기 액션(DB추가)
 	@RequestMapping("/modify")
 	public String modify(HttpServletRequest request, Model model) {
 		IDao dao = sqlSession.getMapper(IDao.class);
@@ -162,6 +275,7 @@ public class HomeController {
 		return "/content_view";
 	}
 
+	// 답글 달기 페이지
 	@RequestMapping("/reply_view")
 	public String reply_view(HttpServletRequest request, Model model) {
 		IDao dao = sqlSession.getMapper(IDao.class);
@@ -170,6 +284,7 @@ public class HomeController {
 		return "/reply_view";
 	}
 
+	// 답글 달기액션(DB추가)
 	@RequestMapping("/reply")
 	public String reply(HttpServletRequest request, Model model) {
 		IDao dao = sqlSession.getMapper(IDao.class);
@@ -181,23 +296,22 @@ public class HomeController {
 		return "redirect:list";
 	}
 
+	// 일반게시판 페이징처리
 	public BPageInfo articlePage(int curPage, int nTotalCount) {
-		// 총 페이지 수
+		// �� ������ ��
 		int totalPage = nTotalCount / listCount;
 		if (nTotalCount % listCount > 0)
 			totalPage++;
 
-		// 현재 페이지
+		// ���� ������
 		int myCurPage = curPage;
 		if (myCurPage > totalPage)
 			myCurPage = totalPage;
 		if (myCurPage < 1)
 			myCurPage = 1;
 
-		// 시작 페이지
 		int startPage = ((myCurPage - 1) / pageCount) * pageCount + 1;
 
-		// 끝 페이지
 		int endPage = startPage + pageCount - 1;
 		if (endPage > totalPage)
 			endPage = totalPage;
@@ -213,9 +327,39 @@ public class HomeController {
 
 		return pinfo;
 	}
-	@RequestMapping("privateInfo")
-	public String gain() {
-		return "/privateInfo";
+
+	// 모임게시판 페이징처리
+	public CPageInfo JoinPage(int curPage, int nTotalCount) {
+		// �� ������ ��
+		int listCount = 9;
+		int pageCount = 9;
+		int totalPage = nTotalCount / listCount;
+		if (nTotalCount % listCount > 0)
+			totalPage++;
+
+		// ���� ������
+		int myCurPage = curPage;
+		if (myCurPage > totalPage)
+			myCurPage = totalPage;
+		if (myCurPage < 1)
+			myCurPage = 1;
+
+		int startPage = ((myCurPage - 1) / pageCount) * pageCount + 1;
+
+		int endPage = startPage + pageCount - 1;
+		if (endPage > totalPage)
+			endPage = totalPage;
+
+		CPageInfo pinfo = new CPageInfo();
+		pinfo.setTotalCount(nTotalCount);
+		pinfo.setListCount(listCount);
+		pinfo.setTotalPage(totalPage);
+		pinfo.setCurPage(myCurPage);
+		pinfo.setPageCount(pageCount);
+		pinfo.setStartPage(startPage);
+		pinfo.setEndPage(endPage);
+
+		return pinfo;
 	}
 
 	@RequestMapping("joinOK")
@@ -239,17 +383,18 @@ public class HomeController {
 		System.out.println("eMail : " + eMail);
 
 		signupDao signupdao = sqlSession.getMapper(signupDao.class);
-		
+
 //		try {
 //			signupdao.signup(eMail, SHA256_pw, name, phone);
 //		} catch (Exception e) {
 //			// TODO: handle exception
 //			signupdao.updateSign(eMail, eMail, SHA256_pw, name, phone);
 //		}
-		
+
 		signupdao.signup(eMail, SHA256_pw, name, phone);
 		return "redirect:login";
 //		}
 
 	}
+
 }

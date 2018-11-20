@@ -6,86 +6,124 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>list</title>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
+
+<%
+	String userName = null;
+	if(session.getAttribute("ValidMem") != null){
+		userName = (String)session.getAttribute("userName");
+	}
+%>
+
+<!-- 웹페이지 메인 -->
+<link href="resources/web/css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="resources/web/js/jquery.min.js"></script>
+<!-- Custom Theme files -->
+<link href="resources/web/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- Custom Theme files -->
+<!-- navigation -->
+<link href="resources/web/css/component.css" rel="stylesheet" type="text/css"  />
+<!-- navigation -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="My Pets Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--webfont-->
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<script src="resources/web/js/responsiveslides.min.js"></script>
+ <script>
+    $(function () {
+      $("#slider").responsiveSlides({
+         auto: true,
+         speed: 500,
+        namespace: "callbacks",
+        pager: true,
+      });
+    });
+  </script>
+  <script type="text/javascript" src="resources/web/js/move-top.js"></script>
+<script type="text/javascript" src="resources/web/js/easing.js"></script>
 </head>
-<style>
-	#div_left{
-	width:20%;
-	height:300px;
-	float:left;
-	background-color:#819FF7;
-	}
-	#div_menu{
-	width:60%;
-	float:left;
-	}
-	#div_right{
-	width:20%;
-	height:300px;
-	float:right;
-	background-color:#C8FE2E;
-	}
-</style>
 <body>
 
-	<!-- 상단 메뉴바 -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-		<a class="navbar-brand">님 안녕하세요.</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="main.jsp">Home
-						<span class="sr-only">(current)</span>
-				</a></li>
-				<li class="nav-item"><a class="nav-link" href="list.do">게시판</a>
-				</li>
-				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-					role="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"> 기록관리 </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="#">기록</a> <a class="dropdown-item"
-							href="#">그래프</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Something else here</a>
-					</div></li>
-				<li class="nav-item"><a class="nav-link disabled" href="">마이페이지</a></li>
-				<li class="nav-item"><a class="nav-link disabled" href="">로그아웃</a></li>
-			</ul>
+	<!-- header-section-starts -->
+	<div class="header">
+		<div class="header-top">
+			<div class="container">
+				<p class="location">
+					<i class="location"></i>한국소프트웨어인재개발원
+				</p>
+				<%
+                  if(session.getAttribute("ValidMem") != null){
+                  %>
+				<p class="phonenum"><%=userName %> 님 안녕하세요</p>
+				<%
+                  }else{
+                  %>
+                  <p class="phonenum">로그인 해주세요</p>
+                  <%
+                  }
+                  %>
+				<div class="clearfix"></div>
+			</div>
 		</div>
-	</nav>
-	<div class="container" id="div_left"></div>
-	
+		<div class="header-bottom">
+			<div class="container">
+				<div class="logo">
+					<a href="/spring"><img src="resources/web/images/logo.png"
+						alt="" /></a>
+				</div>
+				<span class="menu"></span>
+				<div class="top-menu">
+					<ul>
+						<nav class="cl-effect-5">
+							<li><a class="active" href="/spring"><span
+									data-hover="Home">Home</span></a></li>
+							<li><a href="list"><span data-hover="일반게시판">일반게시판</span></a></li>
+							<li><a href="joinlist"><span data-hover="모임게시판">모임게시판</span></a></li>
+							<%
+                  			if(session.getAttribute("ValidMem") != null){
+                  			%>
+                  			<li><a href="recordcheck"><span data-hover="기록관리">기록관리</span></a></li>
+                  			<li><a href=""><span data-hover="마이페이지">마이페이지</span></a></li>
+							<li><a href=""><span data-hover="로그아웃">로그아웃</span></a></li>
+							<%
+                 			 } 
+                 			 %>
+						</nav>
+					</ul>
+				</div>
+				<!-- script for menu -->
+				<script>
+            $( "span.menu" ).click(function() {
+              $( ".top-menu" ).slideToggle( "slow", function() {
+                // Animation complete.
+              });
+            });
+         </script>
+				<!-- script for menu -->
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+
 	<!-- 게시판 목록 -->
-	<div class="container" id="div_menu">	
-		<table class="table table-striped" width="800">
-			<thead class="table-dark">
+	<div class="container" >
+		<table class="table table-striped" width="600">
 				<tr>
 					<td>번호</td>
 					<td>이름</td>
 					<td>제목</td>
 					<td>날짜</td>
-					<td>히트</td>
+					<td>조회수</td>
 				</tr>
-			</thead>
 			<c:forEach items="${list}" var="dto">
 				<tr>
 					<td>${dto.bId}</td>
 					<td>${dto.bName}</td>
-					<td><c:forEach begin="1" end="${dto.bIndent}">-</c:forEach> <a
-						href="content_view.do?bId=${dto.bId}">${dto.bTitle}</a></td>
+					<td><c:forEach begin="1" end="${dto.bIndent}">-</c:forEach> 
+					<a href="content_view.do?bId=${dto.bId}">${dto.bTitle}</a></td>
 					<td>${dto.bDate}</td>
 					<td>${dto.bHit}</td>
 				</tr>
@@ -93,13 +131,13 @@
 
 			<tr>
 				<!-- 글작성 버튼 -->
-				<td colspan="5"><a href="write_view" type="button"
+				<td colspan="5" align="right"><a href="write_view" type="button"
 					class="btn btn-secondary btn-sm">글작성</a></td>
 			</tr>
 			<tr>
 				<!-- 페이지항목 부트스트랩 -->
-				<td colspan="5">
-					<nav aria-label="Page navigation example">
+				<td colspan="5" align="center">
+					<nav aria-label="Page navigation example" >
 						<ul class="pagination justify-content-center">
 
 							<li class="page-item"><a class="page-link"
@@ -122,13 +160,7 @@
 						</ul>
 					</nav>
 		</table>
-		</div>
-			<div class="container" id="div_right">
-		
-		totalCount : ${page.totalCount }<br> listCount : ${page.listCount }<br>
-		totalPage : ${page.totalPage }<br> curPage : ${page.curPage }<br>
-		pageCount : ${page.pageCount }<br> startPage : ${page.startPage }<br>
-		endPage : ${page.endPage }<br>
-		</div>
+	</div>
+
 </body>
 </html>
