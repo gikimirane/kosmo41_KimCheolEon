@@ -51,9 +51,7 @@ function attachSignin(element) {
 			document.reg_frm.name.value = "";
 			document.reg_frm.eMail.value = profile.getEmail();
 			document.reg_frm.name.value = profile.getName();
-	  		
-	  		
-	  		
+
 	  		signOut();
             
       }, function(error) {
