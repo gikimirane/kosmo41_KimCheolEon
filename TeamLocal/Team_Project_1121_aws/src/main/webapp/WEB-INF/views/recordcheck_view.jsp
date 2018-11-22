@@ -13,20 +13,20 @@
 <title>recordCheck</title>
 
 <%
-	String userName = null;
-	if (session.getAttribute("ValidMem") != null) {
-		userName = (String) session.getAttribute("userName");
-	}
-	String jsonMap = (String)request.getAttribute("map");
-	
-	JSONArray jsonarray = new JSONArray(jsonMap);
-	JSONObject jsonObject;
-	
-	String getLat = "";
-	String getLong = "";
-	
-	JSONObject firstCenter =  jsonarray.getJSONObject(0);
-	
+   String userName = null;
+   if (session.getAttribute("ValidMem") != null) {
+      userName = (String) session.getAttribute("userName");
+   }
+   String jsonMap = (String)request.getAttribute("map");
+   
+   JSONArray jsonarray = new JSONArray(jsonMap);
+   JSONObject jsonObject;
+   
+   String getLat = "";
+   String getLong = "";
+   
+   JSONObject firstCenter =  jsonarray.getJSONObject(0);
+   
 %>
 
 <!-- 웹페이지 메인 -->
@@ -126,9 +126,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script>
 
 <script>
-	window.onload = function(){
-		alert('<%=jsonMap%>');
-	}
+	<%-- window.onload = function(){
+		alert('<%=mapString%>');
+	} --%>
 
 </script>
 
@@ -251,30 +251,26 @@ body {
 				<div id="map" style="width: 80%; height: 400px;">
 
 					<script>
-					
-						
-						
-
-						var map = new naver.maps.Map('map', {
-							center : new naver.maps.LatLng(
-								<%=firstCenter.getString("lat")%>, <%=firstCenter.getString("long")%>),
-							zoom : 7
+					var map = new naver.maps.Map('map', {
+						center : new naver.maps.LatLng(
+							<%=firstCenter.getString("lat")%>, <%=firstCenter.getString("long")%>),
+						zoom : 7
+					});
+						var polyline = new naver.maps.Polyline({
+							map : map,
+							startIcon : naver.maps.PointingIcon.CIRCLE,
+							endIcon : naver.maps.PointingIcon.OPEN_ARROW,
+							path : [
+								<%for (int i = 0; i < jsonarray.length(); i++) {
+									jsonObject = jsonarray.getJSONObject(i);
+									getLat = jsonObject.getString("lat");
+									getLong = jsonObject.getString("long");
+								%>
+									new naver.maps.LatLng(<%=getLat%>, <%=getLong%>),
+								<%}%>
+									
+							]
 						});
-							var polyline = new naver.maps.Polyline({
-								map : map,
-								startIcon : naver.maps.PointingIcon.CIRCLE,
-								endIcon : naver.maps.PointingIcon.OPEN_ARROW,
-								path : [
-									<%for (int i = 0; i < jsonarray.length(); i++) {
-										jsonObject = jsonarray.getJSONObject(i);
-										getLat = jsonObject.getString("lat");
-										getLong = jsonObject.getString("long");
-									%>
-										new naver.maps.LatLng(<%=getLat%>, <%=getLong%>),
-									<%}%>
-										
-								]
-							});
 						
 					</script>
 

@@ -156,19 +156,39 @@ public class HomeController {
 		String map3 = recordDto.getMap3();
 		String map4 = recordDto.getMap4();
 		String map5 = recordDto.getMap5();
-		
-		System.out.println("map1 : " + map1);
-		System.out.println("map2 : " + map2);
-		System.out.println("map3 : " + map3);
-		System.out.println("map4 : " + map4);
-		System.out.println("map5 : " + map5);
-		
 
-		model.addAttribute("map1", map1);
-		model.addAttribute("map2", map2);
-		model.addAttribute("map3", map3);
-		model.addAttribute("map4", map4);
-		model.addAttribute("map5", map5);
+		String[] dataList = { map1, map2, map3, map4, map5 };
+
+//		System.out.println("map1 : " + dataList[0]);
+//		System.out.println("map2 : " + dataList[1]);
+//		System.out.println("map3 : " + dataList[2]);
+//		System.out.println("map4 : " + dataList[3]);
+//		System.out.println("map5 : " + dataList[4]);
+//		System.out.println("map1 length : " + dataList[0].length());
+//		System.out.println("map2 length : " + dataList[1].length());
+//		System.out.println("map3 length : " + dataList[2].length());
+//		System.out.println("map4 length : " + dataList[3].length());
+//		System.out.println("map5 length : " + dataList[4].length());
+		
+		String result = "";
+		System.out.println("result : " + result);
+		for(int i = 0; i < 5; i++) {
+//			System.out.println("in for");
+			if(dataList[i].equals("nodata")) {
+				continue;
+			}
+//			System.out.println("append");
+			dataList[i] = dataList[i].replaceAll("\\[", "");
+			dataList[i] = dataList[i].replaceAll("\\]", "");	
+			result += dataList[i] + ",";
+		}
+		
+		result = "[" + result + "]";
+		
+		System.out.println("result : " + result);
+		System.out.println("result length : " + result.length());
+
+		model.addAttribute("map", result);
 
 		return "/recordcheck_view";
 	}
@@ -209,7 +229,7 @@ public class HomeController {
 		System.out.println(nEnd);
 
 		model.addAttribute("recordlist", dao.recordlist(nStart, nEnd, email));
-		
+
 		return "/recordcheck";
 	}
 
