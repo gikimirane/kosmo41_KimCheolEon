@@ -11,8 +11,8 @@
 	</select>
 	
 	<insert id="runningtime">
-		insert into team_running (email, starttime, endtime, movetime,upload,map) values 
-		(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6})
+		insert into team_running (email, starttime, endtime, movetime, upload, map1, map2, map3, map4, map5) values 
+		(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10})
 	</insert>
 	
 	<!-- 산책 기록관리 리스트 출력 -->
