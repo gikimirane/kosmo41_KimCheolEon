@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.spring.signup.dao.signupDao">
+	<insert id="signup">
+		INSERT INTO TEAM_SIGNUP (EMAIL, PW, NAME, PHONE) VALUES
+		(#{param1}, #{param2}, #{param3}, #{param4})
+	</insert>
+
+	<select id="idcheck"
+		resultType="com.study.spring.signup.dto.signupDto">
+		SELECT * FROM TEAM_SIGNUP WHERE EMAIL = #{param1}
+	</select>
+	
+	<update id="updateSign">
+		UPDATE TEAM_SIGNUP
+		SET 
+		    EMAIL = #{param2}, 
+		    PW = #{param3}, 
+		    NAME = #{param4}, 
+		    PHONE = #{param5}
+		WHERE EMAIL = #{param1}
+	</update>
+	
+	<update id="updateVerified">
+		UPDATE TEAM_SIGNUP
+		SET
+			VERIFY = #{param1}
+		WHERE EMAIL = #{param2}
+	</update>
+	
+	<select id="tokenGet"
+		resultType="com.study.spring.signup.dto.signupDto">
+		SELECT * FROM TEAM_SIGNUP WHERE NAME = #{param1}
+	</select>
+
+</mapper>
