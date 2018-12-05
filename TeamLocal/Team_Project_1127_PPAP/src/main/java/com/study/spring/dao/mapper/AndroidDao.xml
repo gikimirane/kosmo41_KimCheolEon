@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.spring.dao.AndroidDao">
+	
+	<select id="connectionDB"
+	resultType="com.study.spring.dto.GroupSignupDto">
+		SELECT * FROM team_signup WHERE email = #{param1}
+	</select>
+	
+	<insert id="runningtime">
+		insert into team_running (email, starttime, endtime, movetime, upload, map1, map2, map3, map4, map5) values 
+		(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10})
+	</insert>
+	
+	<!-- 회원 정보수정 -->
+	<update id="modifyOk">
+		update TEAM_SIGNUP set phone=#{param1} where email = #{param2}
+	</update>
+	
+	<update id="keyupdate">
+		update TEAM_SIGNUP set TOKEN = #{param1} where email = #{param2}
+	</update>
+	
+	<select id="runningsearch"
+	resultType="com.study.spring.dto.GroupRunningDto">
+		select * from team_running where email = #{param1} order by starttime desc
+	</select>
+	
+</mapper>

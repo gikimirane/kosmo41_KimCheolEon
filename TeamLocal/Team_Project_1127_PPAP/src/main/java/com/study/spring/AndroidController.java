@@ -20,9 +20,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oreilly.servlet.MultipartRequest;
-import com.study.spring.signup.dao.DbDao;
-import com.study.spring.signup.dto.searchDto;
-import com.study.spring.signup.dto.signupDto;
+import com.study.spring.dao.AndroidDao;
+import com.study.spring.dto.GroupRunningDto;
+import com.study.spring.dto.GroupSignupDto;
 
 @Controller
 public class AndroidController {
@@ -43,17 +43,14 @@ public class AndroidController {
 		String returns = null;
 
 		SHA256 sha256 = new SHA256();
-
+		
 		String email = request.getParameter("email");
 		String pw = request.getParameter("pw");
-		String pw_hash = sha256.getSHA256(request.getParameter("pw")).toUpperCase();
-
-		System.out.println("db1 email : [" + email + "]");
-		System.out.println("db1 pw : [" + pw + "]");
-
-		DbDao dbDao = sqlSession.getMapper(DbDao.class);
-		signupDto signupDto = dbDao.connectionDB(email);
-
+		String pw_hash = sha256.getSHA256(request.getParameter("pw")).toUpperCase(); 
+		
+		AndroidDao dbDao = sqlSession.getMapper(AndroidDao.class);
+		GroupSignupDto signupDto = dbDao.connectionDB(email);
+		
 		try {
 			if (email.equals(signupDto.getEMAIL())) {
 
@@ -88,90 +85,72 @@ public class AndroidController {
 		String getLat = "";
 		String getLong = "";
 
-		JSONArray jsonMainArray;
-		JSONObject jsonObject;
-
-		ArrayList[] height = new ArrayList[5];
-		String[] mapString = { "nodata", "nodata", "nodata", "nodata", "nodata" };
-
-		ArrayList<ArrayList<JSONObject>> jsonArrayTotal = new ArrayList<ArrayList<JSONObject>>();
-		ArrayList<JSONObject> jsonsubArray = new ArrayList<JSONObject>();
-
 		String email = request.getParameter("email");
 		String starttime = request.getParameter("starttime");
 		String endtime = request.getParameter("endtime");
 		String movetime = request.getParameter("move");
 		String upload = request.getParameter("upload");
 		String map = request.getParameter("map");
-	
-		jsonMainArray = new JSONArray(map);
+		
+		ArrayList<ArrayList<JSONObject>> jsonArrayTotal = new ArrayList<ArrayList<JSONObject>>();
+		ArrayList<JSONObject> jsonsubArray = new ArrayList<JSONObject>();
+		JSONArray jsonMainArray = new JSONArray();
+		JSONObject jsonObject = new JSONObject();
+		
+		ArrayList[] height = new ArrayList[5];
+		String[] mapString = { "nodata", "nodata", "nodata", "nodata", "nodata" };
 
-		if (jsonMainArray.length() > 10) {
-			System.out.println("jsonMainArray.length() over! [10] : " + jsonMainArray.length());
+		try {
+			jsonMainArray = new JSONArray(map);
 
-			for (int i = 0; i < jsonMainArray.length(); i++) {
-				jsonObject = jsonMainArray.getJSONObject(i);
-				jsonsubArray.add(jsonObject);
-				System.out.println("add complete, jsonsubArray.size() : " + jsonsubArray.size());
+			if (jsonMainArray.length() > 0) {
+				System.out.println("jsonMainArray.length() over! : " + jsonMainArray.length());
 
-				if (jsonsubArray.size() > 85) {
-					jsonArrayTotal.add(jsonsubArray);
-					jsonsubArray = new ArrayList<JSONObject>();
+				for (int i = 0; i < jsonMainArray.length(); i++) {
+					jsonObject = jsonMainArray.getJSONObject(i);
+					jsonsubArray.add(jsonObject);
+					System.out.println("jsonsubArray.size() : " + jsonsubArray.size());
+
+					if (jsonsubArray.size() > 85) {
+						jsonArrayTotal.add(jsonsubArray);
+						jsonsubArray = new ArrayList<JSONObject>();
+					}
 				}
 			}
-		}
 
-		System.out.println("for complete, jsonArrayTotal.add");
-		jsonArrayTotal.add(jsonsubArray);
-		System.out.println("jsonArrayTotal size : " + jsonArrayTotal.size());
-		System.out.println("jsonArrayTotal Body : " + jsonArrayTotal);
+			jsonArrayTotal.add(jsonsubArray);
 
-		for (int i = 0; i < jsonArrayTotal.size(); i++) {
-			if (jsonArrayTotal.get(i) == null) {
-				continue;
+			for (int i = 0; i < jsonArrayTotal.size(); i++) {
+				if (jsonArrayTotal.get(i) == null) {
+					continue;
+				}
+				height[i] = jsonArrayTotal.get(i);
+				mapString[i] = String.valueOf(height[i]);
 			}
-			height[i] = jsonArrayTotal.get(i);
-			System.out.println(height[i]);
-			mapString[i] = String.valueOf(height[i]);
 
-		}
+			try {
+				AndroidDao dbDao = sqlSession.getMapper(AndroidDao.class);
+				dbDao.runningtime(email, starttime, endtime, movetime, upload, mapString[0], mapString[1], mapString[2],
+						mapString[3], mapString[4]);
+				returns = "runningOK";
+				System.out.println("complete");
+			} catch (Exception e) {
+				System.out.println(e);
+				returns = "runningFAIL";
+				System.out.println("fail");
+			}
 
-		System.out.println(map);
-		System.out.println("mapLength : " + map.length());
-		System.out.println("jsonMainArray : " + jsonMainArray.length());
-		System.out.println(jsonArrayTotal);
-		System.out.println("jsonArrayTotal.size() : " + jsonArrayTotal.size());
-		System.out.println("jsonArrayTotal.get(0) : " + jsonArrayTotal.get(0));
-		System.out.println("jsonArrayTotal.get(1) : " + jsonArrayTotal.get(1));
-		System.out.println("jsonArrayTotal.get(2) : " + jsonArrayTotal.get(2));
-		System.out.println("height[0] : " + height[0]);
-		System.out.println("height[1] : " + height[1]);
-		System.out.println("height[2] : " + height[2]);
-		System.out.println("height[3] : " + height[3]);
-		System.out.println("height[4] : " + height[4]);
-		System.out.println("mapString[0] : " + mapString[0]);
-		System.out.println("mapString[1] : " + mapString[1]);
-		System.out.println("mapString[2] : " + mapString[2]);
-		System.out.println("mapString[3] : " + mapString[3]);
-		System.out.println("mapString[4] : " + mapString[4]);
+			System.out.println(returns);
 
-		try {
-			DbDao dbDao = sqlSession.getMapper(DbDao.class);
-			dbDao.runningtime(email, starttime, endtime, movetime, upload, mapString[0], mapString[1], mapString[2],
-					mapString[3], mapString[4]);
-			returns = "runningOK";
+			// 안드로이드로 전송
+			try {
+				writer = response.getWriter();
+				writer.println(returns);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} catch (Exception e) {
-			System.out.println(e);
-			returns = "runningFAIL";
-		}
-
-		System.out.println(returns);
-
-		// 안드로이드로 전송
-		try {
-			writer = response.getWriter();
-			writer.println(returns);
-		} catch (IOException e) {
+			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -204,7 +183,6 @@ public class AndroidController {
 
 		System.out.println(orgFileName + "이 저장되었습니다.");
 	}
-
 	@RequestMapping("/Androidsearch")
 	public void Androidsearch(HttpServletRequest request, HttpServletResponse response) {
 		PrintWriter writer;
@@ -213,26 +191,24 @@ public class AndroidController {
 		String email = request.getParameter("email");
 		System.out.println(email);
 
-		DbDao dbDao = sqlSession.getMapper(DbDao.class);
-		ArrayList<searchDto> searchDto = dbDao.runningsearch(email);
+		AndroidDao dbDao = sqlSession.getMapper(AndroidDao.class);
+		ArrayList<GroupRunningDto> searchDto = dbDao.runningsearch(email);
 
 		JSONObject jsonMain = new JSONObject();
 		List<JSONObject> jsonList = new ArrayList<JSONObject>();
 
 		for (int i = 0; i < searchDto.size(); i++) {
-			String starttime = searchDto.get(i).getSTARTTIME();
-			String endtime = searchDto.get(i).getENDTIME();
-			String movetime = searchDto.get(i).getMOVETIME();
-			String upload = searchDto.get(i).getUPLOAD();
-			System.out.println("starttime: " + starttime + "\t endtime : " + endtime + "\t movetime : " + movetime
-					+ "\t upload : " + upload);
-
+			String starttime = searchDto.get(i).getStartTime();
+			String endtime = searchDto.get(i).getEndTime();
+			String movetime = searchDto.get(i).getMoveTime();
+			String upload = searchDto.get(i).getUpLoad();		
+			
 			// 안드로이드로 보낼 메시지를 만듬
 			jsonMain.put("starttime", starttime);
 			jsonMain.put("endtime", endtime);
 			jsonMain.put("movetime", movetime);
 			jsonMain.put("upload", upload);
-
+			
 			// 위에서 만든 각각의 객체를 하나의 배열 형태로 만듬
 			jsonList.add(jsonMain);
 
@@ -259,7 +235,7 @@ public class AndroidController {
 		System.out.println("token : " + token);
 		System.out.println("email : " + email);
 
-		DbDao dbDao = sqlSession.getMapper(DbDao.class);
+		AndroidDao dbDao = sqlSession.getMapper(AndroidDao.class);
 		try {
 			dbDao.keyupdate(token, email);
 			System.out.println("Token insert Complete!!");

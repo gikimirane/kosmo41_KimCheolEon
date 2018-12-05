@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.spring.dao.GroupJoinDao">
+
+	<!-- 모임게시판 리스트 출력 -->
+	<select id="JoinDao" resultType="com.study.spring.dto.GroupJoinDto">
+		<![CDATA[
+		select * from ( select rownum num, A.* from (select * from TEAM_GROUPBOARD  
+        		 		order by numid desc ) A where rownum <= #{param2} ) B
+        		 		where B.num >= #{param1}
+		]]>
+	</select>
+
+	<select id="JoinDao0" resultType="com.study.spring.dto.GroupJoinDto">
+		<![CDATA[
+		select * from ( select rownum num, A.* from (select * from TEAM_GROUPBOARD where (title || content) like '%' ||  #{param3} || '%'  
+        		 		order by numid desc ) A where rownum <= #{param2} ) B
+        		 		where B.num >= #{param1}
+		]]>
+	</select>
+
+	<!-- 모임게시판 상세페이지 -->
+	<select id="join_view" resultType="com.study.spring.dto.GroupJoinDto">
+		SELECT * FROM TEAM_GROUPBOARD
+		WHERE NUMID = #{param1}
+	</select>
+
+
+	<!-- 모임 만들기 -->
+	<insert id="jmakeDao">
+		INSERT INTO TEAM_GROUPBOARD
+		(NUMID,NAME,TITLE,CONTENT,ADDRESS,UPLOAD,WANTEDSTART,WANTEDEND,EVENTSTART,EVENTEND,FIXED)
+		VALUES
+		(TEAM_GROUPBOARD_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8},#{param9},#{param10})
+	</insert>
+
+	<!-- 모임 삭제하기 -->
+	<delete id="join_delete">
+		DELETE FROM TEAM_GROUPBOARD WHERE NUMID = #{param1}
+	</delete>
+
+	<!-- 모임 삭제되면 manegement 상태 delete로 변경 -->
+	<update id="manegement_delete">
+		update TEAM_GROUP_MANAGEMENT set state = 'DELETE'
+		where NUMID_FK = #{param1}
+	</update>
+
+	<!-- 모임만들면서 management에 추가 -->
+	<!-- 181126 management 컬럼증가 및 수정 완 -->
+	<insert id="jmake_join">
+		INSERT INTO TEAM_GROUP_MANAGEMENT
+		(NUMID_FK , USERNAME , MG_EMAIL)
+		VALUES
+		(#{param1},#{param2},#{param3})
+	</insert>
+
+	<!-- 중복참가 확인 -->
+	<select id="joinapply"
+		resultType="com.study.spring.dto.GroupManagementDto">
+		SELECT * FROM TEAM_GROUP_MANAGEMENT WHERE NUMID_FK =
+		#{param1} AND USERNAME = #{param2}
+	</select>
+
+
+	<!-- 참가신청한인원 -->
+	<select id="joinapplycount"
+		resultType="com.study.spring.dto.GroupManagementcount">
+		SELECT count(*) as count FROM TEAM_GROUP_MANAGEMENT WHERE
+		NUMID_FK = #{param1}
+	</select>
+
+	<!-- 모임게시물 참가신청 -->
+	<insert id="Join_join">
+		INSERT INTO TEAM_GROUP_MANAGEMENT
+		(NUMID_FK,USERNAME,MG_EMAIL)
+		VALUES
+		(#{param1},#{param2},#{param3})
+	</insert>
+
+	<!-- 모임게시물 참가신청 취소하기 -->
+	<delete id="Join_cancel">
+		DELETE FROM TEAM_GROUP_MANAGEMENT WHERE NUMID_FK =
+		#{param1} AND USERNAME = #{param2}
+	</delete>
+
+	<!-- 모임게시물 검색목록 확인 -->
+	<select id="JoinCount" resultType="_int">
+		select count(*) from
+		TEAM_GROUPBOARD
+	</select>
+
+	<!-- 모임게시물 검색목록 확인 -->
+	<select id="JoinCount0" resultType="_int">
+		select count(*) from
+		TEAM_GROUPBOARD where (content || title) like '%' || #{param1} || '%'
+	</select>
+
+	<select id="groupUser"
+		resultType="com.study.spring.dto.GroupManagementDto">
+		select * from TEAM_GROUP_MANAGEMENT where NUMID_FK =
+		#{param1}
+	</select>
+	
+	<select id="getgroupBoardNumId"
+		resultType="com.study.spring.dto.GroupJoinDto">
+		select * from TEAM_GROUPBOARD where name = #{param1} order by numid desc
+	</select>
+
+</mapper>
