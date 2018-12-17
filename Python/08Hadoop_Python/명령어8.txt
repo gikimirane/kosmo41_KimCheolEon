@@ -1,0 +1,7 @@
+hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.9.0.jar  \
+  -file /home/hadoop/MyWork/Hadoop08_Python/ArrivalDelayMapper.py  \
+  -mapper ArrivalDelayMapper.py  \
+  -file /home/hadoop/MyWork/Hadoop08_Python/ArrivalDelayReducer.py  \
+  -reducer ArrivalDelayReducer.py  \
+  -input /airline/20*  \
+  -output /output4

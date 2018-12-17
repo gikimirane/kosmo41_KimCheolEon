@@ -1,0 +1,10 @@
+hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.9.0.jar  \
+  -file /home/hadoop/MyWork/Hadoop07_Python/MaxTemperatureMap.py  \
+  -mapper MaxTemperatureMap.py  \
+  -file /home/hadoop/MyWork/Hadoop07_Python/MaxTemperatureReduce.py  \
+  -reducer MaxTemperatureReduce.py  \
+  -input /data/190*  \
+  -output /output3
+
+
+

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "383919202732",
+    "firebase_url": "https://kosmo-teamproject-aee81.firebaseio.com",
+    "project_id": "kosmo-teamproject-aee81",
+    "storage_bucket": "kosmo-teamproject-aee81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383919202732:android:3c8d52ed1f39c4f8",
+        "android_client_info": {
+          "package_name": "com.test.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "383919202732-chnhq9cudh2k9cgps9769s827k40g442.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPNv6yFIOKvbL3OZa0Mcy45gmDo_wPvys"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

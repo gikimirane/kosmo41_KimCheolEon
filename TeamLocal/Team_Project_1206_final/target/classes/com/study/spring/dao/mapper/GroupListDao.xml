@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.spring.dao.GroupListDao">
+
+	<!-- 일반게시판 출력 -->
+	<select id="listDao"
+		resultType="com.study.spring.dto.GroupListDto">
+		<![CDATA[
+		select * from ( select rownum num, A.* from (select * from TEAM_BOARD  
+        		 		order by bgroup desc, bstep asc ) A where rownum <= #{param2} ) B
+        		 		where B.num >= #{param1}
+		]]>
+	</select>
+	<select id="listDao0"
+		resultType="com.study.spring.dto.GroupListDto">
+		<![CDATA[
+		select * from ( select rownum num, A.* from (select * from TEAM_BOARD  where btitle like '%' ||  #{param3} || '%' 
+        		 		order by bgroup desc, bstep asc ) A where rownum <= #{param2} ) B
+        		 		where B.num >= #{param1}
+		]]>
+	</select>
+	<select id="listDao1"
+		resultType="com.study.spring.dto.GroupListDto">
+		<![CDATA[
+		select * from ( select rownum num, A.* from (select * from TEAM_BOARD where bcontent like '%' ||  #{param3} || '%' 
+        		 		order by bgroup desc, bstep asc ) A where rownum <= #{param2} ) B
+        		 		where B.num >= #{param1}
+		]]>
+	</select>
+	<select id="listDao2"
+		resultType="com.study.spring.dto.GroupListDto">
+		<![CDATA[
+		select * from ( select rownum num, A.* from (select * from TEAM_BOARD  where bname like '%' ||  #{param3} || '%'
+        		 		order by bgroup desc, bstep asc ) A where rownum <= #{param2} ) B
+        		 		where B.num >= #{param1}
+		]]>
+	</select>
+	<select id="listDao3"
+		resultType="com.study.spring.dto.GroupListDto">
+		<![CDATA[
+		select * from ( select rownum num, A.* from (select * from TEAM_BOARD  where (btitle || bcontent) like '%' ||  #{param3} || '%'
+        		 		order by bgroup desc, bstep asc ) A where rownum <= #{param2} ) B
+        		 		where B.num >= #{param1}
+		]]>
+	</select>
+
+
+	<!-- 일반게시물 상세페이지 -->
+	<select id="content_view"
+		resultType="com.study.spring.dto.GroupListDto">
+		SELECT * FROM TEAM_BOARD WHERE BID = #{param1}
+	</select>
+
+
+	<!-- 일반게시물 작성하기 -->
+	<insert id="writeDao">
+		INSERT INTO TEAM_BOARD
+		(BID,BNAME,BTITLE,BCONTENT,BHIT,BGROUP,BSTEP,BINDENT) VALUES
+		(MVC_BOARD_SEQ.NEXTVAL,#{param1},#{param2},#{param3},0,MVC_BOARD_SEQ.CURRVAL,0,0)
+	</insert>
+
+	<!-- 일반게시물 본인글 수정하기 -->
+	<update id="modify_view">
+		update TEAM_BOARD set bName = #{param1}, bTitle =
+		#{param2}, bContent = #{param3} where bId = #{param4}
+	</update>
+
+	<!-- 일반게시판 댓글달기 -->
+	<insert id="content_reply">
+		INSERT INTO TEAM_BOARD_REPLY
+		(NUMID,writeName,CONTENT,reply) VALUES
+		(#{param1},#{param2},#{param3},content_reply_seq.nextval)
+	</insert>
+
+	<!-- 일반게시판 댓글 삭제하기 -->
+	<delete id="reply_delete">
+		DELETE FROM TEAM_BOARD_REPLY WHERE reply = #{param1}
+	</delete>
+
+	<!-- 일반게시물 댓글 불러오기 -->
+	<select id="content_reply_view"
+		resultType="com.study.spring.dto.GroupReplyDto">
+		SELECT * FROM TEAM_BOARD_REPLY WHERE NUMID = #{param1}
+	</select>
+
+	<!-- 일반게시물 댓글 아이디체크 -->
+	<select id="idcheck"
+		resultType="com.study.spring.dto.GroupReplyDto">
+		SELECT * FROM TEAM_BOARD_REPLY WHERE NUMID = #{param1}
+	</select>
+
+	<!-- 일반게시물 글에 답글달기 -->
+	<insert id="reply_view">
+		insert into TEAM_BOARD (bId, bName, bTitle, bContent,
+		bGroup, bStep, bIndent) values (mvc_board_seq.nextval, #{param1},
+		#{param2}, #{param3}, #{param4}, #{param5}, #{param6})
+	</insert>
+
+	<!-- 일반게시물 본인글 삭제하기 -->
+	<delete id="deleteDao">
+		DELETE FROM TEAM_BOARD WHERE BID = #{param1}
+	</delete>
+
+	<!-- 일반게시물 상세보기 클릭시 조회수 +1증가 -->
+	<update id="upHit">
+		update TEAM_BOARD set bHit = bHit + 1 where bId =
+		#{param1}
+	</update>
+
+	<!-- 일반게시물 검색목록 확인 -->
+	<select id="articleCount" resultType="_int">
+		select count(*) from
+		TEAM_BOARD
+	</select>
+	<select id="articleCount0" resultType="_int">
+		select count(*) from
+		TEAM_BOARD where btitle like '%' || #{param1} || '%'
+	</select>
+	<select id="articleCount1" resultType="_int">
+		select count(*) from
+		TEAM_BOARD where bcontent like '%' || #{param1} || '%'
+	</select>
+	<select id="articleCount2" resultType="_int">
+		select count(*) from
+		TEAM_BOARD where bname like '%' || #{param1} || '%'
+	</select>
+	<select id="articleCount3" resultType="_int">
+		select count(*) from
+		TEAM_BOARD where (bcontent || btitle) like '%' || #{param1} || '%'
+	</select>
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.spring.dao.GroupRunningDao">
+	
+	<!-- 산책 기록관리 리스트 출력 -->
+	<select id="recordlist"
+		resultType="com.study.spring.dto.GroupRunningDto">
+		<![CDATA[
+		select * from ( select rownum num, A.* from (select * from team_running  
+        		 		order by starttime desc ) A where rownum <= #{param2} ) B
+        		 		where B.num >= #{param1} and email = #{param3}
+		]]>
+	</select>
+	<select id="recordlist0"
+		resultType="com.study.spring.dto.GroupRunningDto">
+		<![CDATA[
+		select * from ( select rownum num, A.* from (select * from team_running where email = #{param3} 
+        		 		order by starttime desc ) A where rownum <= #{param2} ) B
+        		 		where B.num >= #{param1} and starttime like '%' ||  #{param4} || '%' 
+		]]>
+	</select>
+	
+	<!-- 산책 기록관리 총리스트 개수 출력 -->
+	<select id="RecordCount"
+		resultType="_int">
+		select count(*) from team_running where email = #{param1}
+	</select>
+	
+	<select id="RecordCount0"
+		resultType="_int">
+		select count(*) from team_running where email = #{param1} and starttime = #{param2}
+	</select>
+	
+	<!-- 산책 기록관리 상세페이지 확인 -->
+	<select id="recordcheck_view"
+		resultType="com.study.spring.dto.GroupRunningDto">
+		SELECT * FROM team_running WHERE startTime = #{param1}
+	</select>
+	
+	<!-- 마이페이지 리스트 -->
+	<select id="mypagelist"
+		resultType="com.study.spring.dto.GroupManagementDto">
+		<![CDATA[
+		select * from ( select rownum num, A.* from (select * from TEAM_GROUP_MANAGEMENT  
+        		 		order by NUMID_FK desc ) A where rownum <= #{param2} ) B
+        		 		where B.num >= #{param1} and username = #{param3}
+		]]>
+	</select>
+	<select id="mypageCount"
+		resultType="_int">
+		select count(*) from TEAM_GROUP_MANAGEMENT where USERNAME = #{param1}
+	</select>
+	
+</mapper>

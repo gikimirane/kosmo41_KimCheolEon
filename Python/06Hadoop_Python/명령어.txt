@@ -1,0 +1,11 @@
+hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.9.0.jar  \
+  -file /home/hadoop/MyWork/Hadoop06_Python/WordcountMap.py  \
+  -mapper WordcountMap.py  \
+  -file /home/hadoop/MyWork/Hadoop06_Python/WordcountReduce.py  \
+  -reducer WordcountReduce.py  \
+  -input /input/README.txt  \
+  -output /output_python
+
+
+
+

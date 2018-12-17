@@ -16,7 +16,7 @@ public class MaxTemp {
 		}
 
 		Configuration conf = new Configuration();
-		Job job = Job.getInstance(conf, "WordCount"); // job 이름
+		Job job = Job.getInstance(conf, "MaxTemp"); // job 이름
 
 		job.setJarByClass(MaxTemp.class);
 		job.setMapperClass(MaxTemperatureMapper.class);
